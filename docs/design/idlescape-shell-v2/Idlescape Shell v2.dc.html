@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap">
+<style>
+body{margin:0;background:#111112;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff981f;text-decoration:none}a:hover{text-decoration:underline}
+input,textarea,select,button{font:inherit}
+button{cursor:pointer;transition:background .13s ease,border-color .13s ease,color .13s ease,box-shadow .13s ease,transform .13s ease,opacity .13s ease}
+input,textarea,select{transition:border-color .13s ease,box-shadow .13s ease}
+input:focus,textarea:focus,select:focus{outline:none;border-color:#ff981f !important;box-shadow:0 0 0 3px rgba(255,152,31,.18)}
+*{scrollbar-width:thin;scrollbar-color:#3c3c3c #1a1a1a}
+::selection{background:rgba(255,152,31,.35);color:#e6e6e6}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(255,152,31,.10)}}
+@keyframes shimmer{to{background-position:-200% 0}}
+@keyframes barflow{to{background-position:-200% 0}}
+@keyframes floatUp{0%{opacity:0;transform:translateY(8px) scale(.9)}15%{opacity:1;transform:translateY(0) scale(1)}75%{opacity:1}100%{opacity:0;transform:translateY(-30px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}}
+@keyframes popIn{from{opacity:0;transform:scale(.94)}}
+@keyframes bob{50%{transform:translateY(-5px)}}
+@keyframes stepPulse{50%{box-shadow:0 0 0 4px rgba(255,152,31,.15)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+</style>
+</helmet>
+<div data-screen-label="idlescape frame v2" style="height:100vh;display:flex;flex-direction:column;overflow:hidden;background:#18181a;color:#b4b4b2;font-size:12px;line-height:1.45">
+
+  <header style="height:28px;flex:none;display:flex;align-items:center;gap:12px;padding:0 12px;background:linear-gradient(180deg,#232325,#1e1e20);border-bottom:1px solid rgba(0,0,0,.6)">
+    <span style="font-family:'Pixelify Sans',ui-monospace,monospace;font-size:16px;color:#ff981f;letter-spacing:.03em;text-shadow:0 0 12px rgba(255,152,31,.35)">idlescape</span>
+    <span style="flex:1;display:flex;justify-content:center;gap:10px;color:#7c7c7a;font-size:11px;white-space:nowrap;overflow:hidden">osrs.scotho.com · world 1 · <b style="color:#b4b4b2;font-weight:500">shoth4019zr</b></span>
+    <span style="color:#4e4e4c;font-size:11px">v0.9</span>
+  </header>
+
+  <nav data-screen-label="Character tabs" style="height:32px;flex:none;display:flex;align-items:stretch;gap:3px;padding:0 8px;background:#1b1b1d;border-bottom:1px solid rgba(0,0,0,.55)">
+    <button style="display:flex;align-items:center;gap:7px;min-width:148px;padding:0 12px;border:0;border-bottom:2px solid #ff981f;background:linear-gradient(180deg,#28282a,#232325);color:#e8e8e6;font-size:11px;box-shadow:0 6px 14px -8px rgba(255,152,31,.4)"><span style="width:7px;height:7px;border-radius:50%;background:#43a047;box-shadow:0 0 6px rgba(67,160,71,.7);flex:none"></span><span>shoth4019zr</span><span style="margin-left:auto;color:#7c7c7a;font-size:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums">{{ onlineFor }}</span></button>
+    <button style="display:flex;align-items:center;gap:7px;min-width:148px;padding:0 12px;border:0;border-bottom:2px solid transparent;background:transparent;color:#a0a09e;font-size:11px;border-radius:6px 6px 0 0" style-hover="background:#232325;color:#e8e8e6"><span style="width:7px;height:7px;border-radius:50%;background:#575755;flex:none"></span><span>alt_miner</span><span style="margin-left:auto;color:#7c7c7a;font-size:10px">offline</span></button>
+    <button style="display:flex;align-items:center;min-width:124px;padding:0 12px;border:0;border-bottom:2px solid transparent;background:transparent;color:#7c7c7a;font-size:11px;border-radius:6px 6px 0 0" style-hover="background:#232325;color:#e8e8e6">+ New character</button>
+    <button disabled="{{ true }}" style="display:flex;align-items:center;gap:6px;min-width:110px;padding:0 12px;border:0;background:transparent;color:#4e4e4c;font-size:11px;cursor:not-allowed">Add more <span style="font-size:10px">soon</span></button>
+  </nav>
+
+  <div style="flex:1;display:flex;min-height:0">
+
+    <div data-screen-label="Canvas column" style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative">
+
+      <div data-screen-label="Co-pilot bar" style="flex:none;background:linear-gradient(180deg,#202022,#1c1c1e)">
+        <div style="height:42px;display:flex;align-items:center;gap:10px;padding:0 14px">
+          <span style="width:9px;height:9px;border-radius:50%;flex:none;background:{{ dotColor }};animation:{{ dotAnim }};box-shadow:0 0 8px {{ dotGlow }}"></span>
+          <span style="color:#e8e8e6;font-weight:650;letter-spacing:.01em">Claude</span>
+          <sc-if value="{{ isUnpaired }}" hint-placeholder-val="{{ false }}">
+            <span style="color:#7c7c7a;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">not paired — Claude can play this character alongside you</span>
+            <span style="flex:1"></span>
+            <button onClick="{{ go_claude }}" style="height:27px;padding:0 14px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:6px;color:#1c1300;font-size:12px;font-weight:650;box-shadow:0 2px 10px rgba(255,152,31,.28)" style-hover="box-shadow:0 3px 16px rgba(255,152,31,.45);transform:translateY(-1px)">Pair Claude</button>
+          </sc-if>
+          <sc-if value="{{ isStandby }}" hint-placeholder-val="{{ false }}">
+            <span style="color:#7c7c7a">paired · standing by</span>
+            <span style="flex:1"></span>
+            <button onClick="{{ startRun }}" style="height:27px;padding:0 14px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:6px;color:#1c1300;font-size:12px;font-weight:650;box-shadow:0 2px 10px rgba(255,152,31,.28)" style-hover="box-shadow:0 3px 16px rgba(255,152,31,.45);transform:translateY(-1px)">Run a script</button>
+          </sc-if>
+          <sc-if value="{{ isRunning }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ go_tasks }}" style="min-width:0;display:flex;align-items:baseline;gap:6px;overflow:hidden;white-space:nowrap;padding:0;border:0;background:none;color:#b4b4b2;text-align:left;font-size:12px" style-hover="color:#e8e8e6">
+              <span style="color:#e8e8e6;font-weight:650">Chop and drop</span><span style="color:#575755">·</span><span style="color:#ff981f">Chop tree</span><span style="color:#575755">·</span><span style="overflow:hidden;text-overflow:ellipsis">chopping the nearest tree · {{ logs }} logs</span>
+            </button>
+            <span style="flex:1"></span>
+            <span style="color:#7c7c7a;font-size:11px;display:flex;align-items:center;gap:6px"><kbd style="padding:1px 6px;border:1px solid #3e3e3c;border-bottom-width:2px;border-radius:4px;background:#232325;color:#e8e8e6;font-size:10px">Esc</kbd> take control</span>
+            <span style="font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:14px;color:#ffb95e;font-variant-numeric:tabular-nums">{{ elapsed }}</span>
+            <button onClick="{{ pauseRun }}" style="height:27px;padding:0 13px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px" style-hover="background:#3a3a38;transform:translateY(-1px)">Pause</button>
+            <button onClick="{{ stopRun }}" style="height:27px;padding:0 13px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px" style-hover="background:#3a3a38;transform:translateY(-1px)">Stop</button>
+          </sc-if>
+          <sc-if value="{{ isPaused }}" hint-placeholder-val="{{ false }}">
+            <span style="color:#ffb300;font-weight:600">paused — you took control</span>
+            <span style="color:#7c7c7a">resumes in {{ resume }}s</span>
+            <span style="flex:1"></span>
+            <span style="font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:14px;color:#ffb300;font-variant-numeric:tabular-nums">{{ elapsed }}</span>
+            <button onClick="{{ startRun }}" style="height:27px;padding:0 13px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px" style-hover="background:#3a3a38;transform:translateY(-1px)">Resume now</button>
+            <button onClick="{{ stopRun }}" style="height:27px;padding:0 13px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px" style-hover="background:#3a3a38;transform:translateY(-1px)">Stop</button>
+          </sc-if>
+          <sc-if value="{{ isStuck }}" hint-placeholder-val="{{ false }}">
+            <span style="color:#ffb300;font-weight:650">stuck on Chop tree</span>
+            <span style="color:#7c7c7a;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">no Tree within 12 tiles</span>
+            <span style="flex:1"></span>
+            <span style="font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:14px;color:#7c7c7a;font-variant-numeric:tabular-nums">{{ elapsed }}</span>
+            <button onClick="{{ openTrace }}" style="height:27px;padding:0 13px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px" style-hover="background:#3a3a38;transform:translateY(-1px)">Open trace</button>
+            <button onClick="{{ stopRun }}" style="height:27px;padding:0 13px;background:#a02828;border:1px solid #781c1c;border-radius:6px;color:#f0e6e6;font-size:12px" style-hover="background:#b93030;transform:translateY(-1px)">Stop</button>
+          </sc-if>
+        </div>
+        <div style="height:2px;background:{{ ruleBg }};background-size:200% 100%;animation:{{ ruleAnim }}"></div>
+      </div>
+
+      <div style="flex:1;min-height:0;display:flex;justify-content:center;align-items:flex-start;padding:14px;overflow:auto">
+        <div style="position:relative;width:min(789px,100%)">
+          <div role="img" aria-label="Game canvas placeholder" style="width:100%;aspect-ratio:789/532;display:grid;place-items:center;background:repeating-linear-gradient(45deg,#0a0a0a 0 12px,#0d0d0d 12px 24px);border:1px solid rgba(0,0,0,.7);border-radius:4px;box-shadow:0 10px 30px -12px rgba(0,0,0,.7)">
+            <span style="font-family:'Pixelify Sans',ui-monospace,monospace;color:#7c7c7a;text-align:center;line-height:1.8;font-size:12px">the 2004 client<br><b style="color:#b4b4b2">789 × 532</b><br>(same-origin iframe — never restyled)</span>
+          </div>
+          {{ xpPop }}
+          <span style="position:absolute;top:10px;left:10px;padding:3px 8px;background:rgba(0,0,0,.62);border:1px solid rgba(255,152,31,.35);border-radius:3px;color:#ff981f;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:11px;white-space:nowrap;backdrop-filter:blur(2px)">Woodcutting · 24,180 xp/h</span>
+          <span style="position:absolute;top:10px;right:10px;padding:3px 8px;background:rgba(0,0,0,.62);border:1px solid {{ pillBorder }};border-radius:3px;color:{{ pillColor }};font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:11px;white-space:nowrap;backdrop-filter:blur(2px)">{{ pillText }}</span>
+          <sc-if value="{{ showHud }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;top:42px;right:10px;display:flex;flex-direction:column;align-items:flex-end;gap:4px;animation:popIn .2s ease">
+              <span style="display:flex;align-items:center;gap:6px;padding:2px 7px;background:rgba(0,0,0,.62);border:1px solid rgba(192,57,43,.45);border-radius:3px;backdrop-filter:blur(2px)"><span style="color:#e05a4b;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:10.5px">HP</span><span style="width:42px;height:4px;background:rgba(255,255,255,.14);border-radius:2px;overflow:hidden"><span style="display:block;height:100%;width:78%;background:#c0392b"></span></span><span style="color:#fff;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:10.5px">14/18</span></span>
+              <span style="display:flex;align-items:center;gap:6px;padding:2px 7px;background:rgba(0,0,0,.62);border:1px solid rgba(41,128,185,.45);border-radius:3px;backdrop-filter:blur(2px)"><span style="color:#4aa3dc;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:10.5px">PRAY</span><span style="width:42px;height:4px;background:rgba(255,255,255,.14);border-radius:2px;overflow:hidden"><span style="display:block;height:100%;width:40%;background:#2980b9"></span></span><span style="color:#fff;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:10.5px">4/10</span></span>
+              <span style="display:flex;align-items:center;gap:6px;padding:2px 7px;background:rgba(0,0,0,.62);border:1px solid rgba(39,174,96,.45);border-radius:3px;backdrop-filter:blur(2px)"><span style="color:#43ca7e;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:10.5px">RUN</span><span style="width:42px;height:4px;background:rgba(255,255,255,.14);border-radius:2px;overflow:hidden"><span style="display:block;height:100%;width:62%;background:#27ae60"></span></span><span style="color:#fff;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:10.5px">62</span></span>
+              <span style="padding:2px 7px;background:rgba(0,0,0,.62);border:1px solid rgba(255,152,31,.35);border-radius:3px;color:#ff981f;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:10.5px;backdrop-filter:blur(2px)">Woodcutting +3</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <sc-if value="{{ traceOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Trace window" style="position:absolute;right:16px;bottom:16px;z-index:30;width:430px;max-width:calc(100% - 32px);display:flex;flex-direction:column;background:#202022;border:1px solid rgba(255,255,255,.08);border-radius:10px;box-shadow:0 18px 50px rgba(0,0,0,.6);overflow:hidden;animation:popIn .18s ease">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#1b1b1d;border-bottom:1px solid rgba(0,0,0,.5)">
+            <span style="color:#e8e8e6;font-weight:650">Trace</span><span style="color:#7c7c7a">Chop and drop</span>
+            <input placeholder="Filter" style="flex:1;min-width:0;height:24px;padding:0 9px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#e8e8e6;font-size:11px">
+            <button style="height:24px;padding:0 10px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:11px" style-hover="background:#3a3a38">Copy for Claude</button>
+            <button onClick="{{ closeTrace }}" aria-label="Close trace" style="width:24px;height:24px;background:none;border:0;border-radius:6px;color:#7c7c7a;font-size:14px" style-hover="background:#2e2e2d;color:#e8e8e6">×</button>
+          </div>
+          <div style="max-height:250px;overflow-y:auto;font-family:ui-monospace,monospace;font-size:10.5px;padding:5px 0">
+            <div style="padding:2.5px 10px;border-left:2px solid #ff981f;color:#b4b4b2">00:00.1 task_enter Chop tree</div>
+            <div style="padding:2.5px 10px;border-left:2px solid #4a90d9;color:#b4b4b2">00:01.4 action chop → Tree (3222,3218)</div>
+            <div style="padding:2.5px 10px;border-left:2px solid #43a047;color:#b4b4b2">00:03.9 xp Woodcutting +25</div>
+            <div style="padding:2.5px 10px;border-left:2px solid transparent;color:#7c7c7a">00:04.0 log inventory 12/28</div>
+            <div style="padding:2.5px 10px;border-left:2px solid #43a047;color:#b4b4b2">00:06.3 xp Woodcutting +25</div>
+            <div style="padding:2.5px 10px;border-left:2px solid #ffb300;color:#ffb300">02:11.2 stuck no Tree within 12 tiles</div>
+            <div style="padding:2.5px 10px;border-left:2px solid #ffb300;color:#ffb300">02:11.2 paused reason=stuck</div>
+            <div style="padding:2.5px 10px;border-left:2px solid #ff981f;color:#e8e8e6">14:07.6 run_done done · 4,180 xp</div>
+          </div>
+          <div style="padding:6px 10px;border-top:1px solid rgba(0,0,0,.5);color:#575755;font-size:10px">312 events · popped out — the panel stays free</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ bankOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Bank window" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:25;width:min(470px,calc(100% - 28px));display:flex;flex-direction:column;background:#252220;border:1px solid rgba(255,255,255,.08);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.65);overflow:hidden;animation:popIn .18s ease">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(180deg,#2c2925,#252220);border-bottom:1px solid rgba(0,0,0,.5)">
+            <span style="flex:1;color:#e8e8e6;font-weight:650">Bank of Gielinor</span>
+            <span style="color:#7c7c7a;font-size:11px;font-variant-numeric:tabular-nums">27 / 240</span>
+            <span style="height:17px;display:inline-flex;align-items:center;gap:4px;padding:0 7px;border-radius:9px;background:rgba(67,160,71,.16);color:#6ec873;font-size:10px;font-weight:650"><span style="width:5px;height:5px;border-radius:50%;background:#43a047"></span>live</span>
+            <button onClick="{{ closeBank }}" aria-label="Close the bank" style="width:24px;height:24px;background:none;border:0;border-radius:6px;color:#7c7c7a;font-size:14px" style-hover="background:#2e2e2d;color:#e8e8e6">×</button>
+          </div>
+          <div style="display:flex;min-height:0">
+            <div style="display:flex;flex-direction:column;gap:4px;padding:10px 6px;background:rgba(0,0,0,.22);border-right:1px solid rgba(0,0,0,.4)">
+              <button style="width:32px;height:32px;background:#33302c;border:1px solid #ff981f;border-radius:6px;color:#e8e8e6;box-shadow:0 0 10px -3px rgba(255,152,31,.5)">∞</button>
+              <button style="width:32px;height:32px;background:#2c2925;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#a0a09e" style-hover="background:#33302c;color:#e8e8e6">2</button>
+              <button style="width:32px;height:32px;background:none;border:1px dashed #4e4a44;border-radius:6px;color:#ff981f;font-weight:650" style-hover="background:#2c2925;border-style:solid">+</button>
+            </div>
+            <div style="flex:1;display:grid;grid-template-columns:repeat(8,1fr);gap:3px;padding:10px;align-content:start">
+              <sc-for list="{{ bankSlots }}" as="slot" hint-placeholder-count="0">
+                <div style="aspect-ratio:4/3;position:relative;display:grid;place-items:center;background:rgba(0,0,0,.2);border:1px solid rgba(0,0,0,.4);border-radius:4px;transition:border-color .12s ease,background .12s ease" style-hover="border-color:rgba(255,152,31,.5);background:rgba(255,152,31,.06)">
+                  {{ slot.icon }}
+                  <span style="position:absolute;top:1px;left:3px;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:10px;color:{{ slot.tone }};text-shadow:1px 1px 0 rgba(0,0,0,.9)">{{ slot.n }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:9px 12px;background:rgba(0,0,0,.24);border-top:1px solid rgba(0,0,0,.4)">
+            <span style="display:flex;gap:3px"><button style="height:23px;padding:0 9px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:5px;color:#1c1300;font-size:11px;font-weight:650">Swap</button><button style="height:23px;padding:0 9px;background:#2c2925;border:1px solid rgba(255,255,255,.07);border-radius:5px;color:#a0a09e;font-size:11px" style-hover="background:#33302c;color:#e8e8e6">Insert</button></span>
+            <span style="display:flex;gap:3px"><button style="height:23px;padding:0 9px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:5px;color:#1c1300;font-size:11px;font-weight:650">1</button><button style="height:23px;padding:0 9px;background:#2c2925;border:1px solid rgba(255,255,255,.07);border-radius:5px;color:#a0a09e;font-size:11px" style-hover="background:#33302c;color:#e8e8e6">5</button><button style="height:23px;padding:0 9px;background:#2c2925;border:1px solid rgba(255,255,255,.07);border-radius:5px;color:#a0a09e;font-size:11px" style-hover="background:#33302c;color:#e8e8e6">All</button></span>
+            <input placeholder="Search" style="flex:1;min-width:80px;height:23px;padding:0 9px;background:#171513;border:1px solid rgba(255,255,255,.07);border-radius:5px;color:#e8e8e6;font-size:11px">
+            <span style="color:#575755;font-size:10px">view &amp; reorder only — items move in game</span>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+
+    <div data-screen-label="Side panel" style="width:{{ panelW }}px;min-width:240px;flex:none;display:flex;flex-direction:column;background:#1e1e20;border-left:1px solid rgba(0,0,0,.55)">
+      <sc-if value="{{ showPinCard }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Pinned tracker" style="flex:none;padding:9px 12px;background:#1a1a1c;border-bottom:1px solid rgba(0,0,0,.5);animation:fadeUp .18s ease">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:9.5px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:#7c7c7a">Pinned · XP</span>
+            <span style="flex:1"></span>
+            <button onClick="{{ unpin }}" aria-label="Unpin" style="width:18px;height:18px;background:none;border:0;border-radius:4px;color:#7c7c7a;font-size:12px" style-hover="background:#2e2e2d;color:#e8e8e6">×</button>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-top:2px"><b style="color:#e8e8e6">Woodcutting</b><span style="color:#7ddc84;font-weight:650">+{{ sessionXp }}</span><span style="flex:1"></span><span style="color:#7c7c7a;font-size:11px">24.2k/h · lvl 34</span></div>
+          <div style="height:5px;background:#2c2c2e;border-radius:3px;overflow:hidden;margin-top:6px"><span style="display:block;height:100%;width:64%;border-radius:3px;background:linear-gradient(90deg,#f28c0e,#ffb95e,#f28c0e);background-size:200% 100%;animation:shimmer 2.4s linear infinite"></span></div>
+        </div>
+      </sc-if>
+
+      <div style="flex:none;display:flex;align-items:center;gap:8px;height:34px;padding:0 6px 0 12px;background:#1a1a1c;border-bottom:1px solid rgba(0,0,0,.5)">
+        <b style="color:#e8e8e6;font-size:12.5px">{{ panelTitle }}</b>
+        <span style="flex:1"></span>
+        <sc-if value="{{ canPin }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ pin }}" style="height:23px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:11px" style-hover="background:#2e2e2d;color:#e8e8e6">Pin</button>
+        </sc-if>
+        <button aria-label="Close panel" style="width:26px;height:26px;background:none;border:0;border-radius:6px;color:#7c7c7a;font-size:15px" style-hover="background:#2e2e2d;color:#e8e8e6">×</button>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;padding:11px;display:flex;flex-direction:column;gap:10px">
+
+        <sc-if value="{{ is_tasks }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .18s ease">
+          <sc-if value="{{ runExists }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:6px;padding:12px;background:linear-gradient(180deg,#242426,#1f1f21);border:1px solid rgba(255,255,255,.07);border-left:3px solid {{ barRule }};border-radius:8px;box-shadow:0 4px 14px -8px rgba(0,0,0,.6)">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="height:19px;display:inline-flex;align-items:center;gap:5px;padding:0 8px;border-radius:10px;background:{{ badgeBg }};color:{{ badgeColor }};font-size:10px;font-weight:700;letter-spacing:.03em">{{ badgeText }}</span>
+                <span style="flex:1"></span>
+                <span style="font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:16px;color:#ffb95e;font-variant-numeric:tabular-nums">{{ elapsed }}</span>
+              </div>
+              <div style="font-size:14.5px;font-weight:650;color:#e8e8e6">Chop and drop</div>
+              <div style="display:flex;align-items:center;gap:5px;margin-top:1px">
+                <span style="width:14px;height:14px;border-radius:50%;background:rgba(67,160,71,.2);color:#7ddc84;display:grid;place-items:center;font-size:9px">✓</span><span style="color:#7c7c7a;font-size:10.5px">Walk</span>
+                <span style="width:12px;height:1px;background:#3a3a38"></span>
+                <span style="width:14px;height:14px;border-radius:50%;background:rgba(255,152,31,.25);color:#ff981f;display:grid;place-items:center;font-size:8px;animation:stepPulse 1.8s ease-in-out infinite">●</span><span style="color:#ff981f;font-size:10.5px;font-weight:600">Chop tree</span>
+                <span style="width:12px;height:1px;background:#3a3a38"></span>
+                <span style="width:14px;height:14px;border-radius:50%;border:1px solid #3a3a38;color:#575755;display:grid;place-items:center;font-size:8px"></span><span style="color:#575755;font-size:10.5px">Drop</span>
+              </div>
+              <div style="font-size:11px;color:#b4b4b2">{{ statusLine }}</div>
+              <div style="display:flex;gap:8px;padding:6px 0 2px;border-top:1px solid rgba(255,255,255,.05);margin-top:3px">
+                <span style="font-size:10.5px;color:#7c7c7a">logs <b style="font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;color:#e8e8e6;font-size:12px">{{ logs }}</b></span>
+                <span style="font-size:10.5px;color:#7c7c7a">xp <b style="font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;color:#7ddc84;font-size:12px">{{ sessionXp }}</b></span>
+              </div>
+              <div style="display:flex;gap:6px">
+                <sc-if value="{{ isRunning }}" hint-placeholder-val="{{ true }}">
+                  <button onClick="{{ pauseRun }}" style="flex:1;height:27px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px" style-hover="background:#3a3a38;transform:translateY(-1px)">Pause</button>
+                </sc-if>
+                <sc-if value="{{ isPausedOrStuck }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ startRun }}" style="flex:1;height:27px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px" style-hover="background:#3a3a38;transform:translateY(-1px)">Resume</button>
+                </sc-if>
+                <button onClick="{{ openTrace }}" style="flex:1;height:27px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px" style-hover="background:#3a3a38;transform:translateY(-1px)">Trace</button>
+                <button onClick="{{ stopRun }}" style="flex:1;height:27px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px" style-hover="background:#3a3a38;transform:translateY(-1px)">Stop</button>
+              </div>
+            </div>
+          </sc-if>
+          <div style="display:flex;gap:3px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:3px">
+            <button onClick="{{ tabMy }}" style="flex:1;height:22px;border:0;border-radius:5px;background:{{ tabMyBg }};color:{{ tabMyC }};font-size:10.5px;font-weight:{{ tabMyW }}" style-hover="color:#e8e8e6">My tasks</button>
+            <button onClick="{{ tabMarket }}" style="flex:1;height:22px;border:0;border-radius:5px;background:{{ tabMarketBg }};color:{{ tabMarketC }};font-size:10.5px;font-weight:{{ tabMarketW }}" style-hover="color:#e8e8e6">Marketplace</button>
+          </div>
+          <sc-if value="{{ onTasksTab }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="padding:10px 11px;background:#232325;border:1px solid rgba(255,255,255,.06);border-radius:8px;transition:transform .13s ease,border-color .13s ease" style-hover="transform:translateY(-1px);border-color:rgba(255,255,255,.12)">
+              <div style="display:flex;align-items:center;gap:6px"><b style="color:#e8e8e6">Chop and drop</b><span style="height:16px;display:inline-flex;align-items:center;padding:0 7px;border-radius:8px;background:rgba(74,144,217,.16);color:#78afeb;font-size:10px;font-weight:650">Library</span></div>
+              <div style="color:#7c7c7a;font-size:11px;margin-top:2px">Chops the nearest tree, drops the logs, until target level.</div>
+              <div style="color:#575755;font-size:10px;margin-top:2px">v1 · ~20 min · last run: done · 41 logs</div>
+              <div style="display:flex;gap:6px;margin-top:8px">
+                <button onClick="{{ startRun }}" style="flex:1;height:25px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:6px;color:#1c1300;font-size:11px;font-weight:650" style-hover="box-shadow:0 2px 12px rgba(255,152,31,.35);transform:translateY(-1px)">Run</button>
+                <button style="flex:1;height:25px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:11px" style-hover="background:#3a3a38">Fork</button>
+              </div>
+            </div>
+            <div style="padding:10px 11px;background:#232325;border:1px solid rgba(255,255,255,.06);border-radius:8px;transition:transform .13s ease,border-color .13s ease" style-hover="transform:translateY(-1px);border-color:rgba(255,255,255,.12)">
+              <div style="display:flex;align-items:center;gap:6px"><b style="color:#e8e8e6">Mine and drop</b><span style="height:16px;display:inline-flex;align-items:center;padding:0 7px;border-radius:8px;background:rgba(255,152,31,.16);color:#ff981f;font-size:10px;font-weight:650">Fork</span></div>
+              <div style="color:#7c7c7a;font-size:11px;margin-top:2px">My copy, tin filter removed.</div>
+              <div style="color:#ffb300;font-size:11px;margin-top:2px">⚠ Needs a bronze pickaxe in your inventory</div>
+              <div style="display:flex;gap:6px;margin-top:8px">
+                <button disabled="{{ true }}" style="flex:1;height:25px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:6px;color:#1c1300;font-size:11px;font-weight:650;opacity:.35;cursor:not-allowed">Run</button>
+                <button style="flex:1;height:25px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:11px" style-hover="background:#3a3a38">Edit</button>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:#7c7c7a;margin-top:2px">Run snippet</div>
+          <textarea rows="2" style="width:100%;box-sizing:border-box;padding:8px 9px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#e8e8e6;font-family:ui-monospace,monospace;font-size:11px;resize:vertical">await bot.chopTree("Tree")</textarea>
+          <div style="font-size:9.5px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:#7c7c7a;margin-top:2px">History</div>
+          <div style="display:flex;flex-direction:column">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 2px;border-bottom:1px solid rgba(255,255,255,.05)">
+              <span style="width:7px;height:7px;border-radius:50%;background:#43a047;flex:none"></span>
+              <span style="min-width:0;flex:1"><b style="color:#e8e8e6;font-size:11px">Chop and drop</b><span style="display:block;color:#575755;font-size:10px">18:42 · 4,180 xp · 41 logs</span></span>
+              <button onClick="{{ openTrace }}" style="height:22px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:10px" style-hover="background:#2e2e2d;color:#e8e8e6">Trace</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 2px">
+              <span style="width:7px;height:7px;border-radius:50%;background:#e53935;flex:none"></span>
+              <span style="min-width:0;flex:1"><b style="color:#e8e8e6;font-size:11px">Net fish and drop</b><span style="display:block;color:#575755;font-size:10px">02:15 · 0 xp · no fishing spot in range</span></span>
+              <button onClick="{{ openTrace }}" style="height:22px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:10px" style-hover="background:#2e2e2d;color:#e8e8e6">Trace</button>
+            </div>
+          </div>
+          </div>
+          </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ onMarketTab }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .18s ease">
+          <input placeholder="Search scripts" style="width:100%;box-sizing:border-box;height:29px;padding:0 11px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#e8e8e6;font-size:12px">
+          <div style="padding:11px;background:#232325;border:1px solid rgba(255,255,255,.06);border-radius:8px;transition:transform .13s ease,border-color .13s ease" style-hover="transform:translateY(-1px);border-color:rgba(255,255,255,.12)">
+            <div style="display:flex;align-items:center;gap:6px"><b style="color:#e8e8e6">Chop and drop</b><span style="height:16px;display:inline-flex;align-items:center;padding:0 7px;border-radius:8px;background:rgba(255,152,31,.16);color:#ff981f;font-size:10px;font-weight:650">Start here</span></div>
+            <div style="color:#7c7c7a;font-size:11px;margin-top:3px">Chops the nearest tree of the chosen kind and drops the logs until the target Woodcutting level.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:7px"><span style="height:16px;display:inline-flex;align-items:center;padding:0 7px;border-radius:8px;background:#2e2e2d;color:#a0a09e;font-size:10px">skilling</span><span style="height:16px;display:inline-flex;align-items:center;padding:0 7px;border-radius:8px;background:#2e2e2d;color:#a0a09e;font-size:10px">woodcutting</span><span style="color:#575755;font-size:10px;align-self:center">v1 · ~20 min</span></div>
+            <div style="margin-top:8px;padding:7px 9px;background:rgba(255,179,0,.07);border-left:3px solid #ffb300;border-radius:4px;color:#ffb300;font-size:11px">Needs a bronze axe in your inventory or equipped</div>
+            <div style="display:flex;gap:6px;margin-top:9px">
+              <button onClick="{{ startRun }}" style="flex:1;height:25px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:6px;color:#1c1300;font-size:11px;font-weight:650" style-hover="box-shadow:0 2px 12px rgba(255,152,31,.35);transform:translateY(-1px)">Run now</button>
+              <button style="flex:1;height:25px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:11px" style-hover="background:#3a3a38">Add to tasks</button>
+            </div>
+          </div>
+          <div style="padding:11px;background:#232325;border:1px solid rgba(255,255,255,.06);border-radius:8px;transition:transform .13s ease,border-color .13s ease" style-hover="transform:translateY(-1px);border-color:rgba(255,255,255,.12)">
+            <b style="color:#e8e8e6">Net fish and drop</b>
+            <div style="color:#7c7c7a;font-size:11px;margin-top:3px">Nets the nearest fishing spot and drops the catch until the target Fishing level.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:7px"><span style="height:16px;display:inline-flex;align-items:center;padding:0 7px;border-radius:8px;background:#2e2e2d;color:#a0a09e;font-size:10px">skilling</span><span style="height:16px;display:inline-flex;align-items:center;padding:0 7px;border-radius:8px;background:#2e2e2d;color:#a0a09e;font-size:10px">fishing</span><span style="color:#575755;font-size:10px;align-self:center">v1 · ~25 min</span></div>
+            <div style="display:flex;gap:6px;margin-top:9px">
+              <button onClick="{{ startRun }}" style="flex:1;height:25px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:6px;color:#1c1300;font-size:11px;font-weight:650" style-hover="box-shadow:0 2px 12px rgba(255,152,31,.35);transform:translateY(-1px)">Run now</button>
+              <button disabled="{{ true }}" style="flex:1;height:25px;background:#2e2e2d;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#7c7c7a;font-size:11px;cursor:not-allowed">Added ✓</button>
+            </div>
+          </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ is_xp }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .18s ease">
+          <div style="display:flex;align-items:center;gap:8px"><span style="color:#7c7c7a;font-size:11px">Session · {{ elapsed }}</span><span style="flex:1"></span><button style="height:23px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:11px" style-hover="background:#2e2e2d;color:#e8e8e6">Reset</button></div>
+          <div style="padding:10px 11px;background:#232325;border:1px solid rgba(255,255,255,.06);border-radius:8px">
+            <div style="display:flex;align-items:center;gap:9px">
+              <span style="width:26px;height:26px;border-radius:7px;background:#2e2e2d;border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:12px;color:#ffb95e">34</span>
+              <span style="flex:1;min-width:0"><b style="color:#e8e8e6">Woodcutting</b><span style="display:block;color:#575755;font-size:10px">24,180/h · 52 actions to 35</span></span>
+              <span style="color:#7ddc84;font-weight:650;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:13px">+{{ sessionXp }}</span>
+            </div>
+            <div style="height:5px;background:#2c2c2e;border-radius:3px;overflow:hidden;margin-top:8px"><span style="display:block;height:100%;width:64%;border-radius:3px;background:linear-gradient(90deg,#f28c0e,#ffb95e,#f28c0e);background-size:200% 100%;animation:shimmer 2.4s linear infinite"></span></div>
+            <div style="display:flex;color:#575755;font-size:10px;margin-top:4px"><span>lvl 34</span><span style="flex:1"></span><span>1,290 xp to lvl 35</span></div>
+          </div>
+          <div style="padding:10px 11px;background:#232325;border:1px solid rgba(255,255,255,.06);border-radius:8px">
+            <div style="display:flex;align-items:center;gap:9px">
+              <span style="width:26px;height:26px;border-radius:7px;background:#2e2e2d;border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:12px;color:#ffb95e">21</span>
+              <span style="flex:1;min-width:0"><b style="color:#e8e8e6">Firemaking</b><span style="display:block;color:#575755;font-size:10px">3,400/h · 12 actions to 22</span></span>
+              <span style="color:#7ddc84;font-weight:650;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:13px">+610</span>
+            </div>
+            <div style="height:5px;background:#2c2c2e;border-radius:3px;overflow:hidden;margin-top:8px"><span style="display:block;height:100%;width:31%;border-radius:3px;background:linear-gradient(90deg,#f28c0e,#ffb95e,#f28c0e);background-size:200% 100%;animation:shimmer 2.4s linear infinite"></span></div>
+            <div style="display:flex;color:#575755;font-size:10px;margin-top:4px"><span>lvl 21</span><span style="flex:1"></span><span>240 xp to lvl 22</span></div>
+          </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ is_loot }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:36px 12px;text-align:center;animation:fadeUp .18s ease">
+            <span style="width:40px;height:40px;border-radius:50%;border:1.5px dashed #4e4e4c;display:grid;place-items:center;color:#7c7c7a;font-size:16px;animation:bob 2.6s ease-in-out infinite">◌</span>
+            <b style="color:#e8e8e6;font-size:13.5px">Nothing looted yet</b>
+            <span style="color:#7c7c7a;font-size:11px;max-width:190px">Items you pick up appear here as you play — or as Claude plays for you.</span>
+            <button onClick="{{ go_tasks }}" style="height:27px;padding:0 14px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:6px;color:#1c1300;font-size:12px;font-weight:650;box-shadow:0 2px 10px rgba(255,152,31,.25)" style-hover="box-shadow:0 3px 16px rgba(255,152,31,.45);transform:translateY(-1px)">Run a script</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ is_events }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .18s ease;min-height:0">
+            <div style="display:flex;gap:3px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:3px">
+              <sc-for list="{{ charChips }}" as="ch" hint-placeholder-count="3">
+                <button onClick="{{ ch.tap }}" style="flex:1;height:22px;border:0;border-radius:5px;background:{{ ch.bg }};color:{{ ch.c }};font-size:10.5px;font-weight:{{ ch.w }}" style-hover="color:#e8e8e6">{{ ch.label }}</button>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px">
+              <sc-for list="{{ typeChips }}" as="ch" hint-placeholder-count="6">
+                <button onClick="{{ ch.tap }}" style="height:20px;padding:0 8px;border:1px solid {{ ch.b }};border-radius:10px;background:{{ ch.bg }};color:{{ ch.c }};font-size:10px;font-weight:600" style-hover="border-color:rgba(255,152,31,.6)">{{ ch.label }}</button>
+              </sc-for>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <select onChange="{{ setEvSkill }}" value="{{ evSkill }}" style="flex:1;height:25px;padding:0 7px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#e8e8e6;font-size:11px">
+                <option value="all">All skills</option>
+                <option value="Woodcutting">Woodcutting</option>
+                <option value="Firemaking">Firemaking</option>
+                <option value="Mining">Mining</option>
+                <option value="Fishing">Fishing</option>
+              </select>
+              <button onClick="{{ clearEvFilters }}" style="height:25px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:10.5px" style-hover="background:#2e2e2d;color:#e8e8e6">Clear</button>
+            </div>
+            <div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column">
+              <sc-for list="{{ events }}" as="ev" hint-placeholder-count="8">
+                <div style="display:flex;gap:8px;padding:6px 6px 6px 8px;border-left:2px solid {{ ev.rail }};background:{{ ev.bg }};border-radius:0 4px 4px 0;margin-bottom:2px">
+                  <span style="color:#575755;font-size:10px;font-variant-numeric:tabular-nums;flex:none;padding-top:1px">{{ ev.time }}</span>
+                  <span style="flex:1;min-width:0;font-size:11px;color:{{ ev.tc }};overflow-wrap:anywhere">{{ ev.text }}</span>
+                  <span style="flex:none;height:15px;padding:0 5px;border-radius:8px;background:#2c2c2e;color:#7c7c7a;font-size:9px;display:inline-flex;align-items:center">{{ ev.char }}</span>
+                </div>
+              </sc-for>
+              <sc-if value="{{ evEmpty }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:7px;padding:28px 12px;text-align:center">
+                  <span style="width:34px;height:34px;border-radius:50%;border:1.5px dashed #4e4e4c;display:grid;place-items:center;color:#7c7c7a;font-size:14px">⌕</span>
+                  <b style="color:#e8e8e6;font-size:12.5px">No events match</b>
+                  <span style="color:#7c7c7a;font-size:11px;max-width:180px">Loosen the filters — or go make something happen.</span>
+                  <button onClick="{{ clearEvFilters }}" style="height:24px;padding:0 11px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:11px" style-hover="background:#3a3a38">Clear filters</button>
+                </div>
+              </sc-if>
+            </div>
+            <div style="flex:none;display:flex;align-items:center;color:#575755;font-size:10px;border-top:1px solid rgba(255,255,255,.05);padding-top:7px"><span>{{ evCount }} of {{ evTotal }} events · this session</span><span style="flex:1"></span><button style="padding:0;background:none;border:0;color:#ff981f;font-size:10px" style-hover="text-decoration:underline">Copy for Claude</button></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ is_bank }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .18s ease">
+          <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="color:#7c7c7a">Used</span><b style="color:#e8e8e6;font-variant-numeric:tabular-nums">27 / 240</b></div>
+          <div style="height:5px;background:#2c2c2e;border-radius:3px;overflow:hidden;margin-top:-6px"><span style="display:block;height:100%;width:11%;border-radius:3px;background:#ff981f"></span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="color:#7c7c7a">Tabs</span><b style="color:#e8e8e6">2</b></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="color:#7c7c7a">Updates</span><b style="color:#6ec873">● live</b></div>
+          <button onClick="{{ openBank }}" style="height:29px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:6px;color:#1c1300;font-size:12px;font-weight:650;box-shadow:0 2px 10px rgba(255,152,31,.25)" style-hover="box-shadow:0 3px 16px rgba(255,152,31,.45);transform:translateY(-1px)">Open bank window</button>
+          <div style="padding:8px 10px;background:rgba(74,144,217,.07);border-left:3px solid #4a90d9;border-radius:4px;color:#b4b4b2;font-size:11px">Items only move in and out of the bank in game. One bank per account, shared by every character.</div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ is_claude }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .18s ease">
+          <sc-if value="{{ isUnpaired }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px;padding:12px;background:linear-gradient(180deg,#242426,#1f1f21);border:1px solid rgba(255,255,255,.07);border-radius:8px">
+              <b style="color:#e8e8e6">Pair a Claude session</b>
+              <div style="display:flex;gap:5px">
+                <input readOnly="{{ true }}" value="https://osrs.scotho.com/pair#7f3a…" style="flex:1;min-width:0;height:25px;padding:0 9px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#b4b4b2;font-family:ui-monospace,monospace;font-size:10px">
+                <button style="height:25px;padding:0 11px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:11px" style-hover="background:#3a3a38">Copy</button>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#7c7c7a">Expires in</span><b style="color:#e8e8e6;font-variant-numeric:tabular-nums">14:22</b></div>
+              <div style="padding:7px 9px;background:rgba(255,152,31,.07);border-left:3px solid #ff981f;border-radius:4px;color:#b4b4b2;font-size:11px">Paste this into your Claude session and say: <b style="color:#e8e8e6">connect to this</b>.</div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#7c7c7a"><span style="width:7px;height:7px;border-radius:50%;background:#7c7c7a;animation:pulse 1.6s ease-in-out infinite"></span>Waiting for Claude…</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isPaired }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:9.5px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:#7c7c7a">Paired sessions</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+              <span style="width:8px;height:8px;border-radius:50%;background:#43a047;box-shadow:0 0 8px rgba(67,160,71,.6);flex:none"></span>
+              <span style="flex:1;min-width:0"><b style="color:#e8e8e6;font-size:12px">MacBook</b><span style="display:block;color:#575755;font-size:10px">Active now · driving this character</span></span>
+              <button style="height:22px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:10px" style-hover="background:#2e2e2d;color:#e8e8e6">Revoke</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 0">
+              <span style="width:8px;height:8px;border-radius:50%;background:#575755;flex:none"></span>
+              <span style="flex:1;min-width:0"><b style="color:#e8e8e6;font-size:12px">work desktop</b><span style="display:block;color:#575755;font-size:10px">Last seen 3h ago</span></span>
+              <button style="height:22px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:10px" style-hover="background:#2e2e2d;color:#e8e8e6">Revoke</button>
+            </div>
+            <button style="align-self:flex-start;padding:0;background:none;border:0;color:#ff981f;font-size:11px" style-hover="text-decoration:underline">Pair another session</button>
+          </sc-if>
+          <div style="font-size:9.5px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:#7c7c7a;margin-top:2px">Link</div>
+          <div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:#7c7c7a">Gateway</span><b style="color:#6ec873">● up</b></div>
+          <div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:#7c7c7a">Health</span><b style="color:#e8e8e6;font-variant-numeric:tabular-nums">fps 50 · rtt 38ms · ws ok</b></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ is_account }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .18s ease">
+          <div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#7c7c7a">Signed in as</span><b style="color:#e8e8e6">someone@example.com</b></div>
+          <div style="display:flex;justify-content:space-between;padding:2px 0;align-items:center"><span style="color:#7c7c7a">Account</span><span style="height:17px;display:inline-flex;align-items:center;padding:0 7px;border-radius:9px;background:rgba(67,160,71,.16);color:#6ec873;font-size:10px;font-weight:650">Email</span></div>
+          <div style="font-size:9.5px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:#7c7c7a;margin-top:2px">Characters · 2 of 3</div>
+          <div style="display:flex;align-items:center;gap:8px;padding:9px 11px;background:#232325;border:1px solid rgba(255,255,255,.06);border-left:3px solid #ff981f;border-radius:8px">
+            <span style="flex:1;min-width:0"><b style="color:#e8e8e6">shoth4019zr</b><span style="display:block;color:#6ec873;font-size:10px">online · this tab</span></span>
+            <button style="height:22px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:10px" style-hover="background:#2e2e2d;color:#e8e8e6">Delete</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:9px 11px;background:#232325;border:1px solid rgba(255,255,255,.06);border-radius:8px">
+            <span style="flex:1;min-width:0"><b style="color:#e8e8e6">alt_miner</b><span style="display:block;color:#575755;font-size:10px">offline</span></span>
+            <button style="height:22px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:10px" style-hover="background:#2e2e2d;color:#e8e8e6">Open tab</button>
+            <button style="height:22px;padding:0 9px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#a0a09e;font-size:10px" style-hover="background:#2e2e2d;color:#e8e8e6">Delete</button>
+          </div>
+          <div style="display:flex;gap:6px">
+            <input placeholder="New character name" maxLength="12" style="flex:1;min-width:0;box-sizing:border-box;height:27px;padding:0 11px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#e8e8e6;font-size:11px">
+            <button style="height:27px;padding:0 11px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:11px" style-hover="background:#3a3a38">Create</button>
+          </div>
+          <button style="height:29px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px;margin-top:2px" style-hover="background:#3a3a38">Sign out</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ is_notes }}" hint-placeholder-val="{{ false }}">
+          <textarea rows="12" placeholder="Notes for this character (synced to your account)." style="width:100%;box-sizing:border-box;flex:1;min-height:160px;padding:9px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#e8e8e6;font-size:12px;resize:vertical;animation:fadeUp .18s ease">Willow spot: north of Draynor bank.
+Need 30 mining before the iron loop is worth it.</textarea>
+        </sc-if>
+
+        <sc-if value="{{ is_shot }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .18s ease">
+          <button style="height:29px;background:linear-gradient(180deg,#ffa63a,#f28c0e);border:1px solid #d6780a;border-radius:6px;color:#1c1300;font-size:12px;font-weight:650;box-shadow:0 2px 10px rgba(255,152,31,.25)" style-hover="box-shadow:0 3px 16px rgba(255,152,31,.45);transform:translateY(-1px)">Capture the canvas</button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div style="height:58px;background:repeating-linear-gradient(45deg,#141414 0 8px,#191919 8px 16px);border:1px solid rgba(255,255,255,.06);border-radius:6px;transition:border-color .12s ease" style-hover="border-color:rgba(255,152,31,.5)"></div>
+            <div style="height:58px;background:repeating-linear-gradient(45deg,#141414 0 8px,#191919 8px 16px);border:1px solid rgba(255,255,255,.06);border-radius:6px;transition:border-color .12s ease" style-hover="border-color:rgba(255,152,31,.5)"></div>
+            <div style="height:58px;background:repeating-linear-gradient(45deg,#141414 0 8px,#191919 8px 16px);border:1px solid rgba(255,255,255,.06);border-radius:6px;transition:border-color .12s ease" style-hover="border-color:rgba(255,152,31,.5)"></div>
+            <div style="height:58px;background:repeating-linear-gradient(45deg,#141414 0 8px,#191919 8px 16px);border:1px solid rgba(255,255,255,.06);border-radius:6px;transition:border-color .12s ease" style-hover="border-color:rgba(255,152,31,.5)"></div>
+          </div>
+          <span style="color:#575755;font-size:10px">Keeps the last 10. Click a thumbnail to download.</span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ is_plugins }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:6px;animation:fadeUp .18s ease">
+          <input placeholder="Search plugins" style="width:100%;box-sizing:border-box;height:29px;padding:0 11px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#e8e8e6;font-size:12px">
+          <sc-for list="{{ plugins }}" as="pl" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:9px;padding:9px 2px;border-bottom:1px solid rgba(255,255,255,.05)">
+              <span style="flex:1;min-width:0"><b style="color:#e8e8e6;font-size:12px">{{ pl.name }}</b><span style="display:block;color:#575755;font-size:10px">{{ pl.desc }}</span></span>
+              <sc-if value="{{ pl.always }}" hint-placeholder-val="{{ false }}"><span style="color:#4e4e4c;font-size:9px">always on</span></sc-if>
+              <input type="checkbox" defaultChecked="{{ pl.on }}" disabled="{{ pl.always }}" style="accent-color:#ff981f;width:15px;height:15px;cursor:pointer">
+            </div>
+          </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ is_config }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .18s ease">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><span style="color:#b4b4b2">Canvas size</span><select style="height:27px;padding:0 7px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#e8e8e6;font-size:11px"><option>1x</option><option>2x</option><option selected="{{ true }}">Fit window</option></select></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><span style="color:#b4b4b2">Scaling</span><select style="height:27px;padding:0 7px;background:#141416;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#e8e8e6;font-size:11px"><option>Smooth</option><option>Pixelated</option></select></div>
+          <label style="display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer"><span style="color:#b4b4b2">Hide overlays</span><input type="checkbox" style="accent-color:#ff981f;width:15px;height:15px;cursor:pointer"></label>
+          <button style="height:29px;background:#2e2e2d;border:1px solid rgba(255,255,255,.09);border-radius:6px;color:#e8e8e6;font-size:12px;margin-top:4px" style-hover="background:#3a3a38">Enter fullscreen</button>
+          </div>
+        </sc-if>
+
+      </div>
+    </div>
+
+    <nav data-screen-label="Icon strip" role="tablist" aria-orientation="vertical" aria-label="Panels" style="width:40px;flex:none;display:flex;flex-direction:column;gap:1px;padding:6px 0;background:#1a1a1c;border-left:1px solid rgba(0,0,0,.55)">
+      <button role="tab" title="Automation" aria-label="Automation" onClick="{{ go_tasks }}" style="position:relative;width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_tasks }};color:{{ c_tasks }};box-shadow:inset 2px 0 0 {{ r_tasks }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 3.5 12 8 5 12.5 Z" fill="currentColor" stroke="none"></path></svg><sc-if value="{{ runExists }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;right:5px;top:5px;width:6px;height:6px;border-radius:50%;background:{{ dotColor }};box-shadow:0 0 6px {{ dotGlow }}"></span></sc-if></button>
+      <button role="tab" title="Claude" aria-label="Claude" onClick="{{ go_claude }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_claude }};color:{{ c_claude }};box-shadow:inset 2px 0 0 {{ r_claude }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1.5 9.7 6.3 14.5 8 9.7 9.7 8 14.5 6.3 9.7 1.5 8 6.3 6.3Z" fill="currentColor"></path></svg></button>
+      <span style="height:1px;background:#2c2c2e;margin:4px 8px"></span>
+      <button role="tab" title="XP Tracker" aria-label="XP Tracker" onClick="{{ go_xp }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_xp }};color:{{ c_xp }};box-shadow:inset 2px 0 0 {{ r_xp }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,12.5 6,7.5 9,10 14,3.5"></polyline></svg></button>
+      <button role="tab" title="Loot Tracker" aria-label="Loot Tracker" onClick="{{ go_loot }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_loot }};color:{{ c_loot }};box-shadow:inset 2px 0 0 {{ r_loot }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="5.5"></circle><circle cx="8" cy="8" r="1.8"></circle></svg></button>
+      <button role="tab" title="Events" aria-label="Events" onClick="{{ go_events }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_events }};color:{{ c_events }};box-shadow:inset 2px 0 0 {{ r_events }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5h3l2-4.5 3 8 2-3.5h3"></path></svg></button>
+      <button role="tab" title="Notes" aria-label="Notes" onClick="{{ go_notes }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_notes }};color:{{ c_notes }};box-shadow:inset 2px 0 0 {{ r_notes }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.5 4.5h9M3.5 8h9M3.5 11.5h6"></path></svg></button>
+      <button role="tab" title="Screenshot" aria-label="Screenshot" onClick="{{ go_shot }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_shot }};color:{{ c_shot }};box-shadow:inset 2px 0 0 {{ r_shot }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4.5" width="12" height="8.5" rx="1.5"></rect><circle cx="8" cy="8.7" r="2.2"></circle></svg></button>
+      <span style="height:1px;background:#2c2c2e;margin:4px 8px"></span>
+      <button role="tab" title="Bank" aria-label="Bank" onClick="{{ go_bank }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_bank }};color:{{ c_bank }};box-shadow:inset 2px 0 0 {{ r_bank }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 6.5 8 3l5.5 3.5"></path><path d="M4.5 8v3.5M8 8v3.5M11.5 8v3.5M2.5 13.5h11"></path></svg></button>
+      <button role="tab" title="Account" aria-label="Account" onClick="{{ go_account }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_account }};color:{{ c_account }};box-shadow:inset 2px 0 0 {{ r_account }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5.5" cy="5.5" r="2.5"></circle><path d="M2 13.5c.7-2.8 2-4 3.5-4s2.8 1.2 3.5 4"></path><circle cx="11" cy="6.5" r="2"></circle><path d="M11.5 9.6c1.3.3 2 1.5 2.4 3.9"></path></svg></button>
+      <span style="flex:1"></span>
+      <button role="tab" title="Plugins" aria-label="Plugins" onClick="{{ go_plugins }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_plugins }};color:{{ c_plugins }};box-shadow:inset 2px 0 0 {{ r_plugins }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="2.5" width="4.5" height="4.5"></rect><rect x="9" y="2.5" width="4.5" height="4.5"></rect><rect x="2.5" y="9" width="4.5" height="4.5"></rect><rect x="9" y="9" width="4.5" height="4.5" fill="currentColor" stroke="none"></rect></svg></button>
+      <button role="tab" title="Configuration" aria-label="Configuration" onClick="{{ go_config }}" style="width:100%;height:33px;display:grid;place-items:center;border:0;background:{{ bg_config }};color:{{ c_config }};box-shadow:inset 2px 0 0 {{ r_config }}" style-hover="background:#2a2a2c;color:#e8e8e6;transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 5h1.6M7.8 5h5.7M2.5 11h5.7M12.1 11h1.4"></path><circle cx="6" cy="5" r="1.7"></circle><circle cx="10.2" cy="11" r="1.7"></circle></svg></button>
+    </nav>
+  </div>
+
+  <footer style="height:21px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 12px;background:#1a1a1c;border-top:1px solid rgba(0,0,0,.55);font-size:10px;color:#7c7c7a">
+    <span>someone@example.com</span>
+    <span style="font-variant-numeric:tabular-nums">fps 50 · rtt 38ms · ws connected · gate: fiddlesticks</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;runState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;running&quot;,&quot;options&quot;:[&quot;unpaired&quot;,&quot;standby&quot;,&quot;running&quot;,&quot;paused&quot;,&quot;stuck&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Simulation&quot;},&quot;panelWidth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:280,&quot;min&quot;:240,&quot;max&quot;:340,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;showHud&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+class Component extends DCLogic {
+  state = { panel: 'tasks', pinned: null, traceOpen: false, bankOpen: false, secs: 847, resume: 4, rsOverride: null, xpTick: 0, evChar: 'All', evTypes: [], evSkill: 'all', autoTab: 'my', onlineSecs: 5347 };
+  componentDidMount() {
+    this._t = setInterval(() => {
+      const rs = this._rs();
+      this.setState(s => ({
+        onlineSecs: (Number.isFinite(s.onlineSecs) ? s.onlineSecs : 5347) + 1,
+        secs: rs === 'running' ? s.secs + 1 : s.secs,
+        xpTick: (rs === 'running' && s.secs % 3 === 0) ? s.xpTick + 1 : s.xpTick,
+        resume: rs === 'paused' ? (s.resume > 1 ? s.resume - 1 : 4) : s.resume
+      }));
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+  _rs() {
+    const prop = this.props.runState ?? 'running';
+    if (this._lastProp !== prop) { this._lastProp = prop; this.state.rsOverride = null; }
+    return this.state.rsOverride ?? prop;
+  }
+  renderVals() {
+    const rs = this._rs();
+    const running = rs === 'running', paused = rs === 'paused', stuck = rs === 'stuck';
+    const standby = rs === 'standby', unpaired = rs === 'unpaired';
+    const runExists = running || paused || stuck;
+    const set = (o) => this.setState(o);
+    const setRs = (v, extra) => set(Object.assign({ rsOverride: v }, extra || {}));
+    const mm = Math.floor(this.state.secs / 60), ss = String(this.state.secs % 60).padStart(2, '0');
+    const ticks = this.state.xpTick;
+    const titles = { tasks: 'Automation', claude: 'Claude', xp: 'XP Tracker', loot: 'Loot Tracker', events: 'Events', notes: 'Notes', shot: 'Screenshot', bank: 'Bank', account: 'Account', plugins: 'Plugins', config: 'Configuration' };
+    const osec = Number.isFinite(this.state.onlineSecs) ? this.state.onlineSecs : 5347;
+    const oh = Math.floor(osec / 3600), om = Math.floor((osec % 3600) / 60), os = String(osec % 60).padStart(2, '0');
+    const onlineFor = oh > 0 ? oh + ':' + String(om).padStart(2, '0') + ':' + os : om + ':' + os;
+    const outline = '-1px 0 0 #000, 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px -1px 0 #000, 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000';
+    const xpPop = running ? React.createElement('span', {
+      key: 'xp' + ticks,
+      style: { position: 'absolute', left: '50%', top: '20%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 5, animation: 'floatUp 2.6s ease-out forwards', pointerEvents: 'none', whiteSpace: 'nowrap' }
+    }, [
+      React.createElement('span', { key: 'i', style: { width: 9, height: 9, borderRadius: 2, background: '#2e7d32', border: '1px solid #000', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,.25)' } }),
+      React.createElement('span', { key: 'n', style: { fontFamily: 'ui-monospace,Menlo,Consolas,monospace', fontWeight: 700, fontSize: 13, color: '#fff', textShadow: outline } }, '+25')
+    ]) : null;
+    const EV = [
+      { time: '14:07', char: 'shoth4019zr', type: 'level', skill: 'Woodcutting', text: 'Level up! Woodcutting 34 → 35', rail: '#ff981f', bg: 'rgba(255,152,31,.07)', tc: '#ffb95e' },
+      { time: '14:05', char: 'shoth4019zr', type: 'xp', skill: 'Woodcutting', text: '+250 Woodcutting xp · 10 actions', rail: '#43a047', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '13:58', char: 'shoth4019zr', type: 'loot', skill: null, text: 'Bird nest picked up', rail: '#ffb300', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '13:52', char: 'shoth4019zr', type: 'run', skill: null, text: 'Run resumed after you took control', rail: '#4a90d9', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '13:51', char: 'shoth4019zr', type: 'run', skill: null, text: 'Paused — you moved the mouse', rail: '#4a90d9', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '13:44', char: 'shoth4019zr', type: 'loot', skill: null, text: '41 logs gathered this session', rail: '#ffb300', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '13:30', char: 'shoth4019zr', type: 'claude', skill: null, text: 'Claude started Chop and drop', rail: '#7c7c7a', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '13:29', char: 'shoth4019zr', type: 'claude', skill: null, text: 'MacBook session paired', rail: '#7c7c7a', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '12:58', char: 'alt_miner', type: 'xp', skill: 'Mining', text: '+120 Mining xp', rail: '#43a047', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '12:55', char: 'alt_miner', type: 'run', skill: null, text: 'Mine and drop failed — needs a bronze pickaxe', rail: '#e53935', bg: 'transparent', tc: '#ffb300' },
+      { time: '12:40', char: 'shoth4019zr', type: 'bank', skill: null, text: 'Bank updated — 27 / 240 slots used', rail: '#78afeb', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '12:31', char: 'alt_miner', type: 'xp', skill: 'Fishing', text: '+80 Fishing xp', rail: '#43a047', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '12:30', char: 'shoth4019zr', type: 'xp', skill: 'Firemaking', text: '+610 Firemaking xp', rail: '#43a047', bg: 'transparent', tc: '#b4b4b2' },
+      { time: '12:12', char: 'shoth4019zr', type: 'claude', skill: null, text: 'Gateway connected — ws ok', rail: '#7c7c7a', bg: 'transparent', tc: '#b4b4b2' }
+    ];
+    const { evChar, evTypes, evSkill } = this.state;
+    const evFiltered = EV.filter(e =>
+      (evChar === 'All' || e.char === evChar) &&
+      (evTypes.length === 0 || evTypes.includes(e.type)) &&
+      (evSkill === 'all' || e.skill === evSkill));
+    const charChips = ['All', 'shoth4019zr', 'alt_miner'].map(name => {
+      const a = evChar === name;
+      return { label: name, bg: a ? 'rgba(255,152,31,.15)' : 'transparent', c: a ? '#ff981f' : '#7c7c7a', w: a ? 650 : 500, tap: () => set({ evChar: name }) };
+    });
+    const typeChips = [['xp', 'XP'], ['loot', 'Loot'], ['level', 'Levels'], ['run', 'Runs'], ['claude', 'Claude'], ['bank', 'Bank']].map(([t, label]) => {
+      const a = evTypes.includes(t);
+      return {
+        label, bg: a ? 'rgba(255,152,31,.15)' : 'transparent', b: a ? 'rgba(255,152,31,.5)' : 'rgba(255,255,255,.1)', c: a ? '#ff981f' : '#a0a09e',
+        tap: () => set({ evTypes: a ? evTypes.filter(x => x !== t) : evTypes.concat(t) })
+      };
+    });
+    const vals = {
+      charChips, typeChips,
+      events: evFiltered,
+      evEmpty: evFiltered.length === 0,
+      evCount: evFiltered.length, evTotal: EV.length,
+      evSkill,
+      setEvSkill: (e) => set({ evSkill: e.target.value }),
+      clearEvFilters: () => set({ evChar: 'All', evTypes: [], evSkill: 'all' }),
+      panelW: this.props.panelWidth ?? 280,
+      showHud: this.props.showHud ?? true,
+      elapsed: mm + ':' + ss,
+      onlineFor,
+      resume: this.state.resume,
+      logs: (41 + ticks).toLocaleString(),
+      sessionXp: (4180 + ticks * 25).toLocaleString(),
+      xpPop,
+      isRunning: running, isPaused: paused, isStuck: stuck, isStandby: standby, isUnpaired: unpaired,
+      isPaired: !unpaired, isPausedOrStuck: paused || stuck, runExists,
+      dotColor: running ? '#ff981f' : (paused || stuck) ? '#ffb300' : standby ? '#43a047' : '#666',
+      dotGlow: running ? 'rgba(255,152,31,.6)' : (paused || stuck) ? 'rgba(255,179,0,.5)' : standby ? 'rgba(67,160,71,.5)' : 'transparent',
+      dotAnim: running ? 'pulse 1.6s ease-in-out infinite' : 'none',
+      barRule: running ? '#ff981f' : paused ? '#ffb300' : stuck ? '#e53935' : 'rgba(0,0,0,.5)',
+      ruleBg: running ? 'linear-gradient(90deg,#d6780a,#ffb95e,#d6780a)' : paused ? '#ffb300' : stuck ? '#e53935' : 'rgba(0,0,0,.5)',
+      ruleAnim: running ? 'barflow 2.6s linear infinite' : 'none',
+      badgeText: running ? 'Running' : paused ? 'Paused' : 'Stuck',
+      badgeBg: running ? 'rgba(255,152,31,.16)' : 'rgba(255,179,0,.14)',
+      badgeColor: running ? '#ff981f' : '#ffb300',
+      statusLine: running ? 'Chopping the nearest tree · Woodcutting 34'
+        : paused ? 'You took control — resumes in ' + this.state.resume + 's. Esc pauses again any time.'
+        : 'Stuck on Chop tree · no Tree within 12 tiles. Open the trace and paste it to Claude.',
+      pillText: unpaired ? '● not paired' : running ? '● claude driving' : '● claude paired',
+      pillColor: unpaired ? '#b4b4b2' : running ? '#ff981f' : '#43a047',
+      pillBorder: unpaired ? 'rgba(128,128,128,.4)' : running ? 'rgba(255,152,31,.4)' : 'rgba(67,160,71,.4)',
+      panelTitle: titles[this.state.panel],
+      canPin: this.state.panel === 'xp' && this.state.pinned !== 'xp',
+      showPinCard: this.state.pinned === 'xp' && this.state.panel !== 'xp',
+      pin: () => set({ pinned: 'xp' }),
+      unpin: () => set({ pinned: null }),
+      traceOpen: this.state.traceOpen,
+      openTrace: () => set({ traceOpen: true }),
+      closeTrace: () => set({ traceOpen: false }),
+      bankOpen: this.state.bankOpen,
+      openBank: () => set({ bankOpen: true }),
+      closeBank: () => set({ bankOpen: false }),
+      startRun: () => setRs('running', { panel: 'tasks', autoTab: 'my' }),
+      onTasksTab: this.state.autoTab === 'my',
+      onMarketTab: this.state.panel === 'tasks' && this.state.autoTab === 'market',
+      tabMy: () => set({ autoTab: 'my' }),
+      tabMarket: () => set({ autoTab: 'market' }),
+      tabMyBg: this.state.autoTab === 'my' ? 'rgba(255,152,31,.15)' : 'transparent',
+      tabMyC: this.state.autoTab === 'my' ? '#ff981f' : '#7c7c7a',
+      tabMyW: this.state.autoTab === 'my' ? 650 : 500,
+      tabMarketBg: this.state.autoTab === 'market' ? 'rgba(255,152,31,.15)' : 'transparent',
+      tabMarketC: this.state.autoTab === 'market' ? '#ff981f' : '#7c7c7a',
+      tabMarketW: this.state.autoTab === 'market' ? 650 : 500,
+      pauseRun: () => setRs('paused', { resume: 4 }),
+      stopRun: () => setRs('standby'),
+      plugins: [
+        { name: 'XP Tracker', desc: 'Per-skill XP, xp/h, actions to next level.', on: true, always: false },
+        { name: 'Loot Tracker', desc: 'Items gained this session.', on: true, always: false },
+        { name: 'Notes', desc: 'A per-character scratchpad.', on: false, always: false },
+        { name: 'Status HUD', desc: 'HP, prayer and run energy over the game.', on: true, always: false },
+        { name: 'Claude', desc: 'Pair and manage your Claude session.', on: true, always: true }
+      ],
+      bankSlots: ([
+        { img: 'https://oldschool.runescape.wiki/images/Coins_10000.png', alt: 'Coins', n: '250K', tone: '#00ff80' },
+        { img: 'https://oldschool.runescape.wiki/images/Logs.png', alt: 'Logs', n: '41', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Bronze_axe.png', alt: 'Bronze axe', n: '1', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Bronze_pickaxe.png', alt: 'Bronze pickaxe', n: '1', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Tinderbox.png', alt: 'Tinderbox', n: '1', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Small_fishing_net.png', alt: 'Small fishing net', n: '1', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Raw_shrimps.png', alt: 'Raw shrimps', n: '30', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Bread.png', alt: 'Bread', n: '3', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Bronze_sword.png', alt: 'Bronze sword', n: '1', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Wooden_shield.png', alt: 'Wooden shield', n: '1', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Air_rune.png', alt: 'Air rune', n: '25', tone: '#ffff00' },
+        { img: 'https://oldschool.runescape.wiki/images/Water_rune.png', alt: 'Water rune', n: '30', tone: '#ffff00' },
+        { img: '', alt: '', n: '', tone: '#fff' }, { img: '', alt: '', n: '', tone: '#fff' }, { img: '', alt: '', n: '', tone: '#fff' }, { img: '', alt: '', n: '', tone: '#fff' }
+      ]).map(s => Object.assign({}, s, {
+        icon: s.img ? React.createElement('img', { src: s.img, alt: s.alt, style: { width: 27, height: 24, objectFit: 'contain', imageRendering: 'pixelated' } }) : null
+      }))
+    };
+    const ids = ['tasks', 'claude', 'xp', 'loot', 'events', 'notes', 'shot', 'bank', 'account', 'plugins', 'config'];
+    for (const id of ids) {
+      const a = this.state.panel === id;
+      vals['is_' + id] = a;
+      vals['bg_' + id] = a ? '#232325' : 'transparent';
+      vals['c_' + id] = a ? '#ff981f' : '#9a9a98';
+      vals['r_' + id] = a ? '#ff981f' : 'transparent';
+      vals['go_' + id] = () => set({ panel: id });
+    }
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# deploy/cloudflared/config.yml.template — cloudflared config for the `idlescape` tunnel,
+# routing the product's public hostname to the front server (NOT the engine directly; the
+# front server proxies to the engine and serves web/dist + client/out).
+#
+# __TUNNEL_ID__ and __CREDENTIALS_FILE__ are substituted by deploy/windows/install-tunnel.ps1
+# using the existing `idlescape` tunnel (id 00000000-0000-0000-0000-000000000000) and its
+# credentials/cert, already created for the live PoC via `cloudflared tunnel login` +
+# `cloudflared tunnel create`. This template does not itself contain the tunnel id or
+# credentials path -- those are filled in only in the copy written under the SYSTEM profile's
+# .cloudflared directory at deploy time, never committed.
+tunnel: __TUNNEL_ID__
+credentials-file: __CREDENTIALS_FILE__
+ingress:
+  - hostname: osrs.scotho.com
+    service: http://localhost:8787
+    originRequest:
+      noTLSVerify: true
+  - service: http_status:404

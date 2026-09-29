@@ -1,0 +1,20 @@
+[dragonaxeshop]
+scope=shared
+size=40
+restock=yes
+stackall=yes
+allstock=no
+stock1=dragon_battleaxe,2,500
+stock2=dragon_mace,2,500
+// https://web.archive.org/web/20050212165608/http://www.tip.it/runescape/index.php?page=rs2gld_heroes.htm
+// https://web.archive.org/web/20060710190735/http://tip.it/runescape/?page=heros_guild.htm
+// http://web.archive.org/web/20061012140532/http://tip.it/runescape/?page=heros_guild.htm
+
+[fixture_generalshop]
+scope=shared
+size=40
+restock=yes
+stackall=yes
+allstock=yes
+stock1=pot_empty,5,100
+stock2=jug_empty,2,100

@@ -1,0 +1,170 @@
+/* idlescape design tokens, shell v2.
+   Sections 1 to 4 are the vendored bundle verbatim, in the bundle's own order:
+   docs/design/idlescape-shell-v2/tokens/{colors,typography,spacing,motion}.css. When a value here
+   and a value there disagree, the bundle wins and styles/tokens.test.ts is what says so.
+   typography.css's `@import url(fonts.googleapis.com/...)` is deliberately NOT copied: the font is
+   already linked from web/index.html and web/styleguide.html, the two pages that render the
+   wordmark, and a CSS-level @import inside a bundled stylesheet is a second render-blocking
+   request for the same file. web/play.html is the untouched client frame and needs no link.
+   Sections 5 to 8 are ours: the stacking lanes, the frame geometry the mock uses and the bundle
+   gives no token for, the extra radii and control heights, and the colours the mock hard-codes
+   (ruling R18). Section 9 is the legacy RGB-triplet layer, kept while the stylesheets that call
+   `rgb(var(--rl-x))` are converted one surface at a time. */
+:root {
+  color-scheme: dark;
+
+  /* ---- 1. Colours (tokens/colors.css) ------------------------------------------ */
+  /* Surfaces, darkest to lightest */
+  --ground: #111112;        /* page behind the frame */
+  --frame: #18181a;         /* frame body */
+  --sunken: #141416;        /* inputs, wells, tab rails */
+  --bar: #1a1a1c;           /* headers, strips, footers */
+  --panel: #1e1e20;         /* side panel ground */
+  --card: #232325;          /* cards, raised rows */
+  --card-grad: linear-gradient(180deg, #242426, #1f1f21);
+  --control: #2e2e2d;       /* buttons at rest */
+  --control-hover: #3a3a38;
+  /* Hairlines and edges */
+  --hairline: rgba(255,255,255,.07);
+  --hairline-soft: rgba(255,255,255,.05);
+  --hairline-strong: rgba(255,255,255,.12);
+  --edge: rgba(0,0,0,.55);  /* borders between chrome regions */
+  /* Text ramp */
+  --text-strong: #e8e8e6;
+  --text: #b4b4b2;
+  --text-muted: #7c7c7a;
+  --text-faint: #575755;
+  --text-disabled: #4e4e4c;
+  /* The one accent */
+  --accent: #ff981f;
+  --accent-bright: #ffb95e;
+  --accent-deep: #d6780a;
+  --accent-grad: linear-gradient(180deg, #ffa63a, #f28c0e);
+  --on-accent: #1c1300;
+  --accent-tint: rgba(255,152,31,.15);
+  --accent-glow: rgba(255,152,31,.28);
+  /* Semantic tones */
+  --ok: #43a047; --ok-bright: #6ec873; --ok-pop: #7ddc84;
+  --warn: #ffb300;
+  --error: #e53935;
+  --danger: #a02828; --danger-deep: #781c1c; --danger-hover: #b93030;
+  --info: #4a90d9; --info-bright: #78afeb;
+  /* HUD meters */
+  --hp: #c0392b; --hp-bright: #e05a4b;
+  --prayer: #2980b9; --prayer-bright: #4aa3dc;
+  --run: #27ae60; --run-bright: #43ca7e;
+  /* Semantic aliases */
+  --surface-page: var(--ground);
+  --surface-card: var(--card);
+  --text-body: var(--text);
+  --border-card: var(--hairline);
+  --focus-ring: 0 0 0 3px rgba(255,152,31,.18);
+  --overlay-scrim: rgba(0,0,0,.62);
+
+  /* ---- 2. Typography (tokens/typography.css) ----------------------------------- */
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-num: ui-monospace, Menlo, Consolas, monospace;   /* all digits: timers, counters, counts */
+  --font-pixel: "Pixelify Sans", ui-monospace, monospace; /* game voice: wordmark + canvas caption only */
+  --fs-label: 9.5px;   /* uppercase section labels */
+  --fs-micro: 10px;    /* metadata, footers */
+  --fs-tiny: 10.5px;   /* chips, pills, hud */
+  --fs-small: 11px;    /* body-secondary, descriptions */
+  --fs-base: 12px;     /* panel body */
+  --fs-md: 12.5px;     /* panel titles */
+  --fs-emph: 13.5px;   /* empty-state titles */
+  --fs-title: 14.5px;  /* run-card script name */
+  --fs-brand: 16px;    /* wordmark */
+  --lh: 1.45;
+  --label-tracking: .09em;
+  /* Two names the shipped stylesheets still call, at values the bundle did not change. */
+  --fs-xs: var(--fs-micro);
+  --fs-sm: var(--fs-small);
+
+  /* ---- 3. Spacing, radii, control metrics (tokens/spacing.css) ------------------ */
+  --sp-1: 2px; --sp-2: 3px; --sp-3: 4px; --sp-4: 6px;
+  --sp-5: 8px; --sp-6: 10px; --sp-7: 12px; --sp-8: 14px;
+  --r-pill-sm: 3px;   /* canvas pills */
+  --r-ctl: 6px;       /* buttons, inputs */
+  --r-seg: 7px;       /* segmented container (inner 5px) */
+  --r-card: 8px;
+  --r-window: 10px;   /* floating windows */
+  --r-badge: 10px;    /* full round on badges/tags */
+  --ctl-h-xs: 22px;   /* row actions, segmented tabs */
+  --ctl-h-sm: 25px;   /* card actions */
+  --ctl-h: 27px;      /* bar buttons */
+  --ctl-h-lg: 29px;   /* panel-width primary */
+  --panel-w: 280px;
+  --strip-w: 40px;
+
+  /* ---- 4. Motion (tokens/motion.css; the keyframes live in motion.css) ---------- */
+  --dur: .13s;
+  --ease: ease;
+
+  /* ---- 5. The stacking scale, as six named lanes -------------------------------- */
+  /* Nothing in the shell writes a bare z-index; a new floating surface takes one of these or it
+     is a design question, not a CSS one. --z-window is the lane for a window docked over the
+     canvas column; --z-stage-window is the lane for a window over the whole stage. There is
+     deliberately no third window lane: two stage windows are ordered by DOM order, with the most
+     recently opened appended last, which is how the stage already orders siblings (D26, D48). */
+  --z-overlay: 5;          /* canvas pills, the HUD stack, the xp drop */
+  --z-panel: 10;           /* side panel chrome and strip tooltips */
+  --z-window: 20;          /* the co-pilot bar and anything docked in the canvas column */
+  --z-stage-window: 30;    /* .window: the bank window, the trace pop-out, the Script Studio */
+  --z-toast: 40;
+  --z-dialog: 50;          /* <dialog>, which is the only thing above a stage window */
+
+  /* ---- 6. Frame geometry the mock uses and the bundle gives no token for -------- */
+  --title-h: 28px;
+  --foot-h: 21px;
+  --tabs-h: 32px;
+  --bar-h: 42px;          /* co-pilot bar */
+  --panel-head-h: 34px;
+  --strip-btn-h: 33px;
+
+  /* ---- 7. Radii and control heights the mock uses outside the declared scale ---- */
+  --r-ctl-sm: 5px;        /* segmented inner button, bank footer controls */
+  --ctl-h-quiet: 23px;    /* panel-header Pin, XP Reset, bank footer buttons */
+  --ctl-h-tiny: 24px;     /* window header controls, Events "Clear filters" */
+
+  /* ---- 8. Colours the mock uses without a bundle token (ruling R18) ------------- */
+  --window: #202022;            /* floating window ground: trace pop-out, bank, studio (D29) */
+  --chrome-bar: #1b1b1d;        /* char tab bar, window headers */
+  --chrome-tab-active: #28282a; /* active char tab gradient top */
+  --chrome-hover: #2a2a2c;      /* strip button hover */
+  --track: #2c2c2e;             /* meter track, event character badge */
+  --kbd-border: #3e3e3c;
+  --dot-idle: #666666;          /* unpaired co-pilot dot */
+  --glyph-rest: #9a9a98;        /* resting strip glyph */
+  --text-quiet: #a0a09e;        /* outline button label, tag, neutral badge, inactive char tab */
+  --error-text: #f07370;
+  --xp-chip: #2e7d32;
+  --count-stack: #ffff00;
+  --count-large: #00ff80;
+  --bank-ground: #252220;
+  --bank-head: #2c2925;
+  --bank-tab-active: #33302c;
+  --bank-well: #171513;
+  --bank-dash: #4e4a44;
+  --shot-a: #141414;
+  --shot-b: #191919;
+  --canvas-a: #0a0a0a;
+  --canvas-b: #0d0d0d;
+
+  /* ---- 9. The legacy RGB-triplet layer ----------------------------------------- */
+  /* Every stylesheet that has not been converted yet calls these through rgb()/rgba(). Each
+     surface drops its share as its own task converts it; the last one to go takes this block.
+     Nine are left and every one of them is called by a stylesheet. The ten that were not
+     (`window`, `orange-deep`, `ok`, `warn`, `error`, `info`, `danger`, `hp`, `prayer`, `run`)
+     went in entry 4's fix wave, where the styleguide's own colour swatches were the only thing
+     keeping them alive. `tokens.test.ts` now fails on a triplet no stylesheet calls, so this
+     block empties itself as surfaces convert rather than waiting on somebody to remember. */
+  --rl-border: 17, 17, 17;
+  --rl-darker: 30, 30, 30;
+  --rl-panel: 40, 40, 40;
+  --rl-hover: 50, 50, 50;
+  --rl-raised: 60, 60, 60;
+  --rl-muted: 128, 128, 128;
+  --rl-text: 176, 176, 176;
+  --rl-strong: 230, 230, 230;
+  --rl-orange: 255, 152, 31;
+}

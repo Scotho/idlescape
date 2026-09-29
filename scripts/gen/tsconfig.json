@@ -1,0 +1,21 @@
+// Static checking for the generators. Bun runs `scripts/gen/*.ts` by stripping types without
+// checking them, and web/tsconfig.json only covers `web/src`, so without this project the IO
+// half of every generator is unchecked. scripts/build.ps1 runs it from web/, whose TypeScript
+// and DOM lib this borrows; the Bun half (`import.meta.dir` in lib/io.ts) comes from the
+// bun-types that server/ already depends on, which is why typeRoots reaches across to it.
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["bun-types"],
+    "typeRoots": ["../../server/node_modules", "../../server/node_modules/@types"]
+  },
+  "include": ["**/*.ts"]
+}

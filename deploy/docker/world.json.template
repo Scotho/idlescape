@@ -1,0 +1,9 @@
+{
+    "website": { "registration": false },
+    "web": { "port": 8899, "allowedOrigin": "__WEB_ALLOWED_ORIGIN__", "managementPort": 8897 },
+    "node": { "port": 43596, "profile": "main", "debug": false, "production": true },
+    "login": { "enabled": false },
+    "friend": { "enabled": false },
+    "logger": { "enabled": false },
+    "db": { "backend": "sqlite" }
+}

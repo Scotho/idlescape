@@ -1,0 +1,20 @@
+* text=auto
+*.sh text eol=lf
+*.yml text eol=lf
+*.template text eol=lf
+
+# collision.bin is generated binary. `text=auto` would only spare it while git happens to
+# find a NUL early, and a CR injected on checkout breaks `bun scripts/gen/collision.ts --check`.
+*.bin binary
+
+# .pack files are the pack-id pin (sprint spec section 3, content-custom/pack/*.pack). Under
+# `* text=auto` git checks them out CRLF on Windows, and the engine's PackFileBase.save() joins
+# with '\n' while FsCache.writeFileIfChanged compares exact text, so the first pack run rewrites
+# the file to LF. That is a byte change, so tools/pack/packGuard.ts names it and BuildOverlay.ts
+# exits 1 with a message about obj-id renumbering: a false positive that accuses the operator of
+# corrupting bank data, on nothing worse than a fresh clone. Whether save() runs at all depends on
+# PackFile.ts's mtime check, so it is intermittent, which is worse. `text eol=lf` closes both
+# directions: the blob is canonical LF because a CRLF working-tree line is normalised on `git add`,
+# and every checkout lands LF on every platform. `-text` would close only the checkout half, and
+# sprint entries 10 and 11 append `<id>=<name>` lines to these files by hand.
+*.pack text eol=lf

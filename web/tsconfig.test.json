@@ -1,0 +1,21 @@
+{
+  // The test program. Audit C16: the 134 test files under src/ were in no tsconfig at all, and
+  // vitest transpiles with esbuild without typechecking, so a test could drift from a changed
+  // interface and the gate stayed green. 133 of them are here; the 134th is under src/vendor and
+  // is carved out below. No `types` entry is needed for vitest globals: all 134 import describe,
+  // test and expect from 'vitest' explicitly. Inheriting types: ["vite/client"] from the base is
+  // right, because the tests import src/ modules that read import.meta.env.
+  //
+  // Ten harness files under src/ come with them, one of which (tasks/library/tutorialIsland/
+  // harness.ts) has no `.harness` infix, which is why there are two harness globs here and two in
+  // tsconfig.json's exclude. Measured: in tsconfig.json's exclude the second glob is load-bearing
+  // (drop it and that harness is back in the shipped program), while here it is insurance, because
+  // every harness is imported by a test that this include already names. It earns its place the
+  // day someone writes a harness no test imports yet. web/e2e/harness.ts is covered by
+  // tsconfig.e2e.json instead.
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*.test.ts", "src/**/*.harness.ts", "src/**/harness.ts", "src/test/**/*.ts"],
+  // The same carve-out eslint.config.js already has: vendored rs-sdk, whose deviations from
+  // upstream are logged in src/vendor/PATCHES.md and whose casts are not ours to answer for.
+  "exclude": ["src/vendor/**"]
+}

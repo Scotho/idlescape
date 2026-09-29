@@ -1,0 +1,76 @@
+/* Input, Select, Textarea, Checkbox. docs/design/idlescape-shell-v2/components/forms/*.jsx and
+   map-design.md sections 2.8 to 2.11. Focus (the orange border plus the 3px wash) comes from
+   base.css and is never restated here.
+
+   The mock draws inputs at five heights (23, 24, 25, 27, 29). 27 is the component and the rest
+   are size modifiers, not new components; the bank's 23px search is bank-local and lands in
+   layout/bank.css with Task 17 rather than as a sixth size.
+
+   The segmented control and the filter chip are forms components by behaviour and live in
+   tab.css: families.ts gives `seg` and `chip` to that file, with the character tabs they share a
+   shape with. Their styleguide demos stay in #forms, where a reader expects them. */
+.input, .select, .textarea {
+  width: 100%; box-sizing: border-box;
+  background: var(--sunken); border: 1px solid var(--hairline);
+  border-radius: var(--r-ctl); color: var(--text-strong);
+  font-family: var(--font-ui);
+}
+.input  { height: var(--ctl-h); padding: 0 11px; font-size: var(--fs-base); }
+.select { height: var(--ctl-h); padding: 0 7px;  font-size: var(--fs-small); width: auto; }
+.textarea { padding: 9px; font-size: var(--fs-base); resize: vertical; }
+.textarea.code, .input.mono { font-family: var(--font-num); }
+.textarea.code { padding: 8px 9px; font-size: var(--fs-small); }
+.input.mono { font-size: var(--fs-micro); }
+
+.input-lg    { height: var(--ctl-h-lg); }
+.input-sm    { height: var(--ctl-h-sm); padding: 0 9px; font-size: var(--fs-small); }
+.input-quiet { height: var(--ctl-h-tiny); padding: 0 9px; font-size: var(--fs-small); }
+.select-sm   { height: var(--ctl-h-sm); font-size: var(--fs-small); }
+
+.input::placeholder, .textarea::placeholder { color: var(--text-muted); }
+.input[readonly], .textarea[readonly] { color: var(--text); }
+.input:disabled, .select:disabled, .textarea:disabled { opacity: .35; cursor: not-allowed; }
+.input[aria-invalid="true"] { border-color: var(--error); }
+
+/* The three element-level compounds the shipped shell still emits. `.input` on a <textarea> or a
+   <select> predates the v2 family and eleven call sites carry it; each one converts with its own
+   surface. Until then the height the component takes has to be given back to a textarea, or the
+   two snippet boxes (rows=3 and rows=12) collapse to one 27px line. */
+textarea.input { height: auto; padding: 9px; font-size: var(--fs-base); resize: vertical; }
+.select, select.input {
+  appearance: none; padding-right: 24px; cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23a0a09e' stroke-width='1.5'/></svg>");
+  background-repeat: no-repeat; background-position: right 8px center;
+}
+.select option, select.input option { background: var(--sunken); }
+/* Two typed controls that size to their content rather than to the row (settingsForm.ts, and the
+   number field in a task's parameter form). Both out-specify `.field-inline > .input` below. */
+input[type="color"].input { padding: 2px; width: 40px; height: var(--ctl-h-tiny); }
+input[type="number"].input { width: 72px; }
+
+/* The Plugins panel's search box. The mock draws that search as a plain 29px input with no
+   magnifier (map-design 2.8), so this class is on its way out; it stays until Task 20 rebuilds
+   that panel, because pluginsPanel.ts still emits it. */
+.input-search { padding-left: 26px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><circle cx='5' cy='5' r='3.5' fill='none' stroke='%237c7c7a' stroke-width='1.5'/><path d='M8 8l3 3' stroke='%237c7c7a' stroke-width='1.5'/></svg>"); background-repeat: no-repeat; background-position: 8px center; }
+
+/* Checkbox: the native control with an accent colour, which is what the mock draws. The element
+   selector carries it too, because most of the shell's checkboxes are built by `h()` with no
+   class at all and a bare one renders in the browser's own blue. */
+input[type="checkbox"], .switch { accent-color: var(--accent); width: 15px; height: 15px; flex: none; cursor: pointer; }
+input[type="checkbox"]:disabled, .switch:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Field: label above the control, hint or error below. `.field-inline` is the same row turned
+   sideways, and it is self-sufficient: config.ts and the styleguide's panel rows wear it without
+   `.field`, and the mock's own Configuration row is exactly this shape. */
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field-inline { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 6px; min-height: var(--ctl-h-tiny); }
+.field-label { color: var(--text-muted); font-size: var(--fs-micro); }
+.field-inline > .field-label { flex: 1; }
+.field-inline > .input, .field-inline > .select { width: auto; max-width: 55%; }
+.field-hint { color: var(--text-muted); font-size: var(--fs-small); }
+.field-error { color: var(--error-text); font-size: var(--fs-small); }
+
+/* Inline message lines under a form. One line of coloured text, not the boxed `.alert`. */
+.error { color: var(--error-text); font-size: var(--fs-base); }
+.notice { color: var(--ok); font-size: var(--fs-base); text-align: center; }
+.notice-warn { color: var(--warn); font-size: var(--fs-small); text-align: center; }

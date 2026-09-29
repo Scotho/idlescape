@@ -1,0 +1,51 @@
+<section id="screen-frame" class="frame hidden">
+  <header class="frame-title">
+    <span class="title-left"><span class="brand">idlescape</span><a class="title-link" href="/wiki" target="_blank" rel="noopener" title="Open the wiki in a new tab">Wiki</a></span>
+    <span id="title-centre" class="title-centre"></span>
+  </header>
+  <nav id="character-tabs" class="char-tabs"></nav>
+  <div class="frame-body">
+    <!-- The co-pilot bar is chrome, not an overlay: three siblings above the stage, because the
+         bar is an atomic role="status" and neither the detail row nor the rule belongs inside
+         a live region (plan Task 14, and layout/frame.css says why .frame-body is a column). -->
+    <div id="copilot-bar" class="copilot-bar" role="status"></div>
+    <div id="copilot-detail" class="copilot-detail" hidden></div>
+    <div id="copilot-rule" class="copilot-rule" data-state="idle"></div>
+    <div id="stage" class="stage">
+      <div id="canvas-wrap" class="canvas-wrap">
+        <!-- One same-origin /play.html iframe per opened character (SP7); the canvas lives inside them. -->
+        <div id="client-frames" class="client-frames"></div>
+        <div id="overlays" class="overlays"></div>
+        <div id="plugin-overlays" class="plugin-overlays"></div>
+        <!-- The bank window mounts here (SP8b): a centred window over the stage, not a side panel. -->
+        <div id="bank-host" class="bank-host"></div>
+        <!-- The trace pop-out mounts here (Task 16): docked bottom right, over the canvas. -->
+        <div id="trace-host" class="trace-host"></div>
+        <div id="toasts"></div>
+        <div id="offline-card" class="offline hidden" role="status">
+          <h2>World offline</h2>
+          <p>Retrying in <span id="offline-count">10</span>s</p>
+        </div>
+      </div>
+      <aside id="side-panel" class="side-panel hidden" aria-live="polite">
+        <!-- The pinned XP card sits ABOVE the panel header, INSIDE the panel (map-design 3.8), so it
+             is hidden with the aside whenever no panel is open; `pinGuards` in frame/pinnedTracker.ts
+             says so out loud and stops the card's tick to match. Task 19 fills it. -->
+        <div id="pinned-tracker" class="pinned-tracker hidden"></div>
+        <div class="panel-header">
+          <span id="panel-icon" class="panel-icon" aria-hidden="true"></span>
+          <b id="panel-title"></b>
+          <button id="panel-pin" class="btn btn-outline btn-quiet hidden" type="button">Pin</button>
+          <button id="panel-back" class="btn btn-icon btn-icon-lg" type="button" aria-label="Close panel">×</button>
+        </div>
+        <div id="panel-body" class="panel-body"></div>
+      </aside>
+      <!-- Icon strip is built dynamically from enabled shell plugins (SP2a rebuildStrip). -->
+      <nav id="icon-strip" class="icon-strip" aria-label="Panels"></nav>
+    </div>
+  </div>
+  <footer class="frame-foot">
+    <span id="foot-left"></span>
+    <span id="foot-right" class="num"></span>
+  </footer>
+</section>

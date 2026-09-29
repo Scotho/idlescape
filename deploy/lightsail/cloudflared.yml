@@ -1,0 +1,13 @@
+# deploy/lightsail/cloudflared.yml -- locally-managed config for the tunnel run by the cloudflared
+# container in deploy/docker/docker-compose.yml. Mounted read-only at /etc/cloudflared/config.yml;
+# the credentials JSON is mounted beside it from the box's secrets directory
+# (TUNNEL_CREDENTIALS_FILE in compose.env). `server` resolves inside the compose network to the
+# front server container.
+#
+# This is the public template. Put your own tunnel id and hostname here.
+tunnel: 00000000-0000-0000-0000-000000000000
+credentials-file: /etc/cloudflared/credentials.json
+ingress:
+  - hostname: play.example.com
+    service: http://server:8787
+  - service: http_status:404

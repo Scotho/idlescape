@@ -1,0 +1,21 @@
+<!-- @dsCard group="Components" viewport="700x340" subtitle="Icon strip and character tabs" name="Navigation" -->
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{padding:14px}</style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = (() => { for (const k of Object.keys(window)) { try { const v = window[k]; if (v && typeof v === "object" && v.Button && v.Icon) return v; } catch (e) {} } return {}; })();
+const { StripButton, CharTab } = NS;
+function Demo(){
+  const [active, setActive] = React.useState("automation");
+  const icons = [["automation","Automation"],["claude","Claude"],["xp","XP Tracker"],["loot","Loot Tracker"],["events","Events"],["bank","Bank"],["account","Account"],["plugins","Plugins"],["config","Configuration"]];
+  return <div style={{display:"flex",gap:16,alignItems:"flex-start"}}>
+    <div style={{width:40,background:"var(--bar)",borderRadius:6,padding:"6px 0",display:"flex",flexDirection:"column",gap:1}}>{icons.map(([n,l]) => <StripButton key={n} icon={n} label={l} active={active===n} dot={n==="automation"?"accent":undefined} onClick={()=>setActive(n)} />)}</div>
+    <div style={{height:32,display:"flex",gap:3,background:"var(--bar)",borderRadius:6,padding:"0 6px"}}><CharTab name="shoth4019zr" status="1:29:07" tone="ok" active /><CharTab name="alt_miner" status="offline" tone="idle" /><CharTab name="+ New character" tone="none" /></div>
+  </div>; }
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script></body></html>

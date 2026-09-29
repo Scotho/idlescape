@@ -1,0 +1,10 @@
+{
+  "base": "2b62ae68dfed02b441bae47987a01d6bcbaeb358",
+  "files": [
+    { "path": "pack/obj.pack", "kind": "replace", "baseSha256": "358E01A1F2E3751E3D1F8C6704B2F248F8F160567A73EDDFC53FEEAAF49C7F77" },
+    { "path": "pack/inv.pack", "kind": "replace", "baseSha256": "841D9E89F6EE89D4316401697C9EED86E2A5F20CB12ECE347CA2DC38133457C6" },
+    { "path": "pack/loc.pack", "kind": "replace", "baseSha256": "326B4B80F62ABCD4B81DD0C6F7AF94E2AB49B5B915E1DFE64FFAB312DF00C291" },
+    { "path": "pack/varp.pack", "kind": "replace", "baseSha256": "BE5D9B325D1E26C06C2643A63D796A922ACC1F4DDE38F1090C0653EE833517D8" },
+    { "path": "scripts/interface_bank/configs/banktab.varp", "kind": "new", "baseSha256": null }
+  ]
+}

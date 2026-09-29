@@ -1,0 +1,37 @@
+/* Per-surface geometry for the trace pop-out (plan Task 16, map-design 3.5).
+   Size and rails only. The stacking lane comes from `.window` (`var(--z-stage-window)`) and the
+   placement from `.window-docked`, both Task 7's; writing either here would be the per-surface
+   one-off the styles rule exists to stop. The element's class list is
+   `window window-docked trace-window`.
+   Converted whole to the v2 tokens in the same commit that popped the trace out, so this file
+   joins tokens.test.ts's CONVERTED list: every literal below is the mock's own. */
+/* The host is a full-cover layer inside the canvas wrap, transparent to clicks everywhere but the
+   window itself, so the game canvas and the plugin overlays under it stay interactive. Same shape
+   as `.bank-host`, and on the stage-window lane the `.window` family already declares. */
+.trace-host { position: absolute; inset: 0; pointer-events: none; z-index: var(--z-stage-window); }
+.trace-window { width: 430px; max-width: calc(100% - 32px); pointer-events: auto; }
+.trace-window .window-body { max-height: 250px; padding: 5px 0; font-family: var(--font-num); font-size: var(--fs-tiny); }
+/* The header is one row: title, script, filter, copy, close. The script name gives way first,
+   because it is the only part of the row a player can lose without losing a control. */
+.trace-window .window-sub { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.trace-window .input { flex: 1; min-width: 0; }
+.trace { display: flex; flex-direction: column; }
+.trace-rows { display: flex; flex-direction: column; }
+.trace-row { padding: 2.5px 10px; color: var(--text); border-left: 2px solid transparent; overflow-wrap: anywhere; }
+.trace-row-open:hover { background: var(--card); }
+/* The expandable line is a real button, so it is stripped back to look like the rows around it. */
+.trace-toggle { display: block; width: 100%; padding: 0; background: none; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.trace-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+/* The kind rails. The mock draws six of the nineteen kinds (map-design 3.5); the other thirteen
+   are assigned by family here, and `truncated` takes the error rail because a dropped trace is
+   data loss the player should see. `attachment` joins the info rail: a filed screenshot is
+   something the run produced for a reader, like the target it settled on. */
+.trace-row[data-kind="task_enter"], .trace-row[data-kind="run_started"] { border-left-color: var(--accent); }
+.trace-row[data-kind="run_done"] { border-left-color: var(--accent); color: var(--text-strong); }
+.trace-row[data-kind="action"], .trace-row[data-kind="target"], .trace-row[data-kind="attachment"] { border-left-color: var(--info); }
+.trace-row[data-kind="xp"], .trace-row[data-kind="item"] { border-left-color: var(--ok); }
+.trace-row[data-kind="log"], .trace-row[data-kind="status"], .trace-row[data-kind="snapshot"] { color: var(--text-muted); }
+.trace-row[data-kind="stuck"], .trace-row[data-kind="paused"], .trace-row[data-kind="health"] { border-left-color: var(--warn); color: var(--warn); }
+.trace-row[data-kind="task_exit"], .trace-row[data-kind="resumed"], .trace-row[data-kind="recovery"], .trace-row[data-kind="human_input"] { border-left-color: var(--text-faint); }
+.trace-row[data-kind="truncated"] { border-left-color: var(--error); color: var(--text-faint); }
+.trace-pre { margin: var(--sp-3) 0 0; padding: var(--sp-3); background: var(--sunken); border: 1px solid var(--hairline); border-radius: var(--r-ctl-sm); color: var(--text); font-size: var(--fs-micro); white-space: pre-wrap; overflow-wrap: anywhere; }

@@ -1,0 +1,112 @@
+/* Everything that floats: the canvas pills, the HUD, the xp drop, the chrome of the two windows
+   over the stage, and the floating menu. Transparency and blur live HERE and nowhere else: never
+   inside a panel. Sources: components/overlay/{OverlayPill,HudPill}.jsx, map-design 2.16, 2.17,
+   3.4, 3.5 and 3.6, note S20, and the window table in the Script Studio spec's section 4.2, which
+   decision D22 makes this family's specification rather than that entry's.
+
+   Task 13 deleted the pre-v2 half of this file: the `.ov` box, the `.ov-status` tones, the
+   `.ov-box` pair and the whole three-column status HUD (`.hud-row`, `.hud-num`, `.hud-boosts`).
+   Both surfaces compose the pills below now, so the family speaks one language over the canvas
+   and there is no second spelling of a pill for a panel to copy. */
+/* The pill. A black scrim, a 1px tone-tinted border, a 3px radius, bold mono, a 2px blur. */
+.ov-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 2px 7px; border-radius: var(--r-pill-sm);
+  background: var(--overlay-scrim); border: 1px solid rgba(128,128,128,.4);
+  color: var(--text); font-family: var(--font-num); font-weight: 700; font-size: var(--fs-tiny);
+  white-space: nowrap; backdrop-filter: blur(2px);
+}
+.ov-pill-accent  { border-color: rgba(255,152,31,.35); color: var(--accent); }
+.ov-pill-ok      { border-color: rgba(67,160,71,.4);   color: var(--ok); }
+.ov-pill-warn    { border-color: rgba(255,179,0,.4);   color: var(--warn); }
+.ov-pill-error   { border-color: rgba(229,57,53,.4);   color: var(--error); }
+.ov-pill-neutral { border-color: rgba(128,128,128,.4); color: var(--text); }
+/* The two canvas corner pills draw one step larger, and the accent one one step brighter. */
+.ov-pill-corner { padding: 3px 8px; font-size: var(--fs-small); }
+.ov-pill-corner.ov-pill-accent { border-color: rgba(255,152,31,.4); }
+
+/* The three pills the frame itself draws, and the only placement this family states rather than
+   leaving to the caller: map-design 3.4 pins the xp/h line and the pairing pill to opposite top
+   corners at 10px. The status line is the one reading the mock does not draw at all, because its
+   four session strings move onto the co-pilot bar in Task 14 (plan ruling R5); until they do it
+   sits one pill height below the xp line, in the same column, so the two never overlap. */
+.ov-xp, .ov-status, .ov-pairing { position: absolute; }
+.ov-xp { top: 10px; left: 10px; }
+.ov-status { top: 36px; left: 10px; }
+.ov-pairing { top: 10px; right: 10px; }
+
+/* The HUD stack places ITSELF, because its host is the plugin overlay layer (layout/panels.css),
+   which is a full-bleed transparent box for exactly this reason: a host with offsets of its own
+   would resolve these two against that box instead of against the canvas. */
+.hud-stack { position: absolute; top: 42px; right: 10px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; animation: popIn .2s ease; }
+.hud-pill { border-width: 1px; }
+.hud-pill-hp     { border-color: rgba(192,57,43,.45); }
+.hud-pill-prayer { border-color: rgba(41,128,185,.45); }
+.hud-pill-run    { border-color: rgba(39,174,96,.45); }
+/* The pill's own internals. They stay written as `.hud-pill` descendants now that the pre-v2 HUD
+   is gone: `.hud-label`, `.hud-bar` and `.hud-fill` are generic enough that a future surface
+   could want its own, and inside the pill is the only place these three geometries are true. */
+.hud-pill .hud-label { font-family: var(--font-num); font-weight: 700; font-size: var(--fs-tiny); }
+.hud-pill .hud-bar { width: 42px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.14); overflow: hidden; }
+.hud-pill .hud-fill { display: block; height: 100%; }
+.hud-pill-hp .hud-label     { color: var(--hp-bright); }
+.hud-pill-prayer .hud-label { color: var(--prayer-bright); }
+.hud-pill-run .hud-label    { color: var(--run-bright); }
+.hud-fill-hp { background: var(--hp); }
+.hud-fill-prayer { background: var(--prayer); }
+.hud-fill-run { background: var(--run); }
+.hud-value { color: #fff; font-family: var(--font-num); font-weight: 700; font-size: var(--fs-tiny); }
+
+/* The xp drop. Spawns top-centre of the canvas and remounts per tick, so the animation restarts. */
+.xp-drop { position: absolute; left: 50%; top: 20%; transform: translateX(-50%); display: flex; align-items: center; gap: 5px; pointer-events: none; white-space: nowrap; animation: floatUp 2.6s ease-out forwards; }
+.xp-drop-chip { width: 9px; height: 9px; border-radius: 2px; background: var(--xp-chip); border: 1px solid #000; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+.xp-drop-value {
+  font-family: var(--font-num); font-weight: 700; font-size: 13px; color: #fff;
+  text-shadow: -1px 0 0 #000, 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px -1px 0 #000, 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000;
+}
+
+/* Window chrome, shared by the trace pop-out, the bank window and (sprint entry 6) the Script
+   Studio. The FAMILY DEFAULT is the neutral window; the bank's warm identity is a modifier, and
+   placement is a modifier. Studio spec section 4.2 is the table these four splits come from: the
+   two shipped windows disagree on ground, header, shadow and placement and on nothing else, so
+   everything not listed as a modifier below is a genuine transcription both of them share. */
+.window {
+  position: absolute; z-index: var(--z-stage-window);
+  display: flex; flex-direction: column;
+  background: var(--window); border: 1px solid rgba(255,255,255,.08); border-radius: var(--r-window);
+  box-shadow: 0 18px 50px rgba(0,0,0,.6);
+  overflow: hidden; animation: popIn .18s ease;
+}
+/* The bank's warm identity, and the only modifier that repaints the family. */
+.window-warm { background: var(--bank-ground); box-shadow: 0 20px 60px rgba(0,0,0,.65); }
+/* Placement. A surface picks exactly one; `layout/<surface>.css` supplies the size. */
+.window-docked  { right: 16px; bottom: 16px; }
+.window-centred { left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.window-head { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: var(--chrome-bar); border-bottom: 1px solid rgba(0,0,0,.5); }
+/* The two head modifiers, and they sit AFTER the rule they beat rather than up with the
+   modifier that owns them: both are (0,2,0) against a (0,1,0) `.window-head`, so a browser
+   settles them on specificity, and nothing in a jsdom cascade can read a specificity claim.
+   Following `.window-head` makes each an ORDER claim as well, which cascade.builders.test.ts
+   can prove. */
+.window-warm > .window-head { background: linear-gradient(180deg, var(--bank-head), var(--bank-ground)); }
+.window-centred > .window-head { padding: 8px 12px; }
+.window-title { color: var(--text-strong); font-weight: 650; }
+.window-sub { color: var(--text-muted); }
+/* Every window chrome control is 24px, which is `.btn-icon`'s geometry and not the panel
+   header's 26px `.btn-icon-lg` (Task 8 Step 2). The close is worn as `btn btn-icon window-close`:
+   the button family supplies the chrome, and this is the one NAME Tasks 16 and 17 both reach for
+   instead of writing `.trace-close` and `.bank-close` in two layout files. It restates the
+   geometry so a header that forgets `.btn-icon` still draws its close at the right size. The
+   hover ground is the token, not the mock's raw #2e2e2d, which is what --control already holds. */
+.window-close { width: var(--ctl-h-tiny); height: var(--ctl-h-tiny); color: var(--text-muted); }
+.window-close:hover { background: var(--control); color: var(--text-strong); }
+.window-body { min-height: 0; overflow-y: auto; }
+.window-foot { padding: 6px 10px; border-top: 1px solid rgba(0,0,0,.5); color: var(--text-faint); font-size: var(--fs-micro); }
+
+/* A floating menu over the stage. The family exists so sprint 3's mute item composes it rather
+   than inventing a per-panel one-off; the BEHAVIOUR that opens and dismisses one is sprint 3's,
+   for the reasons in Task 7 Step 5 and in decision D88. */
+.menu { position: absolute; z-index: var(--z-stage-window); min-width: 132px; padding: 3px; background: var(--window); border: 1px solid rgba(255,255,255,.08); border-radius: var(--r-ctl); box-shadow: 0 12px 30px rgba(0,0,0,.55); animation: popIn .12s ease; }
+.menu-item { display: flex; align-items: center; width: 100%; height: var(--ctl-h-quiet); padding: 0 8px; border: 0; border-radius: var(--r-ctl-sm); background: none; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.menu-item:hover:not(:disabled) { background: var(--control-hover); color: var(--text-strong); }
+.menu-item:disabled { color: var(--text-disabled); cursor: not-allowed; }

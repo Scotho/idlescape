@@ -1,0 +1,6 @@
+=Lumbridge,3239,3233,1
+=Varrock,3211,3450,1
+=Kingdom Of/Misthalin,3217,3321,2
+=Al Kharid,3297,3150,1
+=Duel/Arena,3361,3233,1
+=Tutorial Island,3105,3099,1

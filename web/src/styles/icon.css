@@ -1,0 +1,6 @@
+/* Icon. docs/design/idlescape-shell-v2/components/core/Icon.jsx, and map-design section 2.7.
+   The glyph takes its colour from the button it sits in, which is why StripButton sets `color`
+   and never touches the svg. The paths themselves live in web/src/ui/icon.ts; nothing here may
+   name a glyph, because a per-glyph rule is exactly the one-off style the family table forbids. */
+.icon { display: block; flex: none; color: inherit; }
+.icon path, .icon polyline, .icon circle, .icon rect { stroke-linecap: round; stroke-linejoin: round; }

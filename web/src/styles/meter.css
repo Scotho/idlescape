@@ -1,0 +1,16 @@
+/* Meter. components/data/Meter.jsx, at the mock's flat 3px radius rather than the component's
+   computed height/2+1 (map-design S21). Task 6 replaced the pre-v2 wrapper meter, which was a
+   flex column of a label row over a `.meter-track`: the v2 track IS `.meter`, the tone class is
+   worn by the FILL, and the label above it is the caller's own `.kv` row. Nothing in src emitted
+   the old shape, so the only markup that had to move was the styleguide's four demos. */
+.meter { height: 5px; border-radius: 3px; background: var(--track); overflow: hidden; }
+/* The accent fill's two stops are the component file's own literals; the token layer has no name
+   for #f28c0e (`--accent-deep` is #d6780a) and R18's list of hexes to tokenise does not carry it. */
+.meter-fill { display: block; height: 100%; border-radius: 3px; background: linear-gradient(90deg,#f28c0e,#ffb95e,#f28c0e); background-size: 200% 100%; }
+.meter-fill.shimmer { animation: shimmer 2.4s linear infinite; }
+/* HUD meters are flat single-stop colour, 42x4 with a 2px radius; the bar geometry is in
+   overlay.css because it belongs to HudPill, and only the fill colour is a meter concern. */
+.meter-hp     { background: var(--hp); }
+.meter-prayer { background: var(--prayer); }
+.meter-run    { background: var(--run); }
+.meter-flat   { background: var(--accent); }

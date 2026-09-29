@@ -1,0 +1,58 @@
+/* Messages: the toned alert with its left rail, the empty state, and the toast.
+   Split out of data.css and overlays.css by Task 2; the rules are unchanged, only their home is.
+   `@keyframes toast-in` went to motion.css with the other keyframes. Task 3 retired the `p-msg`
+   and `p-empty` aliases, whose declarations were already `.alert`'s and `.empty`'s to the
+   character, and routed the old `p-error` line to `.alert .alert-error`: an error under a form
+   is the boxed message with the red rail now, not a red sentence. Task 19 took the last two
+   pre-v2 blocks, `.empty` and `.toast*`, so nothing in this file reads an `--rl-*` triplet. */
+
+/* Alert. components/core/Alert.jsx: a 3px tone rail over a 7% tint of the same tone.
+   `.alert` with no tone is the info default, so `el.ts`'s `alert()` names the tone it means.
+   The rules this replaced carried a full border and a dark ground; the mock draws neither. */
+.alert { padding: 7px 9px; border-left: 3px solid var(--info); border-radius: 4px; background: rgba(74,144,217,.07); color: var(--text); font-size: var(--fs-small); }
+.alert-accent { border-left-color: var(--accent); background: rgba(255,152,31,.07); }
+.alert-ok     { border-left-color: var(--ok);     background: rgba(67,160,71,.07); }
+.alert-warn   { border-left-color: var(--warn);   background: rgba(255,179,0,.07); color: var(--warn); }
+.alert-error  { border-left-color: var(--error);  background: rgba(229,57,53,.07); }
+.alert-info   { border-left-color: var(--info);   background: rgba(74,144,217,.07); }
+.alert-title  { color: var(--text-strong); font-weight: 650; margin-bottom: 2px; }
+/* The Bank panel's info alert is the one instance the mock draws wider. */
+.alert-roomy { padding: 8px 10px; }
+
+/* The one-line empty state: what a LIST inside a section says when it holds nothing, against
+   `.empty-state` below, which is what a whole PANEL says. Task 4 left this block and the toasts
+   below on the pre-v2 triplets and named Task 19 as their owner; this is that conversion, and it
+   is the last of the `--rl-*` layer in this file. Nothing moves geometrically: `--text-muted` is
+   #7c7c7a against #808080, `--text` is #b4b4b2 against #b0b0b0, 12px is `--fs-base`, and 8px is
+   `--sp-5`. One thing DOES move, deliberately: the title was 600 and is 650, which is the v2
+   semibold every other title in this file already takes (`.alert-title`, `.empty-state-title`).
+   Leaving one 600 behind would have kept a second bold weight alive for a single rule. */
+.empty { color: var(--text-muted); font-size: var(--fs-base); padding: var(--sp-5) 0; }
+.empty-title { color: var(--text); font-weight: 650; }
+
+/* Toasts: bottom-centre of the canvas, newest at the bottom. The mock draws no toast, so the v2
+   values here are the shell's floating-surface language rather than a copied literal: the panel
+   ground, a hairline, the control radius, and the tone rails the alert above already uses. The
+   entry stays at 140ms rather than taking `--dur`, because ui/toast.ts's LEAVE_MS of 160 is what
+   decides when the node is removed and the two are a pair. */
+.toast-host { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); pointer-events: none; z-index: var(--z-toast); }
+.toast { display: flex; align-items: center; gap: var(--sp-5); max-width: min(420px, 90vw); padding: var(--sp-4) var(--sp-6); background: var(--panel); border: 1px solid var(--hairline); border-left: 3px solid var(--text-muted); border-radius: var(--r-ctl); color: var(--text-strong); font-size: var(--fs-base); box-shadow: 0 4px 14px -8px rgba(0,0,0,.6); pointer-events: auto; animation: toast-in 140ms var(--ease); }
+.toast-ok { border-left-color: var(--ok); }
+.toast-error { border-left-color: var(--error); }
+.toast-info { border-left-color: var(--info); }
+.toast.is-leaving { opacity: 0; transition: opacity 140ms var(--ease); }
+
+/* Two empty-state patterns, not one (plan ruling R15). README calls the loot state "the pattern
+   for all empty states"; the mock's Events state differs on all eight of its metrics
+   (map-design 3.12 item 5 against 3.10): a 34px circle rather than 40, `⌕` rather than `◌`, no
+   bob, a 12.5px title rather than 13.5, 180px of copy rather than 190, and its own gap and
+   padding. Both ship, as the component and one modifier. `.empty` above stays what it is: the
+   one-line "nothing here yet" a list uses inside a section, not a whole panel's answer. */
+.empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; padding: 36px 12px; text-align: center; }
+.empty-state-mark { display: grid; place-items: center; width: 40px; height: 40px; border: 1.5px dashed var(--text-disabled); border-radius: 50%; color: var(--text-muted); font-size: 16px; animation: bob 2.6s ease-in-out infinite; }
+.empty-state-title { color: var(--text-strong); font-size: var(--fs-emph); font-weight: 650; }
+.empty-state-copy { max-width: 190px; color: var(--text-muted); font-size: var(--fs-small); }
+.empty-state.compact { flex: none; justify-content: flex-start; gap: 7px; padding: 28px 12px; }
+.empty-state.compact .empty-state-mark { width: 34px; height: 34px; font-size: 14px; animation: none; }
+.empty-state.compact .empty-state-title { font-size: var(--fs-md); }
+.empty-state.compact .empty-state-copy { max-width: 180px; }

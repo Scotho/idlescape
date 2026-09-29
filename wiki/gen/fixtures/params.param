@@ -1,0 +1,12 @@
+[slashattack]
+type=int
+default=0
+autodisable=yes
+
+[levelrequire]
+type=int
+default=0
+
+[attackrate]
+type=int
+default=4

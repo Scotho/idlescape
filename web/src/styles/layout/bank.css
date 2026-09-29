@@ -1,0 +1,270 @@
+/* Per-surface geometry for the bank window and its panel (plan Task 17, map-design 3.6 and 3.13).
+   The window's class list is `window window-warm window-centred bank-window`: decision D22 makes
+   the bank the window family's ONE modifier, and Task 7 already wrote it. The ground, the header
+   gradient, the heavier shadow, the 10px radius, the popIn and the stacking lane are all
+   `.window` / `.window-warm`; the header's 8px 12px padding is `.window-centred > .window-head`.
+   Nothing below repaints any of them. What is here is the width, the tab rail, the slot grid, the
+   footer, the context menu and one rule for the side PANEL (`.bank-meter`), which is everything
+   that is the bank's and nobody else's. There is no focus rule: base.css owns the one v2 ring.
+
+   Converted whole to the v2 tokens, so this file is in tokens.test.ts's CONVERTED list, on
+   `layout/trace.css`'s precedent: every rule was rewritten from map-design 3.6 in the same commit,
+   and there is no pre-v2 half left to freeze. The mock's untokenised hexes are ruling R18's
+   `--bank-*` and `--count-*` tokens; a raw hex in this file is a defect and bank.test.ts says so.
+
+   No Jagex art is vendored. The only cache pixels are the item icons the running client
+   rasterises into the `.bank-icon` <img> elements grid.ts and tabsBar.ts fill with a src once
+   IconCache resolves one; with no character open there is no src at all, and the slot has to read
+   without one, which is what `.bank-fallback` and `.bank-count` are for (ruling R14). */
+
+/* The window mounts into #bank-host: a full-cover layer over the canvas so the window can centre
+   itself, but transparent to clicks everywhere except the window itself, so the game canvas and
+   the plugin overlays underneath stay interactive while the bank is closed. Same shape as
+   `.trace-host`, and on the same lane: the two stage windows are ordered by DOM order, not by a
+   third z-index (D26, D48). The pre-v2 host sat one under the dialog lane, which is 49: above the
+   trace pop-out, and the opposite of what the mock's 30-over-25 says. */
+.bank-host {
+  position: absolute; inset: 0; pointer-events: none;
+  z-index: var(--z-stage-window);
+}
+
+.bank-window {
+  width: min(470px, calc(100% - 28px)); max-height: calc(100% - 28px);
+  color: var(--text);
+  font-size: var(--fs-small);
+  pointer-events: auto;
+}
+
+/* --- Header. The chrome is `.window-head`; these are the three parts that are the bank's. --- */
+.bank-title { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Tabular figures so `27 / 240` does not jitter as the count changes, and deliberately NO
+   font-family: map-design note S17 has the capacity in the UI face, not the numeric one. */
+.bank-capacity { flex: none; font-size: var(--fs-small); font-variant-numeric: tabular-nums; }
+.bank-live { flex: none; }
+
+.bank-error {
+  flex: none;
+  padding: var(--sp-4) var(--sp-7);
+  background: rgba(229, 57, 53, .16);
+  color: var(--error-text);
+  font-size: var(--fs-small);
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
+}
+.bank-error[hidden] { display: none; }
+
+.bank-body { display: flex; flex: 1; min-height: 0; }
+
+/* --- Tab rail, down the left side --- */
+.bank-tabs {
+  display: flex; flex-direction: column; gap: var(--sp-3);
+  padding: var(--sp-6) var(--sp-4);
+  background: rgba(0, 0, 0, .22);
+  border-right: 1px solid rgba(0, 0, 0, .4);
+  overflow-y: auto;
+  flex: none;
+}
+.bank-tab {
+  flex: none;
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  background: var(--bank-head);
+  border: 1px solid var(--hairline); border-radius: var(--r-ctl);
+  color: var(--text-quiet);
+  font-size: var(--fs-small);
+  cursor: pointer;
+}
+.bank-tab:hover { background: var(--bank-tab-active); color: var(--text-strong); }
+/* Selection is aria-selected, not a class: tabsBar.ts never sets an "active" class, it only
+   flips aria-selected on the button that is already there. */
+.bank-tab[aria-selected="true"] {
+  background: var(--bank-tab-active);
+  border-color: var(--accent);
+  color: var(--text-strong);
+  /* The mock's own alpha (map-design 3.6), NOT `--accent-glow`: that token is the primary
+     button's .28 resting glow, and the selected tab is drawn at .5. The literal is written out
+     here for the same reason `:hover` below writes one -- no token names .5. */
+  box-shadow: 0 0 10px -3px rgba(255, 152, 31, .5);
+}
+.bank-tab img { width: 24px; height: 24px; object-fit: contain; image-rendering: pixelated; pointer-events: none; }
+.bank-tab-glyph, .bank-tab-initials { pointer-events: none; }
+/* The dashed add-tab button README never mentions. It is a `.bank-tab` first, so it inherits the
+   32px square, and loses the filled ground for a dashed outline. */
+.bank-tab-new {
+  background: none; border-style: dashed; border-color: var(--bank-dash);
+  color: var(--accent); font-weight: 650;
+}
+.bank-tab-new:hover { background: var(--bank-head); border-style: solid; }
+
+/* --- Item pane --- */
+.bank-pane {
+  /* minmax(0, 1fr), not the mock's bare 1fr: a bare `1fr` is minmax(AUTO, 1fr), so a column is
+     free to grow past its share to fit its widest cell. The mock's slots hold nothing but an
+     image; ours hold `.bank-fallback`, the name tile an item whose icon has not rasterised yet
+     draws instead, and a long nowrap name would widen its own column. That is invisible in jsdom
+     and would be intermittent in a browser, because the columns would shift as icons stream in
+     and each tile is replaced by a 27px image. */
+  display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: var(--sp-2);
+  align-content: start;
+  overflow-y: auto;
+  padding: var(--sp-6);
+  flex: 1;
+}
+/* Each .bank-row is a plain wrapper the view builds so a divider can sit between rows in the
+   markup; `contents` lets its eight cells lay out directly on the pane's own eight-column grid
+   instead of being squeezed into a single grid cell. */
+.bank-row { display: contents; }
+
+/* The mock writes `aspect-ratio: 4/3` here, and it cannot ship as written. A cell in an `auto`
+   grid row contributes its CONTENT height to that row, not its aspect ratio, so Chromium sized
+   the rows off `.bank-fallback`'s single line of text (22.7px) and then drew each 35.8px cell
+   overlapping the row below it. Measured in a real browser; jsdom computes no layout at all and
+   could not see it. The height is therefore stated: at the window's 470px design width the pane
+   gives each column 48.1px, so 36px IS the mock's 4:3, and it is also the pre-v2 pitch. Below the
+   design width the columns narrow and the ratio drifts, which is the trade for rows that cannot
+   collapse. `overflow: hidden` keeps a long name tile from widening its own column. */
+.bank-slot { position: relative; height: 36px; display: grid; place-items: center; overflow: hidden; }
+/* Filler cells: invisible padding only. They share `.bank-slot` for the shared pitch, but carry
+   role="presentation" and no data-bank-slot, so nothing addressable ever hangs off them -- see
+   the [data-bank-slot] rule below for the real cell chrome. */
+.bank-slot-filler { visibility: hidden; }
+
+[data-bank-slot] {
+  background: rgba(0, 0, 0, .2);
+  border: 1px solid rgba(0, 0, 0, .4);
+  border-radius: var(--sp-3);
+  /* map-design 3.6 eases the hover tint in rather than snapping it. It sits on the addressable
+     cell, not on `.bank-slot`, because the two properties it names are declared here and the
+     filler cells have neither. `motion.css`'s global reduced-motion guard already flattens it. */
+  transition: border-color .12s ease, background .12s ease;
+}
+[data-bank-slot]:hover { border-color: rgba(255, 152, 31, .5); background: rgba(255, 152, 31, .06); }
+.bank-slot.dim { opacity: .3; }
+
+/* No focus rule here on purpose. `base.css` declares `:focus { outline: none }` and
+   `:focus-visible { box-shadow: var(--focus-ring) }` for every element and calls itself the
+   single site that takes the v2 ring; the bank's own five-selector copy of it was the frozen
+   pre-v2 block, and converting it rather than deleting it would have made a second site with no
+   behaviour of its own. Each of the five keeps its own radius, because every one of those
+   declarations is later in the cascade than base.css's (index.css imports base at :10 and this
+   file at :28) at equal specificity. */
+
+.bank-icon { width: 27px; height: 24px; object-fit: contain; image-rendering: pixelated; pointer-events: none; }
+.bank-fallback {
+  font-size: var(--fs-label); color: var(--text-muted); text-align: center;
+  line-height: 1.1; padding: 0 2px; pointer-events: none;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%;
+}
+.bank-count {
+  position: absolute; top: 1px; left: 3px;
+  font-family: var(--font-num); font-weight: 700; font-size: var(--fs-micro);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .9);
+  pointer-events: none;
+}
+.count-yellow { color: var(--count-stack); }
+.count-white { color: #ffffff; }
+.count-green { color: var(--count-large); }
+
+.bank-divider {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-1) var(--sp-3);
+  background: rgba(0, 0, 0, .3);
+  border-top: 1px solid rgba(0, 0, 0, .4); border-bottom: 1px solid rgba(0, 0, 0, .4);
+}
+.bank-divider .bank-icon { width: 20px; height: 20px; }
+
+.bank-empty {
+  grid-column: 1 / -1;
+  padding: 24px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.bank-status { flex: none; padding: 0 var(--sp-7); min-height: 1em; color: var(--text-muted); font-size: var(--fs-micro); }
+
+/* --- Drag and keyboard-held cues. gridInput.ts sets these classes; an insert-mode drag and a
+   swap drag looked identical before this. --- */
+.bank-pane.is-dragging [data-bank-slot] { cursor: grabbing; }
+.bank-slot.is-source { opacity: .35; }
+/* Swap drag: the hovered cell is a straightforward highlighted drop target. */
+.bank-slot.is-target { outline: 2px solid var(--accent); outline-offset: -2px; background: var(--accent-tint); }
+/* Insert drag: the same target cell instead reads as "the new item goes to the left of this one"
+   via a caret on its leading edge, so a swap and an insert are never the same gesture. */
+.bank-pane.is-insert-mode .bank-slot.is-target { outline: none; background: transparent; box-shadow: inset 3px 0 0 var(--accent); }
+/* Keyboard pick-up: no pointer is involved, so this has to read as "on your cursor" through glow
+   and motion alone. */
+.bank-slot.is-held { box-shadow: 0 0 0 2px var(--accent), 0 0 10px 2px var(--accent-glow); animation: bank-held-pulse 1s cubic-bezier(.2,.7,.3,1) infinite; }
+@keyframes bank-held-pulse {
+  50% { box-shadow: 0 0 0 2px var(--accent), 0 0 14px 4px rgba(255, 152, 31, .3); }
+}
+
+/* --- Footer: rearrange mode, quantity, the search box and the caption. README never describes
+   this row; map-design 3.6 draws it. --- */
+.bank-bottom {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-5);
+  flex: none;
+  padding: 9px var(--sp-7);
+  background: rgba(0, 0, 0, .24);
+  border-top: 1px solid rgba(0, 0, 0, .4);
+}
+.bank-group { display: flex; align-items: center; gap: var(--sp-2); }
+/* The toggles are `btn btn-quiet` first; this is the mock's 5px radius and the pressed state,
+   which is the button family's own primary. */
+.bank-toggle { border-radius: var(--r-ctl-sm); }
+.bank-toggle[aria-pressed="true"] {
+  background: var(--accent-grad); border-color: var(--accent-deep);
+  color: var(--on-accent); font-weight: 650;
+}
+/* `input bank-search`: the family supplies the chrome and this takes the footer's height, the
+   window's own well for a ground, and the room left over on the row. */
+.bank-search {
+  flex: 1; min-width: 80px;
+  height: var(--ctl-h-quiet); padding: 0 9px;
+  background: var(--bank-well); border-radius: var(--r-ctl-sm);
+  font-size: var(--fs-small);
+}
+.bank-note { color: var(--text-faint); font-size: var(--fs-micro); }
+
+/* --- The Bank PANEL (plugins/builtin/bank.ts), which is the window's handle in the side rail.
+   Everything it draws is a family part; the one thing that is the bank's is the tuck. --- */
+/* map-design 3.13 hangs the capacity bar off the `Used` row it measures, against the panel body's
+   own 10px gap, so the two read as one unit rather than as two stacked rows. */
+.bank-meter { margin-top: -6px; }
+
+/* --- Context menu --- */
+.bank-menu {
+  min-width: 160px;
+  /* The menu is a child of .bank-host, which is pointer-events: none so the game canvas under a
+     CLOSED bank stays clickable. Without this line the menu paints but no pointer ever reaches
+     it: every click falls through to the slot behind, and the menu's own outside-pointerdown
+     handler then reads that click as "outside" and closes it. jsdom has no pointer-events model
+     at all, so nothing below a real browser can see this. */
+  pointer-events: auto;
+  padding: var(--sp-1);
+  background: var(--window);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-ctl);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .55);
+  /* Above both stage windows, and below a <dialog>: a confirm still covers the whole bank. */
+  z-index: var(--z-dialog);
+}
+.bank-menu-row {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-7);
+  width: 100%; padding: var(--sp-3) var(--sp-5);
+  background: transparent; border: 0; border-radius: var(--r-ctl-sm);
+  color: var(--text-strong); font-size: var(--fs-small); text-align: left; cursor: pointer;
+}
+.bank-menu-row:hover:not(.disabled) { background: var(--control); }
+.bank-menu-row.disabled { color: var(--text-muted); cursor: not-allowed; }
+.bank-menu-label { flex: 1; }
+.bank-menu-hint { color: var(--text-faint); font-size: var(--fs-micro); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bank-slot.is-held { animation: none; }
+}
+
+@media (max-width: 480px) {
+  .bank-window { width: calc(100% - 12px); }
+  .bank-tabs { padding: var(--sp-3) var(--sp-1); }
+  .bank-tab { width: 28px; height: 28px; }
+}

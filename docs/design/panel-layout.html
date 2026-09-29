@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>idlescape - simplified panel layout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap">
+<style>
+/* ===== web/src/styles/tokens.css ===== */
+/* idlescape design tokens. Colours are RGB triplets so both rgb(var(--x)) and rgba(var(--x), a) work. */
+:root {
+  color-scheme: dark;
+
+  /* Surfaces, darkest to lightest (RuneLite greys) */
+  --rl-border: 17, 17, 17;
+  --rl-window: 27, 27, 27;
+  --rl-darker: 30, 30, 30;
+  --rl-panel: 40, 40, 40;
+  --rl-hover: 50, 50, 50;
+  --rl-raised: 60, 60, 60;
+
+  /* Text */
+  --rl-muted: 128, 128, 128;
+  --rl-text: 176, 176, 176;
+  --rl-strong: 230, 230, 230;
+
+  /* The one accent */
+  --rl-orange: 255, 152, 31;
+  --rl-orange-deep: 214, 120, 10;
+
+  /* Semantic tones */
+  --rl-ok: 67, 160, 71;
+  --rl-warn: 255, 179, 0;
+  --rl-error: 229, 57, 53;
+  --rl-info: 74, 144, 217;
+  --rl-danger: 160, 40, 40;
+
+  /* HUD */
+  --rl-hp: 192, 57, 43;
+  --rl-prayer: 41, 128, 185;
+  --rl-run: 39, 174, 96;
+
+  /* Type */
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-pixel: "Pixelify Sans", "Press Start 2P", ui-monospace, monospace;
+  --fs-xs: 10px;
+  --fs-sm: 11px;
+  --fs-md: 12px;
+  --fs-base: 13px;
+  --fs-lg: 15px;
+  --fs-xl: 18px;
+  --fs-2xl: 24px;
+  --lh: 1.4;
+  --lh-tight: 1.2;
+
+  /* Spacing, 4px rhythm */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+
+  /* Shape */
+  --radius: 2px;
+  --radius-lg: 4px;
+  --ctl-h: 28px;
+  --ctl-h-sm: 24px;
+  --ctl-h-lg: 36px;
+
+  /* Frame geometry */
+  --panel-w: 210px;
+  --strip-w: 32px;
+  --title-h: 22px;
+  --foot-h: 18px;
+
+  /* Motion */
+  --dur-fast: 90ms;
+  --dur-base: 140ms;
+  --dur-slow: 220ms;
+  --ease: cubic-bezier(.2, .7, .3, 1);
+
+  /* Layers */
+  --z-overlay: 5;
+  --z-panel: 10;
+  --z-toast: 40;
+  --z-dialog: 50;
+
+  /* Focus */
+  --focus-ring: 0 0 0 2px rgb(var(--rl-window)), 0 0 0 4px rgb(var(--rl-orange));
+}
+@media (pointer: coarse) {
+  :root { --ctl-h: 36px; --ctl-h-sm: 32px; --ctl-h-lg: 44px; }
+}
+
+/* ===== web/src/styles/base.css ===== */
+/* Reset and document defaults */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: rgb(var(--rl-window));
+  color: rgb(var(--rl-text));
+  font: var(--fs-base)/var(--lh) var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, p, ul, ol, figure { margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+img, canvas, svg { display: block; max-width: 100%; }
+a { color: rgb(var(--rl-orange)); text-decoration: none; }
+a:hover { text-decoration: underline; }
+b, strong { color: rgb(var(--rl-strong)); font-weight: 600; }
+::selection { background: rgba(var(--rl-orange), .35); color: rgb(var(--rl-strong)); }
+
+/* Visibility helpers */
+.hidden { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Keyboard focus: one ring, everywhere */
+:focus { outline: none; }
+:focus-visible { box-shadow: var(--focus-ring); border-radius: var(--radius); }
+
+/* Scrollbars in the panel colour */
+* { scrollbar-width: thin; scrollbar-color: rgb(var(--rl-raised)) rgb(var(--rl-darker)); }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgb(var(--rl-darker)); }
+::-webkit-scrollbar-thumb { background: rgb(var(--rl-raised)); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--rl-muted)); }
+
+/* Muted and quiet text */
+.muted, .p-muted { color: rgb(var(--rl-muted)); }
+.pixel { font-family: var(--font-pixel); }
+.num { font-variant-numeric: tabular-nums; }
+kbd { display: inline-block; padding: 0 5px; border: 1px solid rgb(var(--rl-raised)); border-bottom-width: 2px; border-radius: var(--radius); background: rgb(var(--rl-darker)); color: rgb(var(--rl-strong)); font: var(--fs-sm)/1.6 var(--font-ui); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* ===== web/src/styles/layout.css ===== */
+/* Layout primitives */
+.stack { display: flex; flex-direction: column; gap: var(--sp-2); }
+.stack-tight { display: flex; flex-direction: column; gap: var(--sp-1); }
+.stack-loose { display: flex; flex-direction: column; gap: var(--sp-4); }
+.cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+.spread { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
+.grow { flex: 1; min-width: 0; }
+.divider { display: flex; align-items: center; gap: var(--sp-2); color: rgb(var(--rl-muted)); font-size: var(--fs-sm); }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgb(var(--rl-border)); }
+hr.rule { border: 0; border-top: 1px solid rgb(var(--rl-border)); margin: var(--sp-2) 0; }
+
+/* Full-screen centred card (gate, home, character creation) */
+.card-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; min-height: 100dvh; padding: var(--sp-4); }
+.card {
+  display: flex; flex-direction: column; gap: var(--sp-3);
+  width: 100%; max-width: 360px;
+  background: rgb(var(--rl-panel));
+  border: 1px solid rgb(var(--rl-border));
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5) var(--sp-4) var(--sp-4);
+}
+.card-wide { max-width: 480px; }
+.card-title { font-family: var(--font-pixel); font-size: var(--fs-2xl); line-height: 1; color: rgb(var(--rl-orange)); text-align: center; letter-spacing: .02em; }
+.card-heading { font-size: var(--fs-lg); font-weight: 600; color: rgb(var(--rl-strong)); text-align: center; }
+.card-sub { color: rgb(var(--rl-muted)); font-size: var(--fs-md); text-align: center; }
+.card-foot { margin-top: var(--sp-1); padding-top: var(--sp-3); border-top: 1px solid rgb(var(--rl-border)); }
+
+/* Collapsible section, RuneLite config-group style */
+.section { border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius); background: rgb(var(--rl-darker)); }
+.section + .section { margin-top: var(--sp-2); }
+.section > summary { list-style: none; display: flex; align-items: center; gap: var(--sp-2); min-height: var(--ctl-h); padding: 0 var(--sp-2); color: rgb(var(--rl-strong)); font-weight: 600; cursor: pointer; user-select: none; }
+.section > summary::-webkit-details-marker { display: none; }
+.section > summary::after { content: ''; margin-left: auto; width: 6px; height: 6px; border-right: 1.5px solid rgb(var(--rl-muted)); border-bottom: 1.5px solid rgb(var(--rl-muted)); transform: rotate(-45deg); transition: transform var(--dur-fast) var(--ease); }
+.section[open] > summary::after { transform: rotate(45deg); }
+.section > summary:hover { background: rgb(var(--rl-hover)); }
+.section-body { padding: var(--sp-2); border-top: 1px solid rgb(var(--rl-border)); display: flex; flex-direction: column; gap: var(--sp-2); }
+
+/* ===== web/src/styles/button.css ===== */
+/* Buttons. `.p-btn` is the compact panel alias kept for existing markup. */
+.btn, .p-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: var(--ctl-h); padding: 0 var(--sp-3);
+  background: rgb(var(--rl-hover));
+  border: 1px solid rgb(var(--rl-border));
+  border-radius: var(--radius);
+  color: rgb(var(--rl-strong));
+  font-size: var(--fs-base); font-weight: 500; line-height: 1; white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.p-btn, .btn-sm { min-height: var(--ctl-h-sm); padding: 0 var(--sp-2); font-size: var(--fs-md); }
+.btn-lg { min-height: var(--ctl-h-lg); padding: 0 var(--sp-4); font-size: var(--fs-lg); }
+.btn-block { display: flex; width: 100%; }
+.btn:hover, .p-btn:hover { background: rgb(var(--rl-raised)); }
+.btn:active, .p-btn:active { background: rgb(var(--rl-panel)); }
+.btn:disabled, .p-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.btn-primary, .p-btn-primary { background: rgb(var(--rl-orange)); border-color: rgb(var(--rl-orange-deep)); color: rgb(var(--rl-window)); font-weight: 600; }
+.btn-primary:hover, .p-btn-primary:hover { background: rgb(255, 170, 70); }
+.btn-primary:active, .p-btn-primary:active { background: rgb(var(--rl-orange-deep)); }
+
+.btn-ghost { background: transparent; border-color: transparent; color: rgb(var(--rl-text)); }
+.btn-ghost:hover { background: rgb(var(--rl-hover)); color: rgb(var(--rl-strong)); }
+
+.btn-danger, .p-btn-danger { background: rgb(var(--rl-danger)); border-color: rgb(120, 28, 28); color: rgb(var(--rl-strong)); }
+.btn-danger:hover, .p-btn-danger:hover { background: rgb(185, 48, 48); }
+
+.btn-icon, .p-btn-icon { width: var(--ctl-h); min-width: var(--ctl-h); padding: 0; }
+.p-btn.p-btn-icon, .btn-sm.btn-icon { width: var(--ctl-h-sm); min-width: var(--ctl-h-sm); }
+
+.btn.is-loading, .p-btn.is-loading { color: transparent; pointer-events: none; position: relative; }
+.btn.is-loading::after, .p-btn.is-loading::after { content: ''; position: absolute; width: 12px; height: 12px; border: 2px solid rgba(var(--rl-strong), .35); border-top-color: rgb(var(--rl-strong)); border-radius: 50%; animation: spin .7s linear infinite; }
+.btn-primary.is-loading::after { border-color: rgba(var(--rl-window), .35); border-top-color: rgb(var(--rl-window)); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Text link styled as a control */
+.link, .p-link { display: inline; background: none; border: 0; padding: 2px 0; color: rgb(var(--rl-orange)); font-size: var(--fs-md); line-height: var(--lh); text-align: center; cursor: pointer; }
+.link:hover, .p-link:hover { text-decoration: underline; }
+.link:disabled { opacity: .45; cursor: not-allowed; text-decoration: none; }
+
+/* Group of buttons sharing a row */
+.btn-row { display: flex; gap: var(--sp-2); }
+.btn-row > .btn, .btn-row > .p-btn { flex: 1; }
+
+/* Spinner on its own */
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(var(--rl-muted), .4); border-top-color: rgb(var(--rl-orange)); border-radius: 50%; animation: spin .7s linear infinite; }
+
+/* ===== web/src/styles/forms.css ===== */
+/* Text controls. `.p-input` is the compact panel alias kept for existing markup. */
+.input, .p-input, .select {
+  width: 100%; min-height: var(--ctl-h); padding: 0 var(--sp-2);
+  background: rgb(var(--rl-darker));
+  border: 1px solid rgb(var(--rl-border));
+  border-radius: var(--radius);
+  color: rgb(var(--rl-strong));
+  font-size: var(--fs-base); line-height: var(--lh);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.p-input { min-height: var(--ctl-h-sm); font-size: var(--fs-md); }
+textarea.input, textarea.p-input { padding: var(--sp-2); resize: vertical; }
+.input::placeholder, .p-input::placeholder { color: rgb(var(--rl-muted)); }
+.input:hover, .p-input:hover { border-color: rgb(var(--rl-raised)); }
+.input:focus-visible, .p-input:focus-visible { border-color: rgb(var(--rl-orange)); box-shadow: 0 0 0 2px rgba(var(--rl-orange), .3); }
+.input[readonly], .p-input[readonly] { color: rgb(var(--rl-text)); }
+.input:disabled, .p-input:disabled { opacity: .5; cursor: not-allowed; }
+.input[aria-invalid="true"], .p-input[aria-invalid="true"] { border-color: rgb(var(--rl-error)); }
+
+select.input, select.p-input, .select {
+  appearance: none; padding-right: 24px; cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23a0a0a0' stroke-width='1.5'/></svg>");
+  background-repeat: no-repeat; background-position: right 8px center;
+}
+select.input option, select.p-input option { background: rgb(var(--rl-darker)); }
+
+/* Search box */
+.input-search { padding-left: 26px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><circle cx='5' cy='5' r='3.5' fill='none' stroke='%23808080' stroke-width='1.5'/><path d='M8 8l3 3' stroke='%23808080' stroke-width='1.5'/></svg>"); background-repeat: no-repeat; background-position: 8px center; }
+
+/* Checkbox */
+input[type="checkbox"] {
+  appearance: none; flex: none; width: 14px; height: 14px; margin: 0;
+  background: rgb(var(--rl-darker)); border: 1px solid rgb(var(--rl-raised)); border-radius: var(--radius); cursor: pointer;
+  display: inline-grid; place-content: center;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+input[type="checkbox"]::before { content: ''; width: 8px; height: 5px; border-left: 2px solid rgb(var(--rl-window)); border-bottom: 2px solid rgb(var(--rl-window)); transform: rotate(-45deg) translate(1px, -1px) scale(0); transition: transform var(--dur-fast) var(--ease); }
+input[type="checkbox"]:checked { background: rgb(var(--rl-orange)); border-color: rgb(var(--rl-orange)); }
+input[type="checkbox"]:checked::before { transform: rotate(-45deg) translate(1px, -1px) scale(1); }
+input[type="checkbox"]:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Switch: a checkbox rendered as a RuneLite-style toggle */
+.switch { display: inline-flex; align-items: center; gap: var(--sp-2); cursor: pointer; }
+.switch input[type="checkbox"] { width: 28px; height: 16px; border-radius: 8px; background: rgb(var(--rl-raised)); border-color: rgb(var(--rl-raised)); position: relative; place-content: unset; }
+.switch input[type="checkbox"]::before { content: ''; position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border: 0; border-radius: 50%; background: rgb(var(--rl-strong)); transform: none; transition: transform var(--dur-fast) var(--ease); }
+.switch input[type="checkbox"]:checked { background: rgb(var(--rl-orange)); border-color: rgb(var(--rl-orange)); }
+.switch input[type="checkbox"]:checked::before { transform: translateX(12px); background: rgb(var(--rl-window)); }
+
+/* Native colour and number inputs inside panels */
+input[type="color"].p-input { padding: 2px; width: 40px; min-height: var(--ctl-h-sm); }
+input[type="number"].p-input { width: 72px; }
+
+/* Field: label above control, hint or error below */
+.field { display: flex; flex-direction: column; gap: var(--sp-1); }
+.field-label { color: rgb(var(--rl-text)); font-size: var(--fs-md); }
+.field-hint { color: rgb(var(--rl-muted)); font-size: var(--fs-sm); }
+.field-error { color: rgb(var(--rl-error)); font-size: var(--fs-sm); }
+.field-inline { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); min-height: var(--ctl-h-sm); }
+.field-inline > .field-label { flex: 1; }
+.field-inline > .p-input, .field-inline > .input { width: auto; max-width: 55%; }
+
+/* Plugin settings form rows (settingsForm.ts) */
+.p-settings-form { display: flex; flex-direction: column; gap: var(--sp-1); padding: var(--sp-2) 0 0 26px; }
+.p-setting { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); min-height: var(--ctl-h-sm); }
+.p-setting-label { flex: 1; color: rgb(var(--rl-text)); font-size: var(--fs-md); }
+.p-setting .p-input { width: auto; max-width: 50%; }
+
+/* Inline error and notice lines under forms */
+.error, .p-error { color: rgb(var(--rl-error)); font-size: var(--fs-md); }
+.notice, .p-ok { color: rgb(var(--rl-ok)); font-size: var(--fs-md); text-align: center; }
+.notice-warn { color: rgb(var(--rl-warn)); font-size: var(--fs-sm); text-align: center; }
+.p-error, .p-ok { text-align: left; font-size: var(--fs-sm); }
+
+/* ===== web/src/styles/data.css ===== */
+/* Data display: key/value rows, badges, status dots, alerts, meters, tables, lists. */
+
+/* Key/value row. `.p-row` is the panel alias kept for existing markup. */
+.kv, .p-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); min-height: var(--ctl-h-sm); }
+.kv-label, .p-label { color: rgb(var(--rl-muted)); font-size: var(--fs-md); }
+.kv-value, .p-value { color: rgb(var(--rl-strong)); font-weight: 600; font-size: var(--fs-md); text-align: right; overflow-wrap: anywhere; }
+.kv-value.num, .p-value.num { font-variant-numeric: tabular-nums; }
+.p-row .p-input, .p-row select.p-input { width: auto; max-width: 55%; }
+.p-row-stack { flex-direction: column; align-items: flex-start; gap: 2px; }
+.p-row-stack .p-value { text-align: left; font-weight: 500; }
+
+/* Two-column grid of label/value pairs (xp tracker, loot) */
+.table, .p-table { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-1) var(--sp-2); align-items: baseline; }
+.p-table .p-label { font-size: var(--fs-sm); }
+.p-table .p-value { text-align: left; }
+.p-table > :nth-child(even) { text-align: right; }
+
+/* Real tables */
+table.table { display: table; width: 100%; border-collapse: collapse; font-size: var(--fs-md); }
+table.table th { text-align: left; font-weight: 600; color: rgb(var(--rl-text)); padding: var(--sp-1) var(--sp-2); border-bottom: 1px solid rgb(var(--rl-border)); }
+table.table td { padding: var(--sp-1) var(--sp-2); border-bottom: 1px solid rgba(var(--rl-border), .6); color: rgb(var(--rl-strong)); }
+table.table tr:hover td { background: rgb(var(--rl-hover)); }
+table.table td.num, table.table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Empty state */
+.empty, .p-empty { color: rgb(var(--rl-muted)); font-size: var(--fs-md); padding: var(--sp-2) 0; }
+.empty-title { color: rgb(var(--rl-text)); font-weight: 600; }
+
+/* Badge: a small tinted label */
+.badge { display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 9px; background: rgb(var(--rl-hover)); color: rgb(var(--rl-text)); font-size: var(--fs-xs); font-weight: 600; line-height: 1; white-space: nowrap; }
+.badge-ok { background: rgba(var(--rl-ok), .18); color: rgb(110, 200, 115); }
+.badge-warn { background: rgba(var(--rl-warn), .18); color: rgb(var(--rl-warn)); }
+.badge-error { background: rgba(var(--rl-error), .18); color: rgb(240, 110, 105); }
+.badge-info { background: rgba(var(--rl-info), .18); color: rgb(120, 175, 235); }
+.badge-accent { background: rgba(var(--rl-orange), .18); color: rgb(var(--rl-orange)); }
+
+/* Status dot */
+.dot { display: inline-block; flex: none; width: 8px; height: 8px; border-radius: 50%; background: rgb(var(--rl-muted)); }
+.dot-green, .dot-ok { background: rgb(var(--rl-ok)); box-shadow: 0 0 0 2px rgba(var(--rl-ok), .25); }
+.dot-grey, .dot-idle { background: rgb(var(--rl-muted)); }
+.dot-red, .dot-error { background: rgb(var(--rl-error)); }
+.dot-amber, .dot-warn { background: rgb(var(--rl-warn)); }
+.dot-live { animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 4px rgba(var(--rl-ok), .1); } }
+
+/* Alert: a message with a tone, left rail like RuneLite's notification bars. `.p-msg` alias. */
+.alert, .p-msg { display: flex; flex-direction: column; gap: 2px; padding: var(--sp-2); background: rgb(var(--rl-darker)); border: 1px solid rgb(var(--rl-border)); border-left: 3px solid rgb(var(--rl-orange)); border-radius: var(--radius); color: rgb(var(--rl-text)); font-size: var(--fs-md); }
+.alert-title { color: rgb(var(--rl-strong)); font-weight: 600; }
+.alert-ok { border-left-color: rgb(var(--rl-ok)); }
+.alert-warn { border-left-color: rgb(var(--rl-warn)); }
+.alert-error { border-left-color: rgb(var(--rl-error)); }
+.alert-info { border-left-color: rgb(var(--rl-info)); }
+.p-msg.me { border-left-color: rgb(var(--rl-muted)); }
+
+/* Meter: a thin progress bar with an optional label row */
+.meter { display: flex; flex-direction: column; gap: 3px; }
+.meter-row { display: flex; justify-content: space-between; font-size: var(--fs-sm); color: rgb(var(--rl-muted)); }
+.meter-row b { font-variant-numeric: tabular-nums; }
+.meter-track { height: 6px; background: rgb(var(--rl-hover)); border-radius: 3px; overflow: hidden; }
+.meter-fill { display: block; height: 100%; background: rgb(var(--rl-orange)); border-radius: 3px; transition: width var(--dur-slow) var(--ease); }
+.meter-hp .meter-fill { background: rgb(var(--rl-hp)); }
+.meter-prayer .meter-fill { background: rgb(var(--rl-prayer)); }
+.meter-run .meter-fill { background: rgb(var(--rl-run)); }
+.meter-ok .meter-fill { background: rgb(var(--rl-ok)); }
+
+/* List rows with a leading indicator and trailing actions */
+.row-list { display: flex; flex-direction: column; }
+.row-list > * + * { border-top: 1px solid rgb(var(--rl-border)); }
+
+/* Paired sessions (Claude panel) */
+.session-row { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "dot name action" "dot meta action"; column-gap: var(--sp-2); row-gap: 2px; align-items: center; padding: var(--sp-2) 0; }
+.session-row .dot { grid-area: dot; }
+.session-row .p-value { grid-area: name; text-align: left; }
+.session-row .p-label { grid-column: 2; font-size: var(--fs-sm); }
+.session-row .p-btn { grid-area: action; }
+
+/* Characters (SP6 plugin) */
+.char-row { flex-wrap: wrap; padding: var(--sp-1) 0 var(--sp-1) 6px; border-left: 2px solid transparent; }
+.char-row.active { border-left: 2px solid rgb(var(--rl-orange)); padding-left: 4px; }
+.char-row .p-value { text-align: left; }
+.char-row .p-label { flex: 1; font-size: var(--fs-sm); }
+
+/* Plugin list (plugins panel) */
+.p-plugin-list { display: flex; flex-direction: column; margin-top: var(--sp-2); border-top: 1px solid rgb(var(--rl-border)); }
+.p-plugin-row { display: grid; grid-template-columns: 22px 1fr auto; column-gap: var(--sp-2); align-items: center; padding: var(--sp-2) 0; border-bottom: 1px solid rgb(var(--rl-border)); }
+.p-plugin-icon { font-size: 14px; text-align: center; color: rgb(var(--rl-orange)); }
+.p-plugin-main { min-width: 0; }
+.p-plugin-name { color: rgb(var(--rl-strong)); font-weight: 600; font-size: var(--fs-md); }
+.p-plugin-desc { font-size: var(--fs-sm); line-height: var(--lh-tight); margin-top: 2px; }
+.p-plugin-controls { display: flex; align-items: center; gap: var(--sp-2); }
+.p-plugin-controls .p-muted { font-size: var(--fs-xs); }
+.p-plugin-settings { grid-column: 1 / -1; }
+.p-plugin-settings[hidden] { display: none; }
+
+/* Connect card (pairing) */
+.connect-card { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-2); background: rgb(var(--rl-darker)); border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius); }
+.connect-card .p-row:first-child { gap: var(--sp-1); }
+.connect-card .p-row:first-child .p-input { flex: 1; width: 0; min-width: 0; max-width: none; font-family: ui-monospace, monospace; font-size: var(--fs-sm); }
+.connect-card .p-row:first-child .p-btn { flex: none; }
+.connect-card .p-link { align-self: flex-start; }
+
+/* Screenshot thumbnails */
+.p-shot-strip { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-1); margin-top: var(--sp-2); }
+.p-shot-thumb { width: 100%; border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius); }
+
+/* Notes */
+.p-notes { min-height: 160px; font-size: var(--fs-md); }
+
+/* Patch notes on the home card */
+.patch-notes { list-style: none; padding: 0; display: flex; flex-direction: column; gap: var(--sp-2); font-size: var(--fs-md); text-align: left; }
+.patch-notes > li { display: block; }
+.patch-notes b { color: rgb(var(--rl-strong)); }
+.patch-notes ul { margin: 2px 0 0; padding-left: 14px; list-style: disc; color: rgb(var(--rl-text)); }
+.pn-date { color: rgb(var(--rl-muted)); font-size: var(--fs-sm); margin-right: 6px; }
+
+/* Home identity row */
+.entry-identity-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); min-height: 18px; font-size: var(--fs-md); color: rgb(var(--rl-strong)); }
+.entry-identity:empty { display: none; }
+.entry-buttons-row { display: flex; gap: var(--sp-2); }
+.entry-buttons-row .btn { flex: 1; }
+.entry-connect-actions { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.entry-connect-actions .btn { flex: 1; }
+.entry-checking { margin-top: -4px; }
+
+/* ===== web/src/styles/tasks.css ===== */
+/* Tasks panel: the run card, script rows, the snippet box and the trace. Tokens only. */
+
+/* The live run, pinned above the sections. */
+.run-card { display: flex; flex-direction: column; gap: var(--sp-1); padding: var(--sp-2); margin-bottom: var(--sp-2); background: rgb(var(--rl-darker)); border: 1px solid rgb(var(--rl-border)); border-left: 3px solid rgb(var(--rl-orange)); border-radius: var(--radius); }
+.run-card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.run-elapsed { color: rgb(var(--rl-muted)); font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+.run-status-line { color: rgb(var(--rl-text)); font-size: var(--fs-sm); line-height: var(--lh-tight); overflow-wrap: anywhere; }
+.run-card .btn-row { margin-top: var(--sp-1); }
+
+/* One script, or one finished run. */
+.task-row { display: flex; flex-direction: column; gap: 2px; padding: var(--sp-2) 0; }
+.task-row + .task-row { border-top: 1px solid rgb(var(--rl-border)); }
+.task-row-name { color: rgb(var(--rl-strong)); font-weight: 600; font-size: var(--fs-md); overflow-wrap: anywhere; }
+.task-row-desc { color: rgb(var(--rl-text)); font-size: var(--fs-sm); line-height: var(--lh-tight); }
+.task-row-meta { color: rgb(var(--rl-muted)); font-size: var(--fs-xs); }
+.task-row-missing { color: rgb(var(--rl-warn)); }
+.task-row-actions { display: flex; flex-wrap: wrap; gap: var(--sp-1); margin-top: var(--sp-1); }
+.task-row-actions .btn { flex: 1; min-width: 56px; }
+.params-form { margin-top: var(--sp-2); padding-top: var(--sp-2); border-top: 1px dashed rgb(var(--rl-border)); }
+
+/* Snippet runner and the inline editor share the code box. */
+.snippet-code { width: 100%; min-height: var(--ctl-h-lg); font-family: ui-monospace, monospace; font-size: var(--fs-sm); line-height: var(--lh-tight); resize: vertical; }
+
+/* Trace: one line per event, filterable, with snapshots folded away. */
+.trace { display: flex; flex-direction: column; gap: var(--sp-1); margin-top: var(--sp-2); padding-top: var(--sp-2); border-top: 1px solid rgb(var(--rl-border)); }
+.trace-head { display: flex; align-items: center; gap: var(--sp-1); }
+.trace-head .p-input { flex: 1; min-width: 0; }
+.trace-rows { display: flex; flex-direction: column; max-height: 260px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: var(--fs-xs); }
+.trace-row { padding: 2px var(--sp-1); color: rgb(var(--rl-text)); border-left: 2px solid transparent; overflow-wrap: anywhere; }
+.trace-row + .trace-row { border-top: 1px solid rgba(var(--rl-border), .6); }
+.trace-row-open:hover { background: rgb(var(--rl-hover)); }
+/* The expandable line is a real button, so it is stripped back to look like the rows around it. */
+.trace-toggle { display: block; width: 100%; padding: 0; background: none; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.trace-toggle:focus-visible { outline: 2px solid rgb(var(--rl-orange)); outline-offset: 1px; }
+.trace-row[data-kind="log"] { color: rgb(var(--rl-text)); }
+.trace-row[data-kind="status"] { color: rgb(var(--rl-strong)); }
+.trace-row[data-kind="xp"] { border-left-color: rgb(var(--rl-ok)); }
+.trace-row[data-kind="action"] { border-left-color: rgb(var(--rl-info)); }
+.trace-row[data-kind="task_enter"], .trace-row[data-kind="task_exit"] { border-left-color: rgb(var(--rl-orange)); }
+.trace-row[data-kind="stuck"], .trace-row[data-kind="paused"] { border-left-color: rgb(var(--rl-warn)); color: rgb(var(--rl-warn)); }
+.trace-row[data-kind="run_done"] { border-left-color: rgb(var(--rl-orange)); color: rgb(var(--rl-strong)); }
+.trace-pre { margin: var(--sp-1) 0 0; padding: var(--sp-1); background: rgb(var(--rl-window)); border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius); color: rgb(var(--rl-text)); font-size: var(--fs-xs); white-space: pre-wrap; overflow-wrap: anywhere; }
+/* Tasks runtime surfaces: the Tasks panel, the run banner and the Marketplace catalogue. */
+
+/* --- SP4a Task 12: Marketplace cards ------------------------------------------- */
+.market-list { display: flex; flex-direction: column; gap: var(--sp-2); }
+.market-card { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-2); max-width: none; }
+.market-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.market-name { color: rgb(var(--rl-strong)); font-weight: 600; font-size: var(--fs-md); }
+.market-desc { color: rgb(var(--rl-text)); font-size: var(--fs-sm); line-height: var(--lh-tight); }
+.market-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-1); }
+.market-est { color: rgb(var(--rl-muted)); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; }
+.market-missing { display: flex; flex-direction: column; gap: 2px; }
+.market-actions { display: flex; gap: var(--sp-2); }
+.market-actions .btn { flex: 1; }
+/* --- end SP4a Task 12 ----------------------------------------------------------- */
+/* Script runtime surfaces: the Tasks panel, the marketplace and the run banner (SP4a). */
+
+/* ===== SP4a Task 13: run banner, strip status dot ===== */
+.run-banner {
+  position: absolute; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding: 4px 8px;
+  background: rgba(var(--rl-darker), .92);
+  border-bottom: 1px solid rgb(var(--rl-border));
+  font-size: var(--fs-md);
+  /* `.overlays` sits at --z-overlay and comes later in frame.html, so an equal z-index would let the
+     canvas pills paint over the script name and the Stop button. One step up settles it. */
+  z-index: calc(var(--z-overlay) + 1);
+  pointer-events: auto;
+}
+/* ...and the pills still need to move out from under it. The banner is one small control tall
+   (padding + --ctl-h-sm + border), and the pills keep their usual 6px gap below that. */
+.run-banner:not(.hidden) ~ .overlays .ov-xp,
+.run-banner:not(.hidden) ~ .overlays .ov-status,
+.run-banner:not(.hidden) ~ .plugin-overlays { top: calc(var(--ctl-h-sm) + 16px); }
+.run-banner:not(.hidden) ~ .overlays .ov-boxes { top: calc(var(--ctl-h-sm) + 40px); }
+.run-banner.is-running { border-bottom-color: rgb(var(--rl-orange)); }
+.run-banner.is-running .run-banner-dot { animation: pulse 1.6s ease-in-out infinite; }
+.run-banner.is-paused { border-bottom-color: rgb(var(--rl-warn)); }
+.run-banner.is-error { border-bottom-color: rgb(var(--rl-error)); }
+
+/* The whole line is the way into the Tasks panel, so it is a real (unstyled) button. */
+.run-banner-line {
+  flex: 1; min-width: 0;
+  display: flex; align-items: baseline; gap: var(--sp-1);
+  overflow: hidden;
+  padding: 0; border: 0; background: none;
+  color: rgb(var(--rl-text)); font: inherit; text-align: left; white-space: nowrap; cursor: pointer;
+}
+.run-banner-line:hover { color: rgb(var(--rl-strong)); }
+.run-banner-line:focus-visible { box-shadow: var(--focus-ring); border-radius: var(--radius); }
+.run-banner-script { color: rgb(var(--rl-strong)); font-weight: 600; }
+.run-banner-task { color: rgb(var(--rl-orange)); }
+.run-banner-msg { overflow: hidden; text-overflow: ellipsis; }
+.run-banner-sep { color: rgb(var(--rl-muted)); }
+.run-banner-elapsed { color: rgb(var(--rl-muted)); font-variant-numeric: tabular-nums; }
+.run-banner-attached { color: rgb(var(--rl-orange)); }
+.run-banner .btn { flex: none; }
+
+.dot-accent { background: rgb(var(--rl-orange)); box-shadow: 0 0 0 2px rgba(var(--rl-orange), .25); }
+.strip-btn { position: relative; }
+.strip-dot { position: absolute; right: 3px; top: 3px; width: 7px; height: 7px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .run-banner .run-banner-dot, .strip-dot.dot-live { animation: none; }
+}
+/* ===== end SP4a Task 13 ===== */
+
+/* ===== web/src/styles/frame.css ===== */
+/* The game frame: title bar, canvas stage, side panel, icon strip, footer. */
+.frame { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+
+/* Title bar */
+.frame-title { height: var(--title-h); display: flex; align-items: center; gap: var(--sp-3); padding: 0 var(--sp-2); background: rgb(var(--rl-panel)); border-bottom: 1px solid rgb(var(--rl-border)); font-size: var(--fs-md); }
+.brand { font-family: var(--font-pixel); font-size: 14px; line-height: 1; color: rgb(var(--rl-orange)); letter-spacing: .03em; }
+.title-centre { flex: 1; display: flex; gap: var(--sp-3); justify-content: center; color: rgb(var(--rl-muted)); font-size: var(--fs-sm); overflow: hidden; white-space: nowrap; }
+.title-centre:empty { display: none; }
+.title-centre b { color: rgb(var(--rl-text)); font-weight: 500; }
+.title-actions { display: flex; align-items: center; gap: 2px; }
+.title-btn { width: 20px; height: 18px; display: inline-grid; place-content: center; background: none; border: 0; border-radius: var(--radius); color: rgb(var(--rl-muted)); font-size: var(--fs-sm); }
+.title-btn:hover { background: rgb(var(--rl-hover)); color: rgb(var(--rl-strong)); }
+
+/* Stage */
+.frame-body { flex: 1; display: flex; justify-content: center; align-items: flex-start; padding: var(--sp-2); }
+.stage { display: flex; align-items: stretch; width: 100%; max-width: 1600px; }
+.canvas-wrap { position: relative; flex: 1; display: flex; justify-content: center; align-items: flex-start; }
+#canvas { display: block; image-rendering: auto; background: #000; user-select: none; outline: none; -webkit-tap-highlight-color: transparent; }
+#canvas:focus-visible { box-shadow: none; }
+
+/* Side panel */
+.side-panel { width: var(--panel-w); background: rgb(var(--rl-panel)); border-left: 1px solid rgb(var(--rl-border)); display: flex; flex-direction: column; animation: panel-in var(--dur-base) var(--ease); }
+@keyframes panel-in { from { opacity: 0; transform: translateX(6px); } }
+.panel-header { display: flex; align-items: center; gap: var(--sp-2); min-height: var(--ctl-h); padding: 0 var(--sp-1) 0 var(--sp-2); background: rgb(var(--rl-darker)); border-bottom: 1px solid rgb(var(--rl-border)); color: rgb(var(--rl-strong)); font-weight: 600; font-size: var(--fs-md); }
+.panel-icon { color: rgb(var(--rl-orange)); }
+.panel-icon:empty { display: none; }
+.panel-back { margin-left: auto; width: var(--ctl-h-sm); height: var(--ctl-h-sm); display: inline-grid; place-content: center; background: none; border: 0; border-radius: var(--radius); color: rgb(var(--rl-muted)); font-size: 16px; line-height: 1; }
+.panel-back:hover { background: rgb(var(--rl-hover)); color: rgb(var(--rl-strong)); }
+.panel-body { flex: 1; overflow: auto; padding: var(--sp-2); display: flex; flex-direction: column; gap: var(--sp-2); }
+.panel-body > form { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+/* Icon strip: a vertical tab list */
+.icon-strip { width: var(--strip-w); background: rgb(var(--rl-darker)); border-left: 1px solid rgb(var(--rl-border)); display: flex; flex-direction: column; align-items: stretch; padding: var(--sp-1) 0; gap: 2px; }
+.strip-btn { position: relative; width: 100%; height: 30px; display: inline-grid; place-content: center; border: 0; border-radius: 0; background: transparent; color: rgb(var(--rl-text)); font-size: 13px; line-height: 1; transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+.strip-btn::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 2px; background: transparent; border-radius: 0 1px 1px 0; }
+.strip-btn:hover { background: rgb(var(--rl-hover)); color: rgb(var(--rl-strong)); }
+.strip-btn.active { background: rgb(var(--rl-panel)); color: rgb(var(--rl-orange)); }
+.strip-btn.active::before { background: rgb(var(--rl-orange)); }
+.strip-btn:focus-visible { box-shadow: inset var(--focus-ring); }
+.strip-gear { margin-top: auto; }
+.strip-btn[data-tip]::after { content: attr(data-tip); position: absolute; right: calc(100% + 6px); top: 50%; transform: translateY(-50%); padding: 3px 8px; background: rgb(var(--rl-border)); color: rgb(var(--rl-strong)); font-size: var(--fs-sm); font-family: var(--font-ui); white-space: nowrap; border-radius: var(--radius); pointer-events: none; opacity: 0; transition: opacity var(--dur-fast) var(--ease); z-index: var(--z-panel); }
+.strip-btn[data-tip]:hover::after, .strip-btn[data-tip]:focus-visible::after { opacity: 1; }
+
+/* Footer: a status bar of cells */
+.frame-foot { height: var(--foot-h); display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); padding: 0 var(--sp-2); background: rgb(var(--rl-darker)); border-top: 1px solid rgb(var(--rl-border)); font-size: var(--fs-xs); color: rgb(var(--rl-muted)); }
+.frame-foot span { display: flex; gap: var(--sp-3); white-space: nowrap; }
+.frame-foot .num { font-variant-numeric: tabular-nums; }
+
+/* World offline card over the canvas */
+.offline { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-1); background: rgb(var(--rl-window)); color: rgb(var(--rl-strong)); }
+.offline h2 { font-family: var(--font-pixel); font-size: var(--fs-xl); color: rgb(var(--rl-orange)); }
+.offline p { color: rgb(var(--rl-muted)); font-size: var(--fs-md); }
+
+/* Responsive: panel below the canvas, strip becomes a horizontal tab bar */
+@media (max-width: 1100px) {
+  .stage { flex-wrap: wrap; }
+  .canvas-wrap { flex-basis: 100%; }
+  .side-panel { flex: 1; border-left: 0; border-top: 1px solid rgb(var(--rl-border)); animation: none; }
+}
+@media (max-width: 700px) {
+  .icon-strip { flex-direction: row; width: 100%; padding: 0 var(--sp-1); border-left: 0; border-top: 1px solid rgb(var(--rl-border)); }
+  .strip-btn { width: 36px; height: 32px; }
+  .strip-btn::before { left: 6px; right: 6px; top: auto; bottom: 0; width: auto; height: 2px; }
+  .strip-btn[data-tip]::after { display: none; }
+  .strip-gear { margin: 0 0 0 auto; }
+  .frame-body { padding: 0; }
+}
+
+/* ===== web/src/styles/tabs.css ===== */
+/* Character tabs: one row of slots across the top of the game view (SP7). */
+.char-tabs { display: flex; align-items: stretch; gap: 2px; padding: 0 var(--sp-2); background: rgb(var(--rl-darker)); border-bottom: 1px solid rgb(var(--rl-border)); }
+.char-tabs:empty { display: none; }
+.char-tab { display: flex; align-items: center; gap: var(--sp-1); min-width: 132px; height: 28px; padding: 0 var(--sp-2); border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; color: rgb(var(--rl-text)); font-size: var(--fs-sm); white-space: nowrap; }
+.char-tab:hover:not(:disabled) { background: rgb(var(--rl-hover)); color: rgb(var(--rl-strong)); }
+.char-tab.active { background: rgb(var(--rl-panel)); color: rgb(var(--rl-strong)); border-bottom-color: rgb(var(--rl-orange)); }
+.char-tab:focus-visible { box-shadow: inset var(--focus-ring); }
+.char-tab:disabled { color: rgb(var(--rl-muted)); opacity: .55; cursor: not-allowed; }
+.char-tab-name { overflow: hidden; text-overflow: ellipsis; }
+.char-tab-status { margin-left: auto; color: rgb(var(--rl-muted)); font-size: var(--fs-xs); }
+.char-tab-dot { width: 7px; height: 7px; border-radius: 50%; background: rgb(var(--rl-muted)); flex: none; }
+.char-tab-dot.connecting { background: #d8a13a; }
+.char-tab-dot.online { background: #4caf50; }
+.char-tab-empty { color: rgb(var(--rl-muted)); }
+
+/* The iframe host replaces the old single canvas; exactly one frame is visible at a time. */
+.client-frames { position: relative; display: flex; justify-content: center; }
+.client-frame { display: block; border: 0; background: #000; }
+.client-frame.hidden { display: none; }
+
+@media (max-width: 700px) {
+  .char-tab { min-width: 0; }
+  .char-tab-status { display: none; }
+}
+
+/* ===== web/src/styles/overlays.css ===== */
+/* Canvas overlays, plugin HUD and toasts. Everything here floats over the game view. */
+.overlays { position: absolute; inset: 0; pointer-events: none; z-index: var(--z-overlay); }
+.overlays.hidden { display: none; }
+.ov { position: absolute; padding: 2px 6px; background: rgba(0, 0, 0, .55); border: 1px solid rgba(var(--rl-orange), .35); color: rgb(var(--rl-orange)); font: var(--fs-sm)/1.5 var(--font-pixel); white-space: nowrap; }
+.ov-xp { top: 6px; left: 6px; }
+.ov-status { top: 6px; right: 6px; }
+.ov-status.ok { color: rgb(var(--rl-ok)); border-color: rgba(var(--rl-ok), .35); }
+.ov-status.error { color: rgb(var(--rl-error)); border-color: rgba(var(--rl-error), .35); }
+.ov-status.muted { color: rgb(var(--rl-text)); border-color: rgba(var(--rl-muted), .35); }
+.ov-boxes { top: 30px; left: 6px; display: flex; flex-direction: column; gap: 4px; }
+.ov-box { display: flex; justify-content: space-between; gap: var(--sp-2); min-width: 96px; }
+
+/* Plugin overlay host and the status HUD */
+.plugin-overlays { position: absolute; top: 34px; right: 6px; display: flex; flex-direction: column; gap: 6px; pointer-events: none; z-index: var(--z-overlay); }
+.hud { min-width: 156px; padding: 6px 8px; background: rgba(var(--rl-darker), .85); border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius); color: rgb(var(--rl-text)); font-size: var(--fs-sm); }
+.hud-row { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 6px; margin: 2px 0; }
+.hud-row.hud-dim { opacity: .5; }
+.hud-label { color: rgb(var(--rl-muted)); }
+.hud-bar { height: 6px; background: rgb(var(--rl-hover)); border-radius: 3px; overflow: hidden; }
+.hud-fill { display: block; height: 100%; border-radius: 3px; transition: width var(--dur-slow) var(--ease); }
+.hud-hp { background: rgb(var(--rl-hp)); }
+.hud-pray { background: rgb(var(--rl-prayer)); }
+.hud-run { background: rgb(var(--rl-run)); }
+.hud-num { font-family: var(--font-pixel); font-variant-numeric: tabular-nums; color: rgb(var(--rl-strong)); }
+.hud-boosts { margin-top: 4px; color: rgb(var(--rl-orange)); font-size: var(--fs-xs); }
+
+/* Toasts: bottom-centre of the canvas, newest at the bottom */
+.toast-host { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; pointer-events: none; z-index: var(--z-toast); }
+.toast { display: flex; align-items: center; gap: var(--sp-2); max-width: min(420px, 90vw); padding: 6px 10px; background: rgb(var(--rl-darker)); border: 1px solid rgb(var(--rl-border)); border-left: 3px solid rgb(var(--rl-muted)); border-radius: var(--radius); color: rgb(var(--rl-strong)); font-size: var(--fs-md); pointer-events: auto; animation: toast-in var(--dur-base) var(--ease); }
+.toast-ok { border-left-color: rgb(var(--rl-ok)); }
+.toast-error { border-left-color: rgb(var(--rl-error)); }
+.toast-info { border-left-color: rgb(var(--rl-info)); }
+.toast.is-leaving { opacity: 0; transition: opacity var(--dur-base) var(--ease); }
+@keyframes toast-in { from { opacity: 0; transform: translateY(6px); } }
+
+/* ===== web/src/styles/dialog.css ===== */
+/* Native <dialog> styled as a panel. Opened via ui/dialog.ts. */
+dialog.dlg { width: min(380px, calc(100vw - 32px)); padding: 0; background: rgb(var(--rl-panel)); border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius-lg); color: rgb(var(--rl-text)); box-shadow: 0 12px 40px rgba(0, 0, 0, .5); z-index: var(--z-dialog); }
+dialog.dlg::backdrop { background: rgba(0, 0, 0, .6); }
+dialog.dlg[open] { animation: dlg-in var(--dur-base) var(--ease); }
+@keyframes dlg-in { from { opacity: 0; transform: translateY(4px); } }
+.dlg-title { padding: var(--sp-3) var(--sp-4) 0; color: rgb(var(--rl-strong)); font-size: var(--fs-lg); font-weight: 600; }
+.dlg-body { padding: var(--sp-2) var(--sp-4) var(--sp-3); font-size: var(--fs-base); display: flex; flex-direction: column; gap: var(--sp-2); }
+.dlg-actions { display: flex; justify-content: flex-end; gap: var(--sp-2); padding: var(--sp-3) var(--sp-4); border-top: 1px solid rgb(var(--rl-border)); background: rgb(var(--rl-darker)); border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+
+/* ===== web/src/styles/bank.css ===== */
+/* web/src/styles/bank.css -- the bank window: an OSRS bank drawn entirely with CSS over the
+   game stage. No Jagex art is vendored here: the frame is borders, gradients and the design
+   tokens, and the only cache pixels are the item icons the running client rasterises (the
+   .bank-icon <img> elements grid.ts and tabsBar.ts fill in with a src once IconCache resolves
+   one). Palette follows spec section 3: a stone header with a gold title over a #3e3529
+   interior, 36px-tall slots on a 48 x 36 pitch, eight columns. Everything that is not part
+   of that four-colour OSRS palette (plus the three OSRS count tones) comes from the rl, sp
+   and fs token families in tokens.css, never a raw hex -- bank.test.ts pins this. */
+
+/* The window mounts into #bank-host (SP8b Task 14): a full-cover layer over the canvas so the
+   window can centre itself, but transparent to clicks everywhere except the window itself, so
+   the game canvas and the plugin overlays underneath stay interactive while the bank is closed. */
+.bank-host {
+  position: absolute; inset: 0; pointer-events: none;
+  /* Under a confirm dialog, over the game canvas and the plugin overlays. */
+  z-index: calc(var(--z-dialog) - 1);
+}
+
+.bank-window {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(432px, calc(100% - 24px)); max-height: calc(100% - 24px);
+  display: flex; flex-direction: column;
+  background: #3e3529; color: rgb(var(--rl-strong));
+  border: 2px solid #2b2419; border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .55);
+  font-size: var(--fs-base);
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+/* --- Title bar --- */
+.bank-titlebar {
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-2);
+  background: linear-gradient(#4d4436, #3e3529);
+  border-bottom: 1px solid #2b2419;
+  flex: none;
+}
+.bank-title {
+  flex: 1; min-width: 0;
+  color: #ffcc33;
+  font-family: var(--font-pixel);
+  font-size: var(--fs-md);
+  text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bank-capacity, .bank-live {
+  flex: none;
+  color: rgb(var(--rl-text));
+  font-size: var(--fs-xs);
+  font-family: var(--font-pixel);
+  white-space: nowrap;
+}
+.bank-live { color: rgb(var(--rl-muted)); }
+.bank-close {
+  flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--ctl-h-sm); height: var(--ctl-h-sm);
+  background: rgb(var(--rl-hover)); border: 1px solid #2b2419; border-radius: var(--radius);
+  color: rgb(var(--rl-strong)); font-family: var(--font-pixel); font-size: var(--fs-sm);
+}
+.bank-close:hover { background: rgb(var(--rl-raised)); }
+
+.bank-error {
+  padding: var(--sp-1) var(--sp-2);
+  background: rgba(var(--rl-error), .25);
+  color: rgb(var(--rl-strong));
+  font-size: var(--fs-sm);
+  border-bottom: 1px solid #2b2419;
+  flex: none;
+}
+.bank-error[hidden] { display: none; }
+
+.bank-body { display: flex; flex: 1; min-height: 0; }
+
+/* --- Tab bar, down the left side --- */
+.bank-tabs {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: var(--sp-2) var(--sp-1);
+  background: rgba(0, 0, 0, .18);
+  border-right: 1px solid #2b2419;
+  overflow-y: auto;
+  flex: none;
+}
+.bank-tab {
+  flex: none;
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  background: rgb(var(--rl-hover));
+  border: 1px solid #2b2419; border-radius: var(--radius);
+  color: rgb(var(--rl-text));
+  font-family: var(--font-pixel); font-size: var(--fs-sm);
+}
+.bank-tab:hover { background: rgb(var(--rl-raised)); }
+/* Selection is aria-selected, not a class: tabsBar.ts never sets an "active" class, it only
+   flips aria-selected on the button that is already there. */
+.bank-tab[aria-selected="true"] {
+  background: rgb(var(--rl-panel));
+  border-color: rgb(var(--rl-orange));
+  color: rgb(var(--rl-strong));
+}
+.bank-tab img { width: 24px; height: 24px; object-fit: contain; pointer-events: none; }
+.bank-tab-glyph, .bank-tab-initials { pointer-events: none; }
+.bank-tab-new { color: rgb(var(--rl-orange)); font-weight: 600; }
+
+/* --- Item pane --- */
+.bank-pane {
+  display: grid; grid-template-columns: repeat(8, 48px);
+  align-content: start;
+  overflow-y: auto;
+  padding: var(--sp-1);
+  flex: 1;
+  background: #3e3529;
+}
+/* Each .bank-row is a plain wrapper the view builds so a divider can sit between rows in the
+   markup; `contents` lets its eight cells lay out directly on the pane's own eight-column grid
+   instead of being squeezed into a single grid cell. */
+.bank-row { display: contents; }
+
+.bank-slot {
+  width: 48px; height: 36px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+/* Filler cells: invisible padding only. They share `.bank-slot` for the shared 48 x 36 pitch,
+   but carry role="presentation" and no data-bank-slot, so nothing addressable ever hangs off
+   them -- see the [data-bank-slot] rule below for the real cell chrome. */
+.bank-slot-filler { visibility: hidden; }
+
+[data-bank-slot] {
+  border: 1px solid rgba(0, 0, 0, .4);
+  background: rgba(0, 0, 0, .15);
+  border-radius: var(--radius);
+}
+[data-bank-slot]:hover { background: rgba(var(--rl-hover), .6); }
+.bank-slot.dim { opacity: .3; }
+
+[data-bank-slot]:focus-visible,
+.bank-tab:focus-visible,
+.bank-toggle:focus-visible,
+.bank-close:focus-visible,
+.bank-search:focus-visible,
+.bank-search-toggle:focus-visible,
+.bank-deposit:focus-visible,
+.bank-menu-row:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.bank-icon { width: 32px; height: 32px; object-fit: contain; pointer-events: none; }
+.bank-fallback {
+  font-size: var(--fs-xs); color: rgb(var(--rl-muted)); text-align: center;
+  line-height: 1.1; padding: 2px; pointer-events: none;
+}
+.bank-count {
+  position: absolute; top: 1px; left: 2px;
+  font-family: var(--font-pixel); font-size: var(--fs-xs);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .9);
+  pointer-events: none;
+}
+.count-yellow { color: #ffff00; }
+.count-white { color: #ffffff; }
+.count-green { color: #00ff80; }
+
+.bank-divider {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: var(--sp-1);
+  padding: 2px var(--sp-1);
+  background: rgba(0, 0, 0, .3);
+  border-top: 1px solid #2b2419; border-bottom: 1px solid #2b2419;
+}
+.bank-divider .bank-icon { width: 20px; height: 20px; }
+
+.bank-empty {
+  grid-column: 1 / -1;
+  padding: var(--sp-5);
+  color: rgb(var(--rl-muted));
+  text-align: center;
+}
+
+.bank-status { padding: 0 var(--sp-2); min-height: 1em; color: rgb(var(--rl-muted)); font-size: var(--fs-xs); }
+
+/* --- Drag and keyboard-held cues. Task 9 sets these classes with no styling of their own; an
+   insert-mode drag and a swap drag looked identical before this. --- */
+.bank-pane.is-dragging [data-bank-slot] { cursor: grabbing; }
+.bank-slot.is-source { opacity: .35; }
+/* Swap drag: the hovered cell is a straightforward highlighted drop target. */
+.bank-slot.is-target { outline: 2px solid rgb(var(--rl-orange)); outline-offset: -2px; background: rgba(var(--rl-orange), .18); }
+/* Insert drag: the same target cell instead reads as "the new item goes to the left of this
+   one" via a caret on its leading edge, so a swap and an insert are never visually the same
+   gesture. */
+.bank-pane.is-insert-mode .bank-slot.is-target { outline: none; background: transparent; box-shadow: inset 3px 0 0 rgb(var(--rl-orange)); }
+/* Keyboard pick-up: no pointer is involved, so this has to read as "on your cursor" through
+   glow and motion alone. */
+.bank-slot.is-held { box-shadow: 0 0 0 2px rgb(var(--rl-orange)), 0 0 10px 2px rgba(var(--rl-orange), .6); animation: bank-held-pulse 1s var(--ease) infinite; }
+@keyframes bank-held-pulse {
+  50% { box-shadow: 0 0 0 2px rgb(var(--rl-orange)), 0 0 14px 4px rgba(var(--rl-orange), .3); }
+}
+
+/* --- Bottom parity strip: rearrange mode, withdraw form, quantity, search, deposit. --- */
+.bank-bottom {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2);
+  padding: var(--sp-2);
+  background: rgba(0, 0, 0, .25);
+  border-top: 1px solid #2b2419;
+  flex: none;
+}
+.bank-group { display: flex; align-items: center; gap: 2px; }
+.bank-toggle {
+  min-height: var(--ctl-h-sm); padding: 0 var(--sp-2);
+  background: rgb(var(--rl-hover)); border: 1px solid #2b2419; border-radius: var(--radius);
+  color: rgb(var(--rl-text)); font-size: var(--fs-sm);
+}
+.bank-toggle:hover { background: rgb(var(--rl-raised)); }
+.bank-toggle[aria-pressed="true"] {
+  background: rgb(var(--rl-orange)); border-color: rgb(var(--rl-orange-deep)); color: rgb(var(--rl-window)); font-weight: 600;
+}
+.bank-search-slot:empty { display: none; }
+.bank-search {
+  width: 140px; min-height: var(--ctl-h-sm); padding: 0 var(--sp-2);
+  background: rgb(var(--rl-darker)); border: 1px solid #2b2419; border-radius: var(--radius);
+  color: rgb(var(--rl-strong));
+}
+.bank-deposit {
+  min-height: var(--ctl-h-sm); padding: 0 var(--sp-2);
+  background: rgb(var(--rl-hover)); border: 1px solid #2b2419; border-radius: var(--radius);
+  color: rgb(var(--rl-muted));
+}
+.bank-deposit:disabled { opacity: .5; cursor: not-allowed; }
+
+/* --- Context menu --- */
+.bank-menu {
+  min-width: 160px;
+  /* The menu is a child of .bank-host, which is pointer-events: none so the game canvas under a
+     CLOSED bank stays clickable. Without this line the menu paints but no pointer ever reaches
+     it: every click falls through to the slot behind, and the menu's own outside-pointerdown
+     handler then reads that click as "outside" and closes it. jsdom has no pointer-events model
+     at all, so nothing below a real browser can see this. */
+  pointer-events: auto;
+  padding: 2px;
+  background: rgb(var(--rl-panel));
+  border: 1px solid #2b2419;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .5);
+  z-index: var(--z-dialog);
+}
+.bank-menu-row {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  width: 100%; padding: var(--sp-1) var(--sp-2);
+  background: transparent; border: 0; border-radius: var(--radius);
+  color: rgb(var(--rl-strong)); font-size: var(--fs-sm); text-align: left;
+}
+.bank-menu-row:hover:not(.disabled) { background: rgb(var(--rl-hover)); }
+.bank-menu-row.disabled { color: rgb(var(--rl-muted)); cursor: not-allowed; }
+.bank-menu-label { flex: 1; }
+.bank-menu-hint { color: rgb(var(--rl-muted)); font-size: var(--fs-xs); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bank-window, [data-bank-slot] { transition: none; }
+  .bank-slot.is-held { animation: none; }
+}
+
+@media (max-width: 480px) {
+  .bank-window { width: calc(100% - 12px); }
+  .bank-tabs { padding: var(--sp-1) 2px; }
+  .bank-tab { width: 28px; height: 28px; }
+  .bank-search { width: 100px; }
+}
+
+/* ===== Document chrome. Nothing below is part of the app; it only frames the samples. ===== */
+body { padding: 0 0 64px; }
+.doc { max-width: 1440px; margin: 0 auto; padding: 24px 24px 0; }
+.doc-head { margin-bottom: 24px; }
+.doc-brand { font-size: 28px; display: block; margin-bottom: 8px; }
+.doc-lede { color: rgb(var(--rl-muted)); max-width: 78ch; margin-bottom: 8px; }
+.doc-lede code { color: rgb(var(--rl-text)); font-family: ui-monospace, monospace; font-size: 12px; }
+.doc-h2 { font-size: var(--fs-xl); color: rgb(var(--rl-strong)); margin: 40px 0 4px; padding-top: 24px; border-top: 1px solid rgb(var(--rl-border)); }
+.doc-note { color: rgb(var(--rl-muted)); max-width: 78ch; margin-bottom: 12px; font-size: var(--fs-md); }
+.doc-note code { font-family: ui-monospace, monospace; }
+.doc-frame { min-height: 0; height: 860px; border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius-lg); overflow: hidden; }
+.doc-canvas { width: 789px; height: 532px; display: grid; place-items: center; background:
+  repeating-linear-gradient(45deg, #0a0a0a 0 12px, #0d0d0d 12px 24px); }
+.doc-canvas-label { color: rgb(var(--rl-muted)); font: var(--fs-md)/1.8 var(--font-pixel); text-align: center; }
+.doc-canvas-label b { color: rgb(var(--rl-text)); }
+.doc-stage { display: flex; justify-content: center; padding: 24px; background: #000; border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius-lg); }
+.doc-gallery { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px; align-items: flex-start; }
+.doc-col { flex: none; }
+.doc-panel { border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius-lg); overflow: hidden; max-height: 720px; }
+.doc-panel .panel-body { overflow: auto; }
+.doc-thumb { height: 60px; background: repeating-linear-gradient(45deg, #141414 0 8px, #191919 8px 16px); }
+.doc-cards { display: flex; flex-wrap: wrap; gap: 16px; }
+.doc-cardframe { min-height: 0; padding: 24px; background: rgb(var(--rl-window)); border: 1px solid rgb(var(--rl-border)); border-radius: var(--radius-lg); }
+</style>
+</head>
+<body>
+<div class="doc">
+  <header class="doc-head">
+    <h1 class="brand doc-brand">idlescape</h1>
+    <p class="doc-lede">A static, simplified copy of the rendered game frame and every side panel.
+      No build step, no server, no JavaScript beyond the panel switcher below. The CSS is the real
+      <code>web/src/styles/*.css</code>, concatenated verbatim; the markup mirrors what each panel
+      module actually produces at runtime. Companion to <code>panel-ui-brief.md</code>.</p>
+    <p class="doc-lede"><b>Goal for the rebuild:</b> usability and joy before OSRS nostalgia —
+      familiar to an OSRS player, but adopting modern conventions wherever they genuinely improve
+      usability.</p>
+  </header>
+
+  <h2 class="doc-h2">1 · The frame</h2>
+  <p class="doc-note">1440×900 desktop layout. Click a strip icon on the right to swap the panel.
+    The game canvas is a placeholder here — in the real thing it is a same-origin
+    <code>/play.html</code> iframe running the 2004 client at 789×532.</p>
+
+<section id="screen-frame" class="frame doc-frame">
+  <header class="frame-title">
+    <span class="brand">idlescape</span>
+    <span id="title-centre" class="title-centre">osrs.scotho.com · world 1 · shoth4019zr</span>
+  </header>
+
+  <nav id="character-tabs" class="char-tabs">
+    <button class="char-tab active" type="button"><span class="char-tab-dot online"></span><span class="char-tab-name">shoth4019zr</span><span class="char-tab-status">online</span></button>
+    <button class="char-tab" type="button"><span class="char-tab-dot"></span><span class="char-tab-name">alt_miner</span><span class="char-tab-status">offline</span></button>
+    <button class="char-tab" type="button"><span class="char-tab-name char-tab-empty">+ New character</span></button>
+    <button class="char-tab" type="button" disabled><span class="char-tab-name char-tab-empty">Add more</span><span class="char-tab-status">coming soon</span></button>
+  </nav>
+
+  <div class="frame-body">
+    <div id="stage" class="stage">
+      <div id="canvas-wrap" class="canvas-wrap">
+        <div class="client-frames">
+          <div class="doc-canvas" role="img" aria-label="Game canvas placeholder">
+            <span class="doc-canvas-label">the 2004 client<br><b>789 × 532</b><br>(same-origin iframe)</span>
+          </div>
+        </div>
+
+        <!-- The run banner: shown here in its running state. -->
+        <div id="run-banner" class="run-banner is-running">
+          <span class="dot dot-accent run-banner-dot" aria-hidden="true"></span>
+          <button class="run-banner-line" type="button">
+            <span class="run-banner-script">Chop and drop</span>
+            <span class="run-banner-sep">·</span>
+            <span class="run-banner-task">Chop tree</span>
+            <span class="run-banner-sep">·</span>
+            <span class="run-banner-msg">Chopping the nearest tree · 41 logs</span>
+          </button>
+          <span class="run-banner-elapsed num">14:07</span>
+          <button class="btn btn-sm" type="button">Pause</button>
+          <button class="btn btn-sm" type="button">Stop</button>
+        </div>
+
+        <div id="overlays" class="overlays">
+          <div class="ov ov-xp">Woodcutting · 24,180 xp/h</div>
+          <div class="ov ov-status muted">● not paired</div>
+          <div class="ov ov-boxes">
+            <div class="ov ov-box"><span>Logs</span><span>41</span></div>
+            <div class="ov ov-box"><span>Run</span><span>14:07</span></div>
+          </div>
+        </div>
+
+        <div id="plugin-overlays" class="plugin-overlays">
+          <div class="hud">
+            <div class="hud-row"><span class="hud-label">HP</span><span class="hud-bar"><span class="hud-fill hud-hp" style="width:78%"></span></span><span class="hud-num">14/18</span></div>
+            <div class="hud-row"><span class="hud-label">Pray</span><span class="hud-bar"><span class="hud-fill hud-pray" style="width:40%"></span></span><span class="hud-num">4/10</span></div>
+            <div class="hud-row"><span class="hud-label">Run</span><span class="hud-bar"><span class="hud-fill hud-run" style="width:62%"></span></span><span class="hud-num">62/100</span></div>
+            <div class="hud-boosts">Woodcutting +3</div>
+          </div>
+        </div>
+
+        <div class="toast-host">
+          <div class="toast toast-ok">Started Chop and drop</div>
+        </div>
+      </div>
+
+      <aside id="side-panel" class="side-panel" aria-live="polite">
+        <div class="panel-header">
+          <span id="panel-icon" class="panel-icon" aria-hidden="true">▶</span>
+          <b id="panel-title">Tasks</b>
+          <button id="panel-back" class="panel-back" type="button" aria-label="Close panel">×</button>
+        </div>
+        <div id="panel-body" class="panel-body"></div>
+      </aside>
+
+      <nav id="icon-strip" class="icon-strip" role="tablist" aria-orientation="vertical" aria-label="Panels">
+        <button class="strip-btn" type="button" role="tab" data-panel="xp" data-tip="XP Tracker" aria-label="XP Tracker">✚</button>
+        <button class="strip-btn" type="button" role="tab" data-panel="loot" data-tip="Loot Tracker" aria-label="Loot Tracker">💰</button>
+        <button class="strip-btn active" type="button" role="tab" data-panel="tasks" data-tip="Tasks" aria-label="Tasks"><span class="dot dot-accent dot-live strip-dot"></span>▶</button>
+        <button class="strip-btn" type="button" role="tab" data-panel="marketplace" data-tip="Marketplace" aria-label="Marketplace">⚑</button>
+        <button class="strip-btn" type="button" role="tab" data-panel="bank" data-tip="Bank" aria-label="Bank">🏦</button>
+        <button class="strip-btn" type="button" role="tab" data-panel="connect" data-tip="Claude" aria-label="Claude">✦</button>
+        <button class="strip-btn" type="button" role="tab" data-panel="characters" data-tip="Characters" aria-label="Characters">👥</button>
+        <button class="strip-btn" type="button" role="tab" data-panel="notes" data-tip="Notes" aria-label="Notes">📝</button>
+        <button class="strip-btn" type="button" role="tab" data-panel="screenshot" data-tip="Screenshot" aria-label="Screenshot">📸</button>
+        <button class="strip-btn" type="button" role="tab" data-panel="account" data-tip="Account" aria-label="Account">☺</button>
+        <button class="strip-btn" type="button" role="tab" data-panel="plugins" data-tip="Plugins" aria-label="Plugins">🧩</button>
+        <button class="strip-btn strip-gear" type="button" role="tab" data-panel="config" data-tip="Configuration" aria-label="Configuration">⚙</button>
+      </nav>
+    </div>
+  </div>
+
+  <footer class="frame-foot">
+    <span id="foot-left">someone@example.com</span>
+    <span id="foot-right" class="num">fps 50 · gate: fiddlesticks</span>
+  </footer>
+</section>
+
+  <h2 class="doc-h2">2 · The bank window</h2>
+  <p class="doc-note">Not a side panel: eight columns need about 420px, so the bank is a centred
+    window over the stage (<code>#bank-host</code>). The Bank side panel is only its handle. The web
+    bank is view-and-reorder only — items enter and leave in game. One bank per <i>account</i>,
+    shared by every character.</p>
+
+  <div class="doc-stage">
+    <div class="bank-host" style="position:static">
+      <div id="bank-window" class="bank-window" role="dialog" aria-label="The Bank of Gielinor" style="position:static;transform:none">
+        <div class="bank-titlebar">
+          <span class="bank-title">The Bank of Gielinor</span>
+          <span id="bank-capacity" class="bank-capacity">27 / 240</span>
+          <span id="bank-live" class="bank-live">live</span>
+          <button type="button" class="bank-close" aria-label="Close the bank">x</button>
+        </div>
+        <div class="bank-body">
+          <div class="bank-tabs" role="tablist" aria-orientation="vertical">
+            <button type="button" class="bank-tab" aria-selected="true"><span class="bank-tab-glyph" aria-hidden="true">∞</span></button>
+            <button type="button" class="bank-tab"><span class="bank-tab-glyph">2</span></button>
+            <button type="button" class="bank-tab bank-tab-new">+</button>
+          </div>
+          <div class="bank-pane" role="grid">
+            <div class="bank-row" role="row">
+              <div class="bank-slot"><span class="bank-fallback">Co</span><span class="bank-count count-green">250K</span></div>
+              <div class="bank-slot"><span class="bank-fallback">Rp</span><span class="bank-count count-white">1</span></div>
+              <div class="bank-slot"><span class="bank-fallback">Rh</span><span class="bank-count count-white">1</span></div>
+              <div class="bank-slot"><span class="bank-fallback">Ud</span><span class="bank-count count-white">12</span></div>
+              <div class="bank-slot"><span class="bank-fallback">Ur</span><span class="bank-count count-white">30</span></div>
+              <div class="bank-slot"><span class="bank-fallback">Ba</span><span class="bank-count count-white">1</span></div>
+              <div class="bank-slot"><span class="bank-fallback">Bs</span><span class="bank-count count-white">2</span></div>
+              <div class="bank-slot"><span class="bank-fallback">Ip</span><span class="bank-count count-white">3</span></div>
+            </div>
+            <div class="bank-row" role="row">
+              <div class="bank-slot"><span class="bank-fallback">Ss</span><span class="bank-count count-white">4</span></div>
+              <div class="bank-slot"><span class="bank-fallback">Ms</span><span class="bank-count count-white">5</span></div>
+              <div class="bank-slot"><span class="bank-fallback">As</span><span class="bank-count count-white">6</span></div>
+              <div class="bank-slot"><span class="bank-fallback">Rs</span><span class="bank-count count-white">7</span></div>
+              <div class="bank-slot bank-slot-filler" role="presentation"></div>
+              <div class="bank-slot bank-slot-filler" role="presentation"></div>
+              <div class="bank-slot bank-slot-filler" role="presentation"></div>
+              <div class="bank-slot bank-slot-filler" role="presentation"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bank-bottom">
+          <div class="bank-group" role="group" aria-label="Rearrange mode">
+            <button type="button" class="bank-toggle" aria-pressed="true">Swap</button>
+            <button type="button" class="bank-toggle" aria-pressed="false">Insert</button>
+          </div>
+          <div class="bank-group" role="group" aria-label="Withdraw as">
+            <button type="button" class="bank-toggle" aria-pressed="true">Item</button>
+            <button type="button" class="bank-toggle" aria-pressed="false">Note</button>
+          </div>
+          <div class="bank-group" role="group" aria-label="Quantity">
+            <button type="button" class="bank-toggle" aria-pressed="true">1</button>
+            <button type="button" class="bank-toggle" aria-pressed="false">5</button>
+            <button type="button" class="bank-toggle" aria-pressed="false">10</button>
+            <button type="button" class="bank-toggle" aria-pressed="false">X</button>
+            <button type="button" class="bank-toggle" aria-pressed="false">All</button>
+          </div>
+          <span class="bank-search-slot"><button type="button" class="bank-toggle bank-search-toggle" aria-label="Search the bank">⌕</button></span>
+          <button type="button" class="bank-deposit" disabled>Deposit inventory</button>
+          <button type="button" class="bank-deposit" disabled>Deposit worn items</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="doc-h2">3 · Every panel body, side by side</h2>
+  <p class="doc-note">Each column is a real 210px side panel. This is the whole surface a redesign
+    has to work in today.</p>
+  <div class="doc-gallery" id="doc-gallery"></div>
+
+  <h2 class="doc-h2">4 · Full-screen cards (outside the frame)</h2>
+  <p class="doc-note">The gate, home and character-naming screens use <code>.card-screen</code> /
+    <code>.card</code>, a different idiom from the panels: 360px centred, orange pixel wordmark.</p>
+
+  <div class="doc-cards">
+    <section class="card-screen doc-cardframe">
+      <div class="card">
+        <h1 class="card-title">idlescape</h1>
+        <p class="card-sub">Lost City, in your browser, with a Claude that can play alongside you.</p>
+        <div class="entry-identity-row"><span class="entry-identity">Signed out</span><button class="link" type="button">Sign in with email</button></div>
+        <div class="stack">
+          <button class="btn btn-primary btn-lg btn-block" type="button">Play as guest</button>
+          <div class="entry-buttons-row">
+            <button class="btn" type="button">Log in</button>
+            <button class="btn" type="button">Create account</button>
+          </div>
+          <button class="link" type="button">Connect a Claude session</button>
+        </div>
+        <p class="notice-warn">You're playing as a guest. Progress lives in this browser and is lost if you clear it or switch devices. Create an account to keep it.</p>
+        <div class="card-foot stack">
+          <p class="card-sub">12 players online</p>
+          <ul class="patch-notes">
+            <li><span class="pn-date">06 Sep</span><b>The bank</b>
+              <ul><li>One bank per account, shared by every character.</li><li>Drag to re-order, nine tabs, live updates.</li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card-screen doc-cardframe">
+      <div class="card">
+        <h1 class="card-title">idlescape</h1>
+        <h2 class="card-heading">Name your character</h2>
+        <p class="card-sub">This is the name other players see. 1 to 12 characters: letters, digits or underscores, starting with a letter.</p>
+        <form class="stack" onsubmit="return false">
+          <div class="field">
+            <input class="input" type="text" maxlength="12" placeholder="Character name" value="shoth4019zr">
+            <span class="field-hint">shoth4019zr is available.</span>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Create character</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ===================== panel bodies ===================== -->
+<template data-body="tasks">
+  <div class="stack-tight">
+    <div class="run-card">
+      <div class="run-card-head">
+        <span class="badge badge-accent">Running</span>
+        <span class="run-elapsed num">14:07</span>
+      </div>
+      <div class="kv"><span class="kv-label">Chop and drop</span><span class="kv-value">Chop tree</span></div>
+      <div class="run-status-line">Chopping the nearest tree · 41 logs · Woodcutting 34</div>
+      <div class="btn-row">
+        <button class="btn" type="button">Pause</button>
+        <button class="btn" type="button">Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <details class="section" open>
+    <summary>My scripts</summary>
+    <div class="section-body">
+      <div class="stack-tight">
+        <div class="task-row">
+          <div class="spread"><span class="task-row-name">Chop and drop</span><span class="badge badge-info">Library</span></div>
+          <div class="task-row-desc">Chops the nearest tree of the chosen kind and drops the logs until the target Woodcutting level.</div>
+          <div class="task-row-meta">v1 · ~20 min · skilling · woodcutting</div>
+          <div class="task-row-meta">Last run: done · 41 logs, 1,204 xp</div>
+          <div class="task-row-actions">
+            <button class="btn btn-primary" type="button">Run</button>
+            <button class="btn" type="button">Fork</button>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="spread"><span class="task-row-name">Mine and drop (fork)</span><span class="badge badge-accent">Fork</span></div>
+          <div class="task-row-desc">My copy, with the tin filter removed.</div>
+          <div class="task-row-meta">v3 · ~25 min · skilling · mining</div>
+          <div class="task-row-meta task-row-missing">Needs a bronze pickaxe in your inventory or equipped</div>
+          <div class="task-row-actions">
+            <button class="btn btn-primary" type="button" disabled>Run</button>
+            <button class="btn" type="button">Edit</button>
+            <button class="btn btn-danger" type="button">Delete</button>
+          </div>
+          <form class="params-form stack-tight" onsubmit="return false">
+            <label class="field field-inline"><span class="field-label">Target level</span><input type="number" class="p-input" value="40"></label>
+            <label class="field field-inline"><span class="field-label">Ore</span><select class="p-input"><option>Copper</option><option selected>Tin</option><option>Iron</option></select></label>
+            <label class="field field-inline"><span class="field-label">Keep the ore</span><input type="checkbox" class="switch"></label>
+            <div class="btn-row"><button class="btn btn-primary" type="submit">Run</button><button class="btn" type="button">Cancel</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="section" open>
+    <summary>Run snippet</summary>
+    <div class="section-body">
+      <textarea class="p-input snippet-code" rows="3">await bot.chopTree("Tree")</textarea>
+      <div class="btn-row"><button class="btn" type="button">Run snippet</button></div>
+      <div class="stack-tight">
+        <div class="alert alert-ok"><span class="alert-title">Result</span>done</div>
+        <pre class="trace-pre">walking to (3222, 3218)
+chopped Tree → Logs</pre>
+      </div>
+    </div>
+  </details>
+
+  <details class="section" open>
+    <summary>History</summary>
+    <div class="section-body">
+      <div class="stack-tight">
+        <div class="task-row">
+          <div class="spread"><span class="task-row-name">Chop and drop</span><span class="badge badge-ok">done</span></div>
+          <div class="task-row-meta">18:42 · 4,180 xp · 41 logs</div>
+          <div class="task-row-actions"><button class="btn" type="button">Open trace</button></div>
+        </div>
+        <div class="task-row">
+          <div class="spread"><span class="task-row-name">Net fish and drop</span><span class="badge badge-error">failed</span></div>
+          <div class="task-row-meta">02:15 · 0 xp · no fishing spot in range</div>
+          <div class="task-row-actions"><button class="btn" type="button">Open trace</button></div>
+        </div>
+      </div>
+      <div class="stack-tight">
+        <div class="trace">
+          <div class="trace-head">
+            <input class="p-input input-search" type="search" placeholder="Filter trace">
+            <button class="p-btn" type="button">Copy</button>
+            <button class="p-btn p-btn-icon" type="button" aria-label="Close trace">×</button>
+          </div>
+          <div class="trace-rows">
+            <div class="trace-row" data-kind="task_enter">00:00.1 task_enter Chop tree</div>
+            <div class="trace-row" data-kind="action">00:01.4 action chop → Tree (3222,3218)</div>
+            <div class="trace-row" data-kind="xp">00:03.9 xp Woodcutting +25</div>
+            <div class="trace-row" data-kind="log">00:04.0 log inventory 12/28</div>
+            <div class="trace-row" data-kind="stuck">02:11.2 stuck no Tree within 12 tiles</div>
+            <div class="trace-row" data-kind="paused">02:11.2 paused reason=stuck</div>
+            <div class="trace-row" data-kind="run_done">14:07.6 run_done done · 4,180 xp</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="card-foot"><button class="link" type="button">Browse the Marketplace</button></div>
+</template>
+
+<template data-body="marketplace">
+  <input class="p-input input-search" type="search" placeholder="Search scripts">
+  <div class="market-list">
+    <div class="card market-card">
+      <div class="market-head"><span class="market-name">Chop and drop</span><span class="badge badge-accent">Start here</span></div>
+      <div class="market-desc">Chops the nearest tree of the chosen kind and drops the logs until the target Woodcutting level.</div>
+      <div class="market-meta"><span class="badge">skilling</span><span class="badge">woodcutting</span><span class="market-est">v1</span><span class="market-est">20 min</span></div>
+      <div class="alert alert-warn"><span class="alert-title">Not ready yet</span><div class="market-missing"><div>Needs a bronze axe in your inventory or equipped</div></div></div>
+      <div class="market-actions">
+        <button class="btn btn-sm btn-primary" type="button">Run now</button>
+        <button class="btn btn-sm" type="button">Add to my tasks</button>
+      </div>
+    </div>
+    <div class="card market-card">
+      <div class="market-head"><span class="market-name">Net fish and drop</span></div>
+      <div class="market-desc">Nets the nearest fishing spot and drops the catch until the target Fishing level.</div>
+      <div class="market-meta"><span class="badge">skilling</span><span class="badge">fishing</span><span class="market-est">v1</span><span class="market-est">25 min</span></div>
+      <div class="market-actions">
+        <button class="btn btn-sm btn-primary" type="button">Run now</button>
+        <button class="btn btn-sm" type="button" disabled>Added</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template data-body="xp">
+  <button class="p-btn" type="button">Reset session</button>
+  <div class="p-table">
+    <span class="p-value">Woodcutting</span><span class="p-value">+4,180</span>
+    <span class="p-label">24,180/h</span><span class="p-label">lvl 34</span>
+    <span class="p-label">1,290 to next · 52 actions</span>
+    <span class="p-value">Firemaking</span><span class="p-value">+610</span>
+    <span class="p-label">3,400/h</span><span class="p-label">lvl 21</span>
+    <span class="p-label">240 to next · 12 actions</span>
+    <span class="p-value">Attack</span><span class="p-value">+0</span>
+    <span class="p-label">0/h</span><span class="p-label">lvl 99</span>
+    <span class="p-label">maxed</span>
+  </div>
+</template>
+
+<template data-body="loot">
+  <button class="p-btn" type="button">Reset</button>
+  <div class="p-table">
+    <span class="p-value">Logs</span><span class="p-label">x41</span>
+    <span class="p-value">Bird nest</span><span class="p-label">x1</span>
+    <span class="p-value">Coins</span><span class="p-label">x1,204</span>
+  </div>
+</template>
+
+<template data-body="bank">
+  <div class="p-row"><span class="p-label">Used</span><span class="p-value num">27 / 240</span></div>
+  <div class="p-row"><span class="p-label">Tabs</span><span class="p-value">2 tabs</span></div>
+  <div class="p-row"><span class="p-label">Updates</span><span class="p-value">live</span></div>
+  <button class="p-btn p-btn-primary" type="button">Open bank window</button>
+  <div class="alert alert-info">Items only move in and out of the bank in game.</div>
+</template>
+
+<template data-body="connect">
+  <div class="connect-card">
+    <div class="p-row">
+      <input class="p-input" readonly value="http://localhost:8787/pair#7f3a…">
+      <button class="p-btn" type="button">Copy</button>
+    </div>
+    <div class="p-row"><span class="p-label">Expires in</span><span class="p-value num">15:00</span></div>
+    <div class="alert">Paste this into your Claude Code session and say: connect to this.</div>
+    <div class="p-row"><span class="p-label">Status</span><span class="p-value">Waiting for Claude…</span></div>
+    <button class="p-link" type="button">How do I connect?</button>
+  </div>
+  <div>
+    <div class="p-row session-row">
+      <span class="dot dot-green dot-live" aria-hidden="true"></span>
+      <span class="p-value">MacBook</span>
+      <span class="p-label">Active now</span>
+      <button class="p-btn" type="button">Revoke</button>
+    </div>
+    <div class="p-row session-row">
+      <span class="dot dot-grey" aria-hidden="true"></span>
+      <span class="p-value">work desktop</span>
+      <span class="p-label">Last seen 3h ago</span>
+      <button class="p-btn" type="button">Revoke</button>
+    </div>
+  </div>
+  <div class="p-row"><span class="p-label">Gateway</span><span class="p-value">up</span></div>
+  <div class="p-row p-row-stack"><span class="p-label">Link health</span><span class="p-value">fps 50 · rtt 38ms · ws connected</span></div>
+</template>
+
+<template data-body="characters">
+  <div class="p-row char-row active">
+    <span class="p-value">shoth4019zr</span>
+    <span class="p-label">online</span>
+    <button class="p-btn p-btn-danger" type="button">Delete</button>
+  </div>
+  <div class="p-row char-row">
+    <span class="p-value">alt_miner</span>
+    <span class="p-label">offline</span>
+    <button class="p-btn" type="button">Open tab</button><button class="p-btn p-btn-danger" type="button">Delete</button>
+  </div>
+  <form class="stack" onsubmit="return false">
+    <input class="p-input" placeholder="new character name" maxlength="12">
+    <button class="p-btn p-btn-primary" type="submit">Create character</button>
+  </form>
+  <div>
+    <p class="p-error">Deleting a character removes it permanently: its stats, quests and inventory are gone. Only you can do this; a connected Claude session cannot.</p>
+    <p class="p-label">Type <b>delete alt_miner</b> to continue.</p>
+    <input class="p-input" autocomplete="off">
+    <input class="p-input" type="password" placeholder="your password (re-authentication)">
+    <button class="p-btn p-btn-danger" disabled>Delete alt_miner forever</button>
+    <button class="p-btn">Cancel</button>
+  </div>
+</template>
+
+<template data-body="notes">
+  <textarea class="p-input p-notes" rows="12" placeholder="Notes for this character (synced to your account).">Willow spot: north of Draynor bank.
+Need 30 mining before the iron loop is worth it.</textarea>
+</template>
+
+<template data-body="screenshot">
+  <button class="p-btn p-btn-primary" type="button">Capture</button>
+  <div class="p-shot-strip">
+    <div class="p-shot-thumb doc-thumb"></div>
+    <div class="p-shot-thumb doc-thumb"></div>
+    <div class="p-shot-thumb doc-thumb"></div>
+    <div class="p-shot-thumb doc-thumb"></div>
+  </div>
+</template>
+
+<template data-body="account">
+  <div class="p-row"><span class="p-label">Signed in as</span><span class="p-value">someone@example.com</span></div>
+  <div class="p-row"><span class="p-label">Character</span><span class="p-value">shoth4019zr</span></div>
+  <div class="p-row"><span class="p-label">Account</span><span class="badge badge-warn">Guest</span></div>
+  <div class="alert alert-warn">Guest progress lives in this browser. Attach an email to keep this character on any device.</div>
+  <form class="stack" onsubmit="return false">
+    <input class="p-input" type="email" placeholder="Email">
+    <input class="p-input" type="password" placeholder="Password (6 or more characters)">
+    <button class="p-btn p-btn-primary" type="submit">Attach email</button>
+  </form>
+  <button class="p-btn" type="button">Sign out</button>
+</template>
+
+<template data-body="config">
+  <details class="section" open>
+    <summary>Game view</summary>
+    <div class="section-body">
+      <label class="field-inline"><span class="field-label">Size</span><select class="p-input"><option>1x</option><option>2x</option><option>3x</option><option selected>Fit window</option></select></label>
+      <label class="field-inline"><span class="field-label">Scaling</span><select class="p-input"><option selected>Smooth</option><option>Pixelated</option></select></label>
+      <label class="field-inline switch"><span class="field-label">Hide overlays</span><input type="checkbox"></label>
+      <button class="p-btn" type="button">Enter fullscreen</button>
+    </div>
+  </details>
+</template>
+
+<template data-body="plugins">
+  <input class="p-input input-search" type="search" placeholder="Search plugins">
+  <div class="p-plugin-list">
+    <div class="p-plugin-row">
+      <span class="p-plugin-icon">✚</span>
+      <div class="p-plugin-main"><div class="p-plugin-name">XP Tracker</div><div class="p-plugin-desc p-muted">Per-skill XP, xp/h and actions to the next level.</div></div>
+      <div class="p-plugin-controls"><button class="p-btn p-btn-icon" type="button" aria-label="XP Tracker settings">⚙</button><label class="switch"><input type="checkbox" checked></label></div>
+      <div class="p-plugin-settings">
+        <div class="p-settings-form">
+          <div class="p-setting"><span class="p-setting-label">Show "to next level"</span><input type="checkbox" checked></div>
+        </div>
+      </div>
+    </div>
+    <div class="p-plugin-row">
+      <span class="p-plugin-icon">💰</span>
+      <div class="p-plugin-main"><div class="p-plugin-name">Loot Tracker</div><div class="p-plugin-desc p-muted">Items gained this session.</div></div>
+      <div class="p-plugin-controls"><label class="switch"><input type="checkbox" checked></label></div>
+    </div>
+    <div class="p-plugin-row">
+      <span class="p-plugin-icon">📝</span>
+      <div class="p-plugin-main"><div class="p-plugin-name">Notes</div><div class="p-plugin-desc p-muted">A per-character scratchpad, synced to your account.</div></div>
+      <div class="p-plugin-controls"><label class="switch"><input type="checkbox"></label></div>
+    </div>
+    <div class="p-plugin-row">
+      <span class="p-plugin-icon">❤</span>
+      <div class="p-plugin-main"><div class="p-plugin-name">Status HUD</div><div class="p-plugin-desc p-muted">HP, prayer, run energy and stat boosts over the game view.</div></div>
+      <div class="p-plugin-controls"><button class="p-btn p-btn-icon" type="button" aria-label="Status HUD settings">⚙</button><label class="switch"><input type="checkbox"></label></div>
+    </div>
+    <div class="p-plugin-row">
+      <span class="p-plugin-icon">✦</span>
+      <div class="p-plugin-main"><div class="p-plugin-name">Claude</div><div class="p-plugin-desc p-muted">Pair and manage your Claude session.</div></div>
+      <div class="p-plugin-controls"><span class="p-muted">always on</span><label class="switch"><input type="checkbox" checked disabled></label></div>
+    </div>
+  </div>
+</template>
+
+<template data-body="empty-states">
+  <div class="p-empty">Gain some experience to start tracking.</div>
+  <div class="p-empty">Items you pick up will appear here.</div>
+  <div class="empty"><div class="empty-title">No scripts yet</div>Install a script from the Marketplace, or fork one, and it shows up here.</div>
+  <div class="empty"><div class="empty-title">The game has not started</div>Log a character into the game and your scripts show up here.</div>
+  <div class="p-empty">No Claude session paired. Paste the link above into Claude Code to pair one.</div>
+  <div class="p-empty">Runs you start show up here, newest first.</div>
+</template>
+
+<script>
+  // The only script in this file: swap the panel body when a strip icon is clicked, and build
+  // the side-by-side gallery from the same templates.
+  const TITLES = {
+    tasks: ['▶', 'Tasks'], marketplace: ['⚑', 'Marketplace'], xp: ['✚', 'XP Tracker'],
+    loot: ['💰', 'Loot Tracker'], bank: ['🏦', 'Bank'], connect: ['✦', 'Claude'],
+    characters: ['👥', 'Characters'], notes: ['📝', 'Notes'], screenshot: ['📸', 'Screenshot'],
+    account: ['☺', 'Account'], config: ['⚙', 'Configuration'], plugins: ['🧩', 'Plugins'],
+    'empty-states': ['·', 'Empty states']
+  };
+  const bodyFor = id => document.querySelector(`template[data-body="${id}"]`).content.cloneNode(true);
+
+  const strip = document.getElementById('icon-strip');
+  strip.addEventListener('click', e => {
+    const btn = e.target.closest('[data-panel]');
+    if (!btn) return;
+    const id = btn.dataset.panel;
+    for (const b of strip.querySelectorAll('[data-panel]')) {
+      const on = b === btn;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    }
+    document.getElementById('panel-icon').textContent = TITLES[id][0];
+    document.getElementById('panel-title').textContent = TITLES[id][1];
+    document.getElementById('panel-body').replaceChildren(bodyFor(id));
+  });
+  document.getElementById('panel-body').replaceChildren(bodyFor('tasks'));
+
+  const gallery = document.getElementById('doc-gallery');
+  for (const id of Object.keys(TITLES)) {
+    const col = document.createElement('div');
+    col.className = 'doc-col';
+    col.innerHTML = `<aside class="side-panel doc-panel">
+      <div class="panel-header"><span class="panel-icon">${TITLES[id][0]}</span><b>${TITLES[id][1]}</b>
+      <button class="panel-back" type="button" aria-label="Close panel">×</button></div>
+      <div class="panel-body"></div></aside>`;
+    col.querySelector('.panel-body').appendChild(bodyFor(id));
+    gallery.appendChild(col);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+[helemos]
+name=Helemos
+op1=Talk-to
+op3=Trade
+param=shop,dragonaxeshop
+
+[fixture_shopkeeper]
+name=Shop keeper
+op3=Trade

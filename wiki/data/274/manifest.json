@@ -1,0 +1,20 @@
+{
+ "revision": 274,
+ "contentSha": "2b62ae68dfed02b441bae47987a01d6bcbaeb358",
+ "engineSha": "1d25566cb53e7af1b1cb18ade8af996316c19614",
+ "generatedAt": "2026-09-05T16:55:47.243Z",
+ "counts": {
+  "items": 2629,
+  "npcs": 1359,
+  "locs": 4671,
+  "areas": 136,
+  "spawns": 827274,
+  "entitySpawns": 8473,
+  "locSpawns": 818801,
+  "shops": 197,
+  "skills": 19,
+  "methods": 225,
+  "drops": 3746,
+  "quests": 59
+ }
+}

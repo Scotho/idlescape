@@ -1,0 +1,16 @@
+{
+  // The Playwright half of web/. `tsconfig.json` excludes `e2e/**` because Vite compiles only
+  // `src/`, and `npm run lint` runs over `src/` alone, so until this file existed the specs and
+  // the harness were neither typechecked nor linted: Playwright transpiles without checking, and
+  // two real type errors shipped in the first version of these files. `npm run typecheck` runs
+  // both projects now.
+  //
+  // `types: ["node"]` and not `vite/client`: this half runs in the Playwright process, where
+  // `node:fs` and `process.env` are real and `import.meta.env` is not.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["e2e/**/*.ts", "playwright.config.ts"],
+  "exclude": []
+}

@@ -1,0 +1,62 @@
+<section id="screen-home" class="screen hidden">
+  <div class="screen-card">
+    <h1 class="screen-title">idlescape</h1>
+    <p class="screen-sub">Lost City, in your browser, with a Claude that can play alongside you.</p>
+
+    <div class="entry-identity-row">
+      <span id="entry-identity" class="entry-identity"></span>
+      <button id="entry-account-link" class="link hidden" type="button">Sign in with email</button>
+    </div>
+
+    <div id="home-choices" class="stack">
+      <button id="btn-guest" class="btn btn-primary btn-lg btn-block" type="button" disabled>Play as guest</button>
+      <div class="entry-buttons-row">
+        <button id="btn-show-login" class="btn" type="button" disabled>Log in</button>
+        <button id="btn-show-signup" class="btn" type="button" disabled>Create account</button>
+      </div>
+      <button id="btn-connect" class="link" type="button" disabled>Connect a Claude session</button>
+      <a class="link wiki-link" href="/wiki" target="_blank" rel="noopener" title="Browse the wiki">Browse the wiki</a>
+    </div>
+
+    <div id="home-login" class="stack hidden">
+      <form id="signin-form" class="stack">
+        <input id="signin-email" class="input" type="email" placeholder="Email" autocomplete="email" required>
+        <input id="signin-password" class="input" type="password" placeholder="Password" autocomplete="current-password" required>
+        <p id="signin-error" class="field-error hidden" aria-live="polite"></p>
+        <button class="btn btn-primary btn-block" type="submit">Log in</button>
+        <button id="btn-forgot" class="link" type="button">Forgot password?</button>
+      </form>
+      <p id="signin-notice" class="notice hidden" aria-live="polite"></p>
+    </div>
+
+    <div id="home-signup" class="stack hidden">
+      <form id="signup-form" class="stack">
+        <input id="signup-name" class="input" type="text" placeholder="Display name (1-20 characters)" maxlength="20" required>
+        <input id="signup-email" class="input" type="email" placeholder="Email" autocomplete="email" required>
+        <input id="signup-password" class="input" type="password" placeholder="Password (6 or more characters)" autocomplete="new-password" required>
+        <p id="signup-error" class="field-error hidden" aria-live="polite"></p>
+        <button class="btn btn-primary btn-block" type="submit">Create account</button>
+      </form>
+    </div>
+
+    <div id="entry-connect-view" class="stack hidden">
+      <div id="entry-connect-host"></div>
+      <div class="entry-connect-actions">
+        <button id="btn-entry-back" class="link" type="button">Back</button>
+        <button id="btn-connect-login" class="btn btn-primary" type="button">Log in</button>
+      </div>
+    </div>
+
+    <button id="btn-home-back" class="link hidden" type="button">Back</button>
+    <p id="entry-checking" class="screen-sub entry-checking">Checking your account…</p>
+    <p id="home-busy" class="screen-sub hidden">Signing in…</p>
+    <p id="entry-signup-success" class="notice hidden" aria-live="polite"></p>
+    <p id="entry-guest-warning" class="notice-warn hidden">You're playing as a guest. Progress lives in this browser and is lost if you clear it or switch devices. Create an account to keep it.</p>
+    <p id="home-error" class="error hidden" aria-live="polite"></p>
+
+    <div class="screen-foot stack">
+      <p id="home-players" class="screen-sub"></p>
+      <ul id="home-patch-notes" class="patch-notes"></ul>
+    </div>
+  </div>
+</section>

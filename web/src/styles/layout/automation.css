@@ -1,0 +1,133 @@
+/* Per-surface geometry for the Automation surfaces: the run card, the script rows, the snippet
+   box, the run report and the Marketplace cards. Split out of tasks.css by Task 2 and written
+   onto the v2 tokens by Task 15, which is why this file is in tokens.test.ts's CONVERTED list.
+   The trace went to layout/trace.css, the run dot and the strip button it hangs off went to
+   strip.css, `.dot-accent` went to badge.css, and the run banner's nineteen rules left with the
+   banner itself in Task 14.
+
+   Every literal here is map-design 3.9's, which is the mock's own. The chrome of a card, a badge,
+   a button, a tag or an alert belongs to its family and is composed, never restated: this file
+   places those components and sizes what is left. */
+
+/* The panel's two tabs (G4): the segmented control on top, and whichever half is in front under
+   it. Each half brings its own rhythm, so the host carries only the gap between the two. */
+.automation-content { margin-top: var(--sp-6); }
+
+/* The live run, pinned above the sections. The ground, the border, the radius, the shadow and
+   the left rail are `.card .card-hero .card-rail-*`; what is here is the rhythm and the parts
+   that family has no name for. */
+.run-card { display: flex; flex-direction: column; gap: var(--sp-4); margin-bottom: var(--sp-5); }
+.run-card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-5); }
+/* map-design 3.9: `font-size:14.5px; font-weight:650; color:#e8e8e6`. The pre-v2 file had no
+   title rule at all, so the script name inherited the panel body size. */
+.run-title { font-size: var(--fs-title); font-weight: 650; color: var(--text-strong); }
+.run-elapsed { font-family: var(--font-num); font-weight: 700; font-size: 16px; font-variant-numeric: tabular-nums; color: var(--accent-bright); }
+.run-status-line { color: var(--text); font-size: var(--fs-small); line-height: 1.2; overflow-wrap: anywhere; }
+
+/* The quest steps: where the run has been and what it is on now, from the `task_enter` trace. */
+/* 5px is the mock's own step gap and is off the spacing scale (2/3/4/6/8/10/12/14), so it is
+   written as the literal the bundle gives, the way the 7px card-list gap below is. Rounding it
+   to `--sp-2` shipped the row a third tighter than the mock in four places. */
+.run-steps { display: flex; align-items: center; gap: 5px; margin-top: 1px; }
+.run-step { display: flex; align-items: center; gap: 5px; }
+.run-step-mark { display: grid; place-items: center; width: 14px; height: 14px; border-radius: 50%; font-size: 9px; }
+.run-step[data-step="done"] .run-step-mark { background: rgba(67,160,71,.2); color: var(--ok-pop); }
+.run-step[data-step="current"] .run-step-mark { background: rgba(255,152,31,.25); color: var(--accent); font-size: 8px; animation: stepPulse 1.8s ease-in-out infinite; }
+.run-step[data-step="upcoming"] .run-step-mark { border: 1px solid var(--control-hover); color: var(--text-faint); font-size: 8px; }
+.run-step-label { font-size: var(--fs-tiny); color: var(--text-muted); }
+.run-step[data-step="current"] .run-step-label { color: var(--accent); font-weight: 600; }
+.run-step[data-step="upcoming"] .run-step-label { color: var(--text-faint); }
+.run-step-link { width: 12px; height: 1px; background: var(--control-hover); }
+
+/* What this session has picked up and earned, under a hairline of its own. */
+.run-counters { display: flex; gap: var(--sp-5); margin-top: var(--sp-2); padding: var(--sp-4) 0 var(--sp-1); border-top: 1px solid var(--hairline-soft); font-size: var(--fs-tiny); color: var(--text-muted); }
+.run-counters b { font-family: var(--font-num); font-weight: 700; font-size: var(--fs-base); color: var(--text-strong); }
+.run-counters b[data-run-session-xp] { color: var(--ok-pop); }
+
+/* No `margin-top`: the card is a flex column with a gap, and the mock's action row carries
+   nothing of its own. A margin here would add to that gap rather than replace it. */
+.run-actions { display: flex; gap: var(--sp-4); }
+.run-actions .btn { flex: 1; }
+
+/* The live detail: what the run is working on, how fast it is earning, and the last few health
+   checks. Each line takes itself off screen when it has nothing to say. */
+.run-detail-line { color: var(--text-muted); font-size: var(--fs-small); line-height: 1.2; overflow-wrap: anywhere; }
+.run-health { display: flex; flex-direction: column; gap: var(--sp-1); margin: 0; padding: 0; list-style: none; }
+.run-health-item { color: var(--text-muted); font-size: var(--fs-small); line-height: 1.2; }
+/* The marker is written as a hex escape rather than as the character itself, so nothing in the
+   pipeline can mangle it: it shipped once as a stray control byte and the suite was green. */
+.run-health-item::before { content: '\00B7'; margin-right: var(--sp-3); color: var(--warn); }
+
+/* One script the player owns, as a card in the mock's own `gap:7px` list. The list owns the gap
+   and the card owns nothing outside itself: a sibling margin here would ADD to the host's flex
+   gap rather than set it, which is how the cards shipped 11px apart. 7px is off the spacing
+   scale, so it is written as the literal the bundle gives. The card chrome is
+   `.card .card-lift`; what is here is the mock's own padding and the rhythm inside it. */
+.task-list { display: flex; flex-direction: column; gap: 7px; }
+.task-row { padding: 10px 11px; }
+.task-row-head { display: flex; align-items: center; gap: var(--sp-4); }
+.task-row-name { flex: 1; min-width: 0; color: var(--text-strong); font-weight: 650; font-size: var(--fs-base); overflow-wrap: anywhere; }
+.task-row-desc { margin-top: var(--sp-1); color: var(--text-muted); font-size: var(--fs-small); line-height: 1.25; }
+.task-meta { margin-top: var(--sp-1); color: var(--text-faint); font-size: var(--fs-micro); }
+/* The amber requirement line: a bare paragraph, not an Alert, and no glyph (ruling R19). */
+.task-req { margin-top: var(--sp-1); color: var(--warn); font-size: var(--fs-small); }
+.task-row-actions { display: flex; flex-wrap: wrap; gap: var(--sp-4); margin-top: var(--sp-5); }
+.task-row-actions .btn { flex: 1; min-width: 56px; }
+/* The per-script on/off switch sits with the buttons but keeps its own width: the label reads
+   "On" or "Off", so stretching it the way the buttons stretch would leave it mostly gap. */
+.task-row-toggle { flex: 0 0 auto; gap: var(--sp-3); }
+.task-row-toggle > .field-label { flex: 0 0 auto; color: var(--text-muted); font-size: var(--fs-micro); }
+.params-form { margin-top: var(--sp-5); padding-top: var(--sp-5); border-top: 1px dashed var(--hairline); }
+
+/* Snippet runner and the inline editor share the code box; `textarea.code` is the family's. */
+.snippet-code { width: 100%; min-height: 36px; line-height: 1.25; }
+
+/* One finished run: the dot says how it ended, the body says what it was and what it cost, and
+   the button opens its report. The meta line is deliberately NOT mono and carries no tabular
+   figures: README says otherwise and the mock wins (ruling R16, map-design note S17). */
+.history-row { display: flex; align-items: center; gap: var(--sp-5); padding: var(--sp-5) var(--sp-1); }
+.history-row + .history-row { border-top: 1px solid var(--hairline-soft); }
+.history-body { flex: 1; min-width: 0; }
+.history-name { display: block; color: var(--text-strong); font-size: var(--fs-small); font-weight: 650; overflow-wrap: anywhere; }
+.history-meta { display: block; color: var(--text-faint); font-size: var(--fs-micro); }
+/* --- SP4b Task 11: the run report. Its Open trace button pops the window (Task 16) --- */
+/* Restyled onto the v2 tokens by Task 15, never rewritten: every hook and every rule is SP4b's. */
+.report { display: flex; flex-direction: column; gap: var(--sp-5); margin-top: var(--sp-5); padding-top: var(--sp-5); border-top: 1px solid var(--hairline); }
+.report-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); }
+.report-name { flex: 1; min-width: 0; color: var(--text-strong); font-weight: 650; }
+.report-totals { display: flex; flex-wrap: wrap; gap: var(--sp-5); }
+.report-stat { display: flex; flex-direction: column; min-width: 56px; }
+.report-stat-label { color: var(--text-muted); font-size: var(--fs-micro); }
+.report-stat-value { color: var(--text-strong); font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.report-recoveries { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+/* One bar for the whole run, one block per task visit. `overflow: hidden` is what keeps the
+   1% floor on a tiny visit from pushing the row past 100%. */
+.report-bar { display: flex; height: 10px; overflow: hidden; background: var(--sunken); border: 1px solid var(--hairline); border-radius: var(--r-pill-sm); }
+.report-seg { min-width: 2px; background: var(--info); border-right: 1px solid var(--sunken); }
+.report-seg[data-outcome="failed"] { background: var(--error); }
+.report-seg[data-outcome="timeout"], .report-seg[data-outcome="aborted"] { background: var(--warn); }
+.report-seg[data-outcome="open"] { background: var(--accent); }
+.report-rows { display: flex; flex-direction: column; max-height: 160px; overflow-y: auto; font-size: var(--fs-micro); }
+.report-row { padding: var(--sp-1) var(--sp-3); color: var(--text); border-left: 2px solid var(--info); overflow-wrap: anywhere; }
+.report-row[data-outcome="failed"] { border-left-color: var(--error); }
+.report-row[data-outcome="timeout"], .report-row[data-outcome="aborted"] { border-left-color: var(--warn); }
+.report-row[data-outcome="open"] { border-left-color: var(--accent); }
+.report-dropped { color: var(--text-muted); font-size: var(--fs-micro); }
+/* --- end SP4b Task 11 ----------------------------------------------------------- */
+
+/* --- The Marketplace tab, on the same card shell as a script row ---------------- */
+/* The tab is one 10px column in the mock, search box and cards alike, so the column owns every
+   gap in it. The list nests inside at the same 10px and adds no margin of its own: the
+   `margin-top` this rule used to carry added to the host's gap and pushed the first card out. */
+.market-tab { display: flex; flex-direction: column; gap: var(--sp-6); }
+.market-list { display: flex; flex-direction: column; gap: var(--sp-6); }
+.market-card { display: flex; flex-direction: column; gap: var(--sp-4); }
+.market-head { display: flex; align-items: center; gap: var(--sp-4); }
+.market-name { flex: 1; min-width: 0; color: var(--text-strong); font-weight: 650; font-size: var(--fs-base); }
+.market-desc { color: var(--text-muted); font-size: var(--fs-small); line-height: 1.25; }
+.market-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); }
+.market-est { align-self: center; color: var(--text-faint); font-size: var(--fs-micro); }
+.market-missing { display: flex; flex-direction: column; gap: var(--sp-1); }
+.market-actions { display: flex; gap: var(--sp-4); }
+.market-actions .btn { flex: 1; }
+

@@ -1,0 +1,49 @@
+/* idlescape — color tokens. RGB kept as hex; alpha variants inline. */
+:root {
+  /* Surfaces, darkest to lightest */
+  --ground: #111112;        /* page behind the frame */
+  --frame: #18181a;         /* frame body */
+  --sunken: #141416;        /* inputs, wells, tab rails */
+  --bar: #1a1a1c;           /* headers, strips, footers */
+  --panel: #1e1e20;         /* side panel ground */
+  --card: #232325;          /* cards, raised rows */
+  --card-grad: linear-gradient(180deg, #242426, #1f1f21);
+  --control: #2e2e2d;       /* buttons at rest */
+  --control-hover: #3a3a38;
+  /* Hairlines & edges */
+  --hairline: rgba(255,255,255,.07);
+  --hairline-soft: rgba(255,255,255,.05);
+  --hairline-strong: rgba(255,255,255,.12);
+  --edge: rgba(0,0,0,.55);  /* borders between chrome regions */
+  /* Text ramp */
+  --text-strong: #e8e8e6;
+  --text: #b4b4b2;
+  --text-muted: #7c7c7a;
+  --text-faint: #575755;
+  --text-disabled: #4e4e4c;
+  /* The one accent */
+  --accent: #ff981f;
+  --accent-bright: #ffb95e;
+  --accent-deep: #d6780a;
+  --accent-grad: linear-gradient(180deg, #ffa63a, #f28c0e);
+  --on-accent: #1c1300;
+  --accent-tint: rgba(255,152,31,.15);
+  --accent-glow: rgba(255,152,31,.28);
+  /* Semantic tones */
+  --ok: #43a047; --ok-bright: #6ec873; --ok-pop: #7ddc84;
+  --warn: #ffb300;
+  --error: #e53935;
+  --danger: #a02828; --danger-deep: #781c1c; --danger-hover: #b93030;
+  --info: #4a90d9; --info-bright: #78afeb;
+  /* HUD meters */
+  --hp: #c0392b; --hp-bright: #e05a4b;
+  --prayer: #2980b9; --prayer-bright: #4aa3dc;
+  --run: #27ae60; --run-bright: #43ca7e;
+  /* Semantic aliases */
+  --surface-page: var(--ground);
+  --surface-card: var(--card);
+  --text-body: var(--text);
+  --border-card: var(--hairline);
+  --focus-ring: 0 0 0 3px rgba(255,152,31,.18);
+  --overlay-scrim: rgba(0,0,0,.62);
+}

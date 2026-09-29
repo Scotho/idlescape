@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "types": ["vite/client"]
+  },
+  "include": ["src/**/*.ts"],
+  // Tests and harnesses live in tsconfig.test.json; e2e in tsconfig.e2e.json. `npm run typecheck`
+  // runs all three, so nothing is unchecked, and a harness is no longer part of the shipped program.
+  "exclude": ["src/**/*.test.ts", "src/**/*.harness.ts", "src/**/harness.ts", "e2e/**"]
+}

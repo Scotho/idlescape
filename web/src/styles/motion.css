@@ -1,0 +1,26 @@
+/* idlescape motion. Answers an action; off under reduced motion. Copied from the vendored
+   bundle at docs/design/idlescape-shell-v2/tokens/motion.css; do not retune by hand.
+   shimmer and barflow have identical bodies on purpose: both consumers set
+   background-size:200% 100% on the element, and the two names differ only in intent. */
+@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(255,152,31,.10); } }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes barflow { to { background-position: -200% 0; } }
+@keyframes floatUp { 0% { opacity:0; transform:translateY(8px) scale(.9);} 15% {opacity:1; transform:translateY(0) scale(1);} 75% {opacity:1;} 100% {opacity:0; transform:translateY(-30px);} }
+@keyframes fadeUp { from { opacity:0; transform:translateY(6px); } }
+@keyframes popIn { from { opacity:0; transform:scale(.94); } }
+@keyframes bob { 50% { transform:translateY(-5px); } }
+@keyframes stepPulse { 50% { box-shadow: 0 0 0 4px rgba(255,152,31,.15); } }
+/* The ninth, and not the bundle's: the toast's entry, which arrived here with the toast when
+   Task 2 split overlays.css. Deleting that file without moving this silently kills the entry
+   animation on every notify. */
+@keyframes toast-in { from { opacity: 0; transform: translateY(6px); } }
+/* The eleventh, on the same argument again: the side panel's entry animation, which arrived in
+   frame.css and moved here with Task 8's rewrite of that file. A keyframe belongs in this file or
+   nothing polices it. */
+@keyframes panel-in { from { opacity: 0; transform: translateX(6px); } }
+/* The tenth, on the same argument: the in-flight ring that `.btn.is-loading::after` and `.spinner`
+   both drive lives in button.css, but a keyframe belongs here or nothing polices it. */
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

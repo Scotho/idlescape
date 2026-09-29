@@ -1,0 +1,47 @@
+/* CharTab. docs/design/idlescape-shell-v2/components/navigation/CharTab.jsx, map-design sections
+   2.19 and 3.2. One row of slots across the top of the game view (SP7); "four slots, always".
+   Split out of tabs.css by Task 2 and rewritten at the mock's metrics by Task 8. The iframe host
+   that file also carried is per-surface geometry and lives in layout/panels.css. */
+.char-tabs { height: var(--tabs-h); flex: none; display: flex; align-items: stretch; gap: 3px; padding: 0 8px; background: var(--chrome-bar); border-bottom: 1px solid var(--edge); }
+/* The bar renders before the first render() call, and a 32px empty strip is a visible seam. */
+.char-tabs:empty { display: none; }
+.char-tab { display: flex; align-items: center; gap: 7px; min-width: 148px; height: 100%; padding: 0 12px; border: 0; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0; background: transparent; color: var(--text-quiet); font-size: var(--fs-small); white-space: nowrap; cursor: pointer; }
+.char-tab:hover:not(:disabled):not(.active) { background: var(--card); color: var(--text-strong); }
+.char-tab.active { border-bottom-color: var(--accent); border-radius: 0; background: linear-gradient(180deg, var(--chrome-tab-active), var(--card)); color: var(--text-strong); box-shadow: 0 6px 14px -8px rgba(255,152,31,.4); }
+/* `.char-tab.active` writes a box-shadow at (0,2,0), which outranks base.css's one focus ring at
+   (0,1,0): without this the tab the player is on takes keyboard focus with no ring. It restates
+   the lift it is composed over rather than replacing it. */
+.char-tab.active:focus-visible { box-shadow: 0 6px 14px -8px rgba(255,152,31,.4), var(--focus-ring); }
+.char-tab:disabled { color: var(--text-disabled); cursor: not-allowed; }
+/* The two narrow slots. `.char-tab-locked` is a "+ New character" the account cannot use yet, so
+   it takes the empty slot's width and the disabled colour, not the 148px of a real character. */
+.char-tab-empty, .char-tab-locked { min-width: 124px; color: var(--text-muted); }
+.char-tab-more { min-width: 110px; gap: 6px; }
+.char-tab-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--text-faint); }
+.char-tab-dot.online { background: var(--ok); box-shadow: 0 0 6px rgba(67,160,71,.7); }
+.char-tab-dot.connecting { background: var(--warn); }
+.char-tab-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.char-tab-status { margin-left: auto; color: var(--text-muted); font-size: var(--fs-micro); }
+/* The online clock is mono; the words "offline" and "coming soon" are not (map-design 2.19), so
+   the face rides on a marker class the clock alone carries. Task 18 is what sets it. */
+.char-tab-status.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 700px) {
+  .char-tab { min-width: 0; }
+  .char-tab-status { display: none; }
+}
+
+/* Segmented: a 3px-padded sunken rail with equal-width buttons. components/forms/Segmented.jsx,
+   map-design 2.12. A forms component by behaviour and a tab.css class by ownership: families.ts
+   gives `seg` and `chip` to this file, beside the character tabs they share their "pick one of
+   these" shape with, and form.css would fail "defines only its own family" on all seven rules. */
+.seg { display: flex; gap: 3px; padding: 3px; background: var(--sunken); border: 1px solid var(--hairline); border-radius: var(--r-seg); }
+.seg-btn { flex: 1; height: var(--ctl-h-xs); padding: 0 8px; border: 0; border-radius: var(--r-ctl-sm); background: transparent; color: var(--text-muted); font-size: var(--fs-tiny); font-weight: 500; white-space: nowrap; cursor: pointer; }
+.seg-btn:hover { color: var(--text-strong); }
+.seg-btn.active { background: var(--accent-tint); color: var(--accent); font-weight: 650; }
+
+/* Filter chip: a segmented button that stands alone and toggles. The Events panel's six type
+   filters (map-design 3.12) are the first consumer. */
+.chip { height: 20px; padding: 0 8px; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; background: transparent; color: var(--text-quiet); font-size: var(--fs-micro); font-weight: 600; cursor: pointer; }
+.chip:hover { border-color: rgba(255,152,31,.6); }
+.chip.active { background: var(--accent-tint); border-color: rgba(255,152,31,.5); color: var(--accent); }

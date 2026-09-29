@@ -1,0 +1,191 @@
+/* Per-surface geometry for the panels and the full-screen entry screens: the layout primitives
+   panels compose with, the boot/home/character-creation screen chrome, the iframe host, the
+   plugin overlay column, and the handful of one-surface rows that the component families
+   deliberately do not own. Split out of layout.css, tabs.css, overlays.css and data.css by
+   Task 2; the rules are unchanged, only their home is.
+
+   A layout file may place a family class but may not restyle one: `.session-row .dot` positions
+   the dot, it does not redraw it. styles.test.ts is what says so. */
+
+/* Layout primitives */
+.stack { display: flex; flex-direction: column; gap: 8px; }
+.stack-tight { display: flex; flex-direction: column; gap: 4px; }
+.stack-loose { display: flex; flex-direction: column; gap: 16px; }
+.cluster { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.spread { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.grow { flex: 1; min-width: 0; }
+.divider { display: flex; align-items: center; gap: 8px; color: rgb(var(--rl-muted)); font-size: var(--fs-sm); }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgb(var(--rl-border)); }
+hr.rule { border: 0; border-top: 1px solid rgb(var(--rl-border)); margin: 8px 0; }
+
+/* Full-screen centred card (gate, home, character creation). This family was `.card*` until
+   Task 2 Step 0 freed that name for the component library; it is per-surface geometry, three
+   screens wide, and it lives here rather than in card.css for that reason. */
+.screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; min-height: 100dvh; padding: 16px; }
+.screen-card {
+  display: flex; flex-direction: column; gap: 12px;
+  width: 100%; max-width: 360px;
+  background: rgb(var(--rl-panel));
+  border: 1px solid rgb(var(--rl-border));
+  border-radius: 4px;
+  padding: 24px 16px 16px;
+}
+.screen-card-wide { max-width: 480px; }
+.screen-title { font-family: var(--font-pixel); font-size: 24px; line-height: 1; color: rgb(var(--rl-orange)); text-align: center; letter-spacing: .02em; }
+.screen-heading { font-size: 15px; font-weight: 600; color: rgb(var(--rl-strong)); text-align: center; }
+.screen-sub { color: rgb(var(--rl-muted)); font-size: 12px; text-align: center; }
+.screen-foot { margin-top: 4px; padding-top: 12px; border-top: 1px solid rgb(var(--rl-border)); }
+
+/* The iframe host replaces the old single canvas; exactly one frame is visible at a time. */
+.client-frames { position: relative; display: flex; justify-content: center; }
+/* The iframe IS the shell's canvas box, so the mock's canvas chrome (map-design 3.4) lands here
+   and not on `#canvas`, which lives inside /play.html and is styled there. The mock's 1px border
+   is deliberately not copied: `box-sizing: border-box` would take those two pixels out of the
+   client's own canvas, which frame/stage.ts sizes to the pixel. */
+.client-frame { display: block; border: 0; border-radius: 4px; background: #000; box-shadow: 0 10px 30px -12px rgba(0,0,0,.7); }
+.client-frame.hidden { display: none; }
+
+/* Plugin overlay host: a full-bleed transparent layer over the canvas, and deliberately NOT a
+   positioned column. Its one client is the status HUD, whose `.hud-stack` carries the mock's own
+   top:42/right:10 (overlay.css); a host with offsets of its own would make that stack resolve
+   them against the host box rather than against the canvas, and put the HUD twice as far in. */
+.plugin-overlays { position: absolute; inset: 0; pointer-events: none; z-index: var(--z-overlay); }
+
+/* List rows with a leading indicator and trailing actions */
+.row-list { display: flex; flex-direction: column; }
+.row-list > * + * { border-top: 1px solid rgb(var(--rl-border)); }
+
+/* Paired sessions (Claude panel). The row is a `.kv` wearing this grid, so the three children it
+   places are library classes it may position and may not redraw. */
+.session-row { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "dot name action" "dot meta action"; column-gap: 8px; row-gap: 2px; align-items: center; padding: 8px 0; }
+.session-row .dot { grid-area: dot; }
+.session-row .kv-value { grid-area: name; text-align: left; }
+/* The meta line under the name: the mock's 10px faint grey (3.14), which is the same treatment
+   the character rows give their `online / offline` line two blocks up. */
+.session-row .kv-label { grid-column: 2; color: var(--text-faint); font-size: var(--fs-micro); }
+.session-row .btn { grid-area: action; }
+
+/* Characters, inside the Account panel since G5 (map-design 3.15). The row is a `.card` wearing
+   this layout: the card family draws the ground, the hairline and the accent rail of the tab that
+   is in front, and these rules only place the body and the row's two actions. */
+.char-row { display: flex; align-items: center; gap: 8px; padding: 9px 11px; }
+.char-row-main { flex: 1; min-width: 0; }
+.char-row-name { color: var(--text-strong); }
+.char-status { display: block; font-size: var(--fs-micro); color: var(--text-faint); }
+.char-status-online { color: var(--ok-bright); }
+/* The create row, which the mock draws as a row rather than a form. It stays a `<form>` so Enter
+   still submits, and so `#char-panel-create button[type="submit"]` keeps working. */
+.char-create { display: flex; gap: 6px; }
+.char-create .input { flex: 1; min-width: 0; }
+
+/* Connect card (pairing), map-design 3.14. The card family draws the ground, the gradient, the
+   hairline and the radius: the card is composed as `card card-hero connect-card`, so all that is
+   left here is the stack and the two rows the family has no opinion about. */
+.connect-card { display: flex; flex-direction: column; gap: 8px; }
+.connect-title { color: var(--text-strong); }
+/* The pairing link and its Copy button. The input gives up the 55% cap a key/value row would put
+   on a control and takes the whole row instead; the button never shrinks. */
+.connect-url-row { display: flex; gap: 5px; }
+.connect-url-row .input { flex: 1; width: 0; min-width: 0; max-width: none; }
+.connect-url-row .btn { flex: none; }
+/* `connect to this` is the phrase the player has to type, so it is the one strong run inside the
+   accent alert. The alert family paints the box; this says which words carry the weight. */
+.connect-hint b { color: var(--text-strong); }
+/* The waiting row: the dot is the library's, pulsing at the mock's 7px, and the copy beside it is
+   the quietest text in the card because it says that nothing has happened yet. */
+.connect-wait { display: flex; align-items: center; gap: 6px; color: var(--text-faint); font-size: var(--fs-small); }
+.connect-card .link { align-self: flex-start; }
+
+/* Patch notes on the home card */
+.patch-notes { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 12px; text-align: left; }
+.patch-notes > li { display: block; }
+.patch-notes b { color: rgb(var(--rl-strong)); }
+.patch-notes ul { margin: 2px 0 0; padding-left: 14px; list-style: disc; color: rgb(var(--rl-text)); }
+.pn-date { color: rgb(var(--rl-muted)); font-size: var(--fs-sm); margin-right: 6px; }
+
+/* Home identity row */
+.entry-identity-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 18px; font-size: 12px; color: rgb(var(--rl-strong)); }
+.entry-identity:empty { display: none; }
+.entry-buttons-row { display: flex; gap: 8px; }
+.entry-buttons-row .btn { flex: 1; }
+.entry-connect-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.entry-connect-actions .btn { flex: 1; }
+.entry-checking { margin-top: -4px; }
+/* The home card's wiki link: an anchor wearing .link, so it needs the block box .link's
+   inline display doesn't give it, and no underline until hover. */
+.wiki-link { display: block; text-decoration: none; }
+
+/* The Plugins panel, map-design 3.18. The root is a container of its own rather than the panel
+   body because this one panel is drawn on a 6px rhythm where every other panel is on 10px, and
+   `.panel-body`'s gap belongs to the frame. */
+.plugin-panel { display: flex; flex-direction: column; gap: 6px; }
+.plugin-list { display: flex; flex-direction: column; }
+/* A grid and not the mock's flex row: the settings form opens as a fourth child spanning the whole
+   width, which a row cannot do. The three columns render identically to the mock's three children. */
+.plugin-row { display: grid; grid-template-columns: 22px 1fr auto; column-gap: 9px; align-items: center; padding: 9px 2px; border-bottom: 1px solid var(--hairline-soft); }
+.plugin-icon { display: grid; place-items: center; color: var(--accent); }
+.plugin-main { min-width: 0; }
+/* No font-size: the mock's 12px IS the body size, and this file is still frozen under ruling R2
+   (its screen-chrome half is pre-v2), so naming `--fs-base` here would be reading a revalued
+   token in a frozen file. Inheriting says the same thing and survives the freeze. */
+.plugin-name { color: var(--text-strong); font-weight: 600; }
+.plugin-desc { color: var(--text-faint); font-size: var(--fs-micro); line-height: 1.2; margin-top: 2px; }
+.plugin-controls { display: flex; align-items: center; gap: 8px; }
+/* The `always on` marker: the quietest type in the shell, because it explains a disabled control
+   rather than offering one. */
+.plugin-controls .muted { color: var(--text-disabled); font-size: 9px; }
+.plugin-settings { grid-column: 1 / -1; }
+.plugin-settings[hidden] { display: none; }
+
+/* A plugin's settings form, indented under its row so it reads as belonging to it. `.field-label`
+   is the library class the caption wears; the `flex: 1` that used to ride on the retired
+   `p-setting-label` is scoped to this row rather than given to every field label in the shell. */
+.settings-form { display: flex; flex-direction: column; gap: 4px; padding: 8px 0 0 26px; }
+.setting-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 24px; }
+.setting-row > .field-label { flex: 1; }
+.setting-row .input, .setting-row .select { width: auto; max-width: 50%; }
+
+/* Screenshot thumbnails, map-design 3.17. Two columns at a fixed 58px so a grid with one capture
+   in it has the same rhythm as a full one, and the checkerboard ground shows through a shot with
+   transparency instead of leaving a hole. Orange on hover is the only affordance the tile needs:
+   clicking it downloads that capture, which is what the caption below the grid says. */
+.shot-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.shot-thumb {
+  width: 100%; height: 58px; object-fit: cover; cursor: pointer;
+  background: repeating-linear-gradient(45deg, var(--shot-a) 0 8px, var(--shot-b) 8px 16px);
+  border: 1px solid var(--hairline-soft); border-radius: var(--r-ctl);
+  transition: border-color .12s ease;
+}
+.shot-thumb:hover { border-color: rgba(255,152,31,.5); }
+.shot-note { color: var(--text-faint); font-size: var(--fs-micro); }
+
+/* The notes plugin's textarea: a `.textarea` given the rest of the panel's height. */
+.notes-body { flex: 1; min-height: 160px; }
+
+/* The XP tracker (map-design 3.10). The card, the meter and the buttons are library classes; what
+   is here is the one-surface geometry the mock gives them. Both the header and the footer are
+   drawn with a `flex:1` spacer in the mock and with `space-between` here: the same result with one
+   node fewer, which is why `.xp-foot` reads as its two halves and nothing between them. */
+.xp-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.xp-since { color: var(--text-muted); font-size: var(--fs-small); }
+/* The mock's card is 10px 11px where the family's own is 11px flat; a card in the XP panel is
+   read as a list of four, and the tighter vertical rhythm is what makes that list scan. */
+.xp-card { padding: 10px 11px; }
+.xp-card .meter { margin-top: 8px; }
+.xp-row { display: flex; align-items: center; gap: 9px; }
+.xp-level { display: grid; place-items: center; width: 26px; height: 26px; border-radius: var(--r-seg); background: var(--control); border: 1px solid rgba(255,255,255,.08); font-family: var(--font-num); font-weight: 700; font-size: 12px; color: var(--accent-bright); }
+.xp-main { flex: 1; min-width: 0; }
+.xp-name { color: var(--text-strong); }
+.xp-sub { display: block; color: var(--text-faint); font-size: var(--fs-micro); }
+/* The mock's inline style declares font-weight twice on this span, 650 then 700; 700 wins. */
+.xp-gain { color: var(--ok-pop); font-family: var(--font-num); font-weight: 700; font-size: 13px; }
+.xp-foot { display: flex; justify-content: space-between; margin-top: 4px; color: var(--text-faint); font-size: var(--fs-micro); }
+
+/* The Loot tracker. The mock draws only the empty state (3.11), which is `.empty-state` in
+   alert.css; a populated panel takes the XP panel's header row and one `.kv` per item, so the two
+   trackers read as the same surface with different contents. */
+.loot-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.loot-count { color: var(--text-muted); font-size: var(--fs-small); }
+.loot-list { display: flex; flex-direction: column; }
+.loot-list .kv + .kv { border-top: 1px solid var(--hairline-soft); }

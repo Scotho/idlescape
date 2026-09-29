@@ -1,0 +1,32 @@
+/* The Events panel's own geometry (map-design 3.12). The rails are pure CSS off
+   `[data-event-type]`, exactly as the trace's are off `[data-kind]`: a row carries its type and
+   its tone as data and this file decides what colour that is, so no rendering code holds a
+   palette. The panel's root is `.panel-body` itself, which already ships the mock's
+   `display:flex; flex-direction:column; gap:10px` (`layout/frame.css`), so there is no wrapper
+   here to restate it. It carries no `min-height:0`, and does not need one: its own
+   `overflow-y:auto` is a non-visible overflow, which is the other way a flex item is taken off
+   its automatic minimum size, and that is what lets `.events-feed` below scroll inside the panel
+   instead of stretching it. A panel converted from this one that drops that `overflow-y` has to
+   add the `min-height:0` itself. */
+.events-row { display: flex; gap: 8px; padding: 6px 6px 6px 8px; margin-bottom: 2px; border-left: 2px solid transparent; border-radius: 0 4px 4px 0; }
+.events-row[data-event-type="xp"]     { border-left-color: var(--ok); }
+.events-row[data-event-type="loot"]   { border-left-color: var(--warn); }
+.events-row[data-event-type="level"]  { border-left-color: var(--accent); background: rgba(255,152,31,.07); }
+.events-row[data-event-type="run"]    { border-left-color: var(--info); }
+.events-row[data-event-type="claude"] { border-left-color: var(--text-muted); }
+.events-row[data-event-type="bank"]   { border-left-color: var(--info-bright); }
+/* After the type rules, so a failed run row is red-railed and amber-texted, which is the mock's
+   row 10. A tone is a state on top of a type, never a seventh type. */
+.events-row[data-event-tone="fail"]   { border-left-color: var(--error); }
+.events-time { flex: none; padding-top: 1px; color: var(--text-faint); font-size: var(--fs-micro); font-variant-numeric: tabular-nums; }
+.events-text { flex: 1; min-width: 0; color: var(--text); font-size: var(--fs-small); overflow-wrap: anywhere; }
+.events-row[data-event-type="level"] .events-text { color: var(--accent-bright); }
+.events-row[data-event-tone="fail"] .events-text { color: var(--warn); }
+.events-feed { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
+.events-filters { display: flex; align-items: center; gap: 6px; }
+/* The skill select takes the row and the Clear button keeps its label's width. */
+.events-filters .select { flex: 1; min-width: 0; }
+.events-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.events-foot { flex: none; display: flex; align-items: center; padding-top: 7px; border-top: 1px solid var(--hairline-soft); color: var(--text-faint); font-size: var(--fs-micro); }
+/* The count is also the footer's spacer: it takes the row and pushes Copy for Claude to the end. */
+.events-count { flex: 1; min-width: 0; }

@@ -1,0 +1,132 @@
+# deploy/docker/docker-compose.yml -- the Lightsail deployment of idlescape (operator runbook:
+# deploy/lightsail/README.md). Three services: `engine` (the 274 Lost City engine, unpublished),
+# `server` (the front server, internal-only), `cloudflared` (the only service that reaches the
+# internet, outbound, running the `idlescape` tunnel from a mounted config + credentials).
+#
+# No service publishes a host port (`ports:`) -- the box's firewall stays closed except SSH;
+# cloudflared makes an OUTBOUND connection to Cloudflare's edge and the ingress rule for
+# osrs.scotho.com lives in deploy/lightsail/cloudflared.yml.
+#
+# Secrets/env come in by absolute path from the box's /opt/idlescape/secrets directory via the
+# compose env file deploy/lightsail/release.ps1 generates (SERVER_ENV_FILE, FIREBASE_ADMIN_FILE,
+# TUNNEL_CREDENTIALS_FILE); the relative defaults below keep the file usable from a local
+# checkout that has server/.env and server/secrets/ in place.
+#
+# TWO networks, not one. `internal` carries the front server and the tunnel connector and is the
+# network another compose project on the same box joins by its full name, idlescape_internal
+# (see deploy/lightsail/README.md, "The idlescape_internal network"). `engine` carries the
+# engine and the front server and nothing else. It was put there because binding the management
+# port off loopback exposed three unauthenticated upstream /setup routes, one of which returns
+# db.pass in plaintext (decision D74). Entry 2 authenticated those routes behind
+# ENGINE_MANAGEMENT_SECRET, so the original reason is closed; the split stays as defence in
+# depth, because the management port also carries routes that can move any account's items and
+# nothing else on this box has any business reaching it.
+
+name: idlescape
+
+services:
+  engine:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/engine.Dockerfile
+      args:
+        ENGINE_SHA: ${ENGINE_SHA:?set from scripts/upstream.lock, see README.md}
+        CONTENT_SHA: ${CONTENT_SHA:?set from scripts/upstream.lock, see README.md}
+        WEB_ALLOWED_ORIGIN: ${PUBLIC_ORIGIN:-https://osrs.scotho.com}
+    env_file:
+      # OWNER_ASSERTION_SECRET and ENGINE_MANAGEMENT_SECRET come from the SAME file the front
+      # server reads (on the box /opt/idlescape/secrets/server.env, written by
+      # deploy/lightsail/provision.ps1), so the two halves of each shared secret can never
+      # disagree -- the single source of truth scripts/start-stack.ps1 gives local dev, applied
+      # to the deployment. Neither is ever a literal in this repo. The engine also sees the
+      # file's Firebase keys and reads none of them: engine-custom/src/idlescape/
+      # config.ts reads only OWNER_ASSERTION_SECRET, ENGINE_MANAGEMENT_SECRET and the
+      # IDLESCAPE_* names below.
+      - ${SERVER_ENV_FILE:-../../server/.env}
+    environment:
+      # Topology, not secrets, so it is set here and overrides whatever server.env says.
+      # 0.0.0.0 because the front server reaches management at http://engine:8897 from its own
+      # container; the config default (127.0.0.1) is unreachable from anywhere but the engine
+      # container itself. Safe only because `engine` is not on the shared network -- see the
+      # header note.
+      IDLESCAPE_MANAGEMENT_HOST: "0.0.0.0"
+      # The overlay's bank-changed hook, posted with the management secret as its header
+      # (engine-custom/src/idlescape/install.ts) and answered by server/src/router.ts.
+      IDLESCAPE_HOOK_URL: http://server:8787/internal/bank-changed
+      # The owner banks are the overlay's own durable state. The config default, data/banks,
+      # resolves inside the image at /opt/engine/server/data/banks and would be discarded on
+      # every container replace; this puts them in the engine-db volume beside the sqlite file.
+      IDLESCAPE_BANK_DIR: /opt/engine/data/banks
+    restart: unless-stopped
+    volumes:
+      # Directory mount; the engine image symlinks its db.sqlite into it at start (see
+      # engine.Dockerfile's CMD). A named volume cannot be mounted at a file path.
+      - engine-db:/opt/engine/data
+    networks: [engine]
+
+  server:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/server.Dockerfile
+      args:
+        ENGINE_SHA: ${ENGINE_SHA:?set from scripts/upstream.lock, see README.md}
+        # The server image's wiki-build stage clones Content itself and runs the extract, so it
+        # needs the same content pin the engine image uses (audit C09).
+        CONTENT_SHA: ${CONTENT_SHA:?set from scripts/upstream.lock, see README.md}
+        VITE_FIREBASE_API_KEY: ${VITE_FIREBASE_API_KEY:?see README.md}
+        VITE_FIREBASE_AUTH_DOMAIN: ${VITE_FIREBASE_AUTH_DOMAIN:?see README.md}
+        VITE_FIREBASE_PROJECT_ID: ${VITE_FIREBASE_PROJECT_ID:?see README.md}
+        VITE_FIREBASE_APP_ID: ${VITE_FIREBASE_APP_ID:?see README.md}
+        VITE_FIREBASE_MESSAGING_SENDER_ID: ${VITE_FIREBASE_MESSAGING_SENDER_ID:?see README.md}
+    env_file:
+      # OWNER_ASSERTION_SECRET, ENGINE_MANAGEMENT_SECRET, FIREBASE_PROJECT_ID come from this file (on the box:
+      # /opt/idlescape/secrets/server.env, written by deploy/lightsail/provision.ps1).
+      # Everything container-topology-specific (ENGINE_HTTP/WS, GOOGLE_APPLICATION_CREDENTIALS,
+      # FIREBASE_EMULATORS, PUBLIC_ORIGIN) is overridden below regardless of what the file says,
+      # since a dev copy of server/.env points at 127.0.0.1 and may have emulators on.
+      - ${SERVER_ENV_FILE:-../../server/.env}
+    environment:
+      ENGINE_HTTP: http://engine:8899
+      ENGINE_WS: ws://engine:8899
+      # server/src/env.ts defaults this to loopback, which inside this container is the front
+      # server itself, not the engine: without it the players gauge is null forever and the
+      # owner-bank management client talks to nobody.
+      ENGINE_MANAGEMENT_HTTP: http://engine:8897
+      FIREBASE_EMULATORS: "false"
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/firebase-admin.json
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:-https://osrs.scotho.com}
+    secrets: [firebase-admin.json]
+    depends_on: [engine]
+    restart: unless-stopped
+    networks: [engine, internal]
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    # Locally-managed run: the config (deploy/lightsail/cloudflared.yml, ingress
+    # osrs.scotho.com -> http://server:8787) and the tunnel's credentials JSON are mounted in.
+    # Behind the "public" compose profile so a plain `up -d` never exposes a stack that hasn't
+    # been health-checked; deploy/lightsail/cutover.ps1 starts it deliberately via box/public.sh
+    # and box/up.sh keeps it running on later releases once it exists.
+    command: tunnel --no-autoupdate --config /etc/cloudflared/config.yml run
+    volumes:
+      - ../lightsail/cloudflared.yml:/etc/cloudflared/config.yml:ro
+      - ${TUNNEL_CREDENTIALS_FILE:?path to the tunnel credentials JSON, see deploy/lightsail/README.md}:/etc/cloudflared/credentials.json:ro
+    profiles: [public]
+    restart: unless-stopped
+    depends_on: [server]
+    networks: [internal]
+
+secrets:
+  firebase-admin.json:
+    file: ${FIREBASE_ADMIN_FILE:-../../server/secrets/firebase-admin.json}
+
+volumes:
+  engine-db: {}
+
+networks:
+  # Reachable by name as idlescape_internal from another compose project on the same box;
+  # deploy/lightsail/README.md records that dependency. Do not rename it without reading that
+  # section first.
+  internal: {}
+  # engine + server only. Nothing outside this project joins it.
+  engine: {}

@@ -1,0 +1,14 @@
+[border_gate_toll_left]
+name=Gate
+desc=The toll gate from Lumbridge to Al-Kharid.
+model=model_loc_52
+op1=Open
+category=border_gate_toll_left
+param=next_loc_stage,loc_1562
+
+[fixture_anvil]
+name=Anvil
+desc=Used for smithing.
+op1=Smith
+width=1
+length=1

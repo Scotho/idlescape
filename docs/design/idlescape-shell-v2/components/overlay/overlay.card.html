@@ -1,0 +1,18 @@
+<!-- @dsCard group="Components" viewport="700x220" subtitle="The one language allowed over the game canvas" name="Overlay" -->
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{padding:14px}</style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = (() => { for (const k of Object.keys(window)) { try { const v = window[k]; if (v && typeof v === "object" && v.Button && v.Icon) return v; } catch (e) {} } return {}; })();
+const { OverlayPill, HudPill } = NS;
+function Demo(){ return <div style={{display:"flex",flexDirection:"column",gap:8,alignItems:"flex-start",background:"repeating-linear-gradient(45deg,#0a0a0a 0 12px,#0d0d0d 12px 24px)",padding:16,borderRadius:6}}>
+  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}><OverlayPill>Woodcutting · 24,180 xp/h</OverlayPill><OverlayPill tone="ok">● claude paired</OverlayPill><OverlayPill tone="neutral">● not paired</OverlayPill><OverlayPill tone="accent">Woodcutting +3</OverlayPill></div>
+  <div style={{display:"flex",flexDirection:"column",gap:4,alignItems:"flex-start"}}><HudPill meter="hp" pct={78} value="14/18" /><HudPill meter="prayer" pct={40} value="4/10" /><HudPill meter="run" pct={62} value="62" /></div>
+</div>; }
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script></body></html>

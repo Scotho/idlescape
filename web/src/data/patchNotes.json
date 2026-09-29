@@ -1,0 +1,4 @@
+[
+  { "date": "2026-09-05", "title": "Characters", "items": ["Guests get two characters, accounts get three.", "Pick a character before entering the world.", "Live player count on this page."] },
+  { "date": "2026-09-05", "title": "Rendering fix", "items": ["The world now paints right after login instead of staying on the loading bar."] }
+]

@@ -1,0 +1,30 @@
+<!-- @dsCard group="Components" viewport="700x260" subtitle="Cards, key-value rows, meters — the run card recipe" name="Data" -->
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{padding:14px}</style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = (() => { for (const k of Object.keys(window)) { try { const v = window[k]; if (v && typeof v === "object" && v.Button && v.Icon) return v; } catch (e) {} } return {}; })();
+const { Card, KV, Meter, Badge, Button, SectionLabel } = NS;
+function Demo(){ return <div style={{display:"flex",gap:12,alignItems:"flex-start",flexWrap:"wrap"}}>
+  <div style={{width:270}}><Card gradient rail="accent">
+    <div style={{display:"flex",alignItems:"center",gap:8}}><Badge tone="accent">Running</Badge><span style={{flex:1}}/><span style={{fontFamily:"var(--font-num)",fontWeight:700,fontSize:14,color:"var(--accent-bright)"}}>14:07</span></div>
+    <div style={{fontSize:"var(--fs-title)",fontWeight:650,color:"var(--text-strong)",margin:"4px 0"}}>Chop and drop</div>
+    <div style={{fontSize:11,marginBottom:8}}>Chopping the nearest tree · Woodcutting 34</div>
+    <div style={{display:"flex",gap:6}}><Button style={{flex:1}}>Pause</Button><Button style={{flex:1}}>Trace</Button><Button style={{flex:1}}>Stop</Button></div>
+  </Card></div>
+  <div style={{width:270,display:"flex",flexDirection:"column",gap:8}}>
+    <SectionLabel>Bank</SectionLabel>
+    <KV label="Used" value="27 / 240" mono />
+    <Meter pct={11} />
+    <KV label="Updates" value="● live" tone="var(--ok-bright)" />
+    <SectionLabel>XP</SectionLabel>
+    <Meter pct={64} shimmer />
+  </div>
+</div>; }
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script></body></html>

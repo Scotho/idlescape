@@ -1,0 +1,16 @@
+<section id="screen-characters" class="screen hidden">
+  <div class="screen-card">
+    <h1 class="screen-title">idlescape</h1>
+    <h2 class="screen-heading">Name your character</h2>
+    <p class="screen-sub">This is the name other players see. 1 to 12 characters: letters, digits or underscores, starting with a letter.</p>
+    <form id="char-create-form" class="stack">
+      <div class="field">
+        <input id="char-name" class="input" type="text" maxlength="12" placeholder="Character name" autocomplete="off" required>
+        <span id="char-name-status" class="field-hint" aria-live="polite"></span>
+        <p id="char-create-error" class="field-error hidden" aria-live="polite"></p>
+      </div>
+      <button id="btn-char-create" class="btn btn-primary btn-block" type="submit">Create character</button>
+    </form>
+    <p id="char-busy" class="screen-sub hidden">Creating…</p>
+  </div>
+</section>

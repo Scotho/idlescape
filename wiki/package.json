@@ -1,0 +1,14 @@
+{
+  "name": "@idlescape/wiki",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "extract": "bun run ./gen/extract.ts",
+    "build": "bun run ./gen/build.ts",
+    "lint": "bun run ./gen/build.ts --lint-only",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": { "marked": "^15.0.0" },
+  "devDependencies": { "@types/bun": "latest", "typescript": "^5.9.0" }
+}

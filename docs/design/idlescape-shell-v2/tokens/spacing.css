@@ -1,0 +1,17 @@
+/* idlescape — spacing, radii, control metrics. */
+:root {
+  --sp-1: 2px; --sp-2: 3px; --sp-3: 4px; --sp-4: 6px;
+  --sp-5: 8px; --sp-6: 10px; --sp-7: 12px; --sp-8: 14px;
+  --r-pill-sm: 3px;   /* canvas pills */
+  --r-ctl: 6px;       /* buttons, inputs */
+  --r-seg: 7px;       /* segmented container (inner 5px) */
+  --r-card: 8px;
+  --r-window: 10px;   /* floating windows */
+  --r-badge: 10px;    /* full round on badges/tags */
+  --ctl-h-xs: 22px;   /* row actions, segmented tabs */
+  --ctl-h-sm: 25px;   /* card actions */
+  --ctl-h: 27px;      /* bar buttons */
+  --ctl-h-lg: 29px;   /* panel-width primary */
+  --panel-w: 280px;
+  --strip-w: 40px;
+}

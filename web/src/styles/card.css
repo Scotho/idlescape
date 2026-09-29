@@ -1,0 +1,76 @@
+/* The card family: the card itself, key/value rows, tables and the collapsible section.
+   Split out of data.css and layout.css by Task 2; Task 3 brought the stack, the in-row control
+   and the three grid rules home from the retired `p-row-stack` / `p-table` dialect.
+   Task 6 wrote `.card` and put `.kv` on the v2 values. `.card` could only take the name once the
+   gate, home and character-creation screens had left it: that family is `.screen*` now, in
+   layout/panels.css, and `grep -rn 'class="card"' web/src` finding a full-screen surface means
+   the rename came undone and three untested screens are wearing panel chrome.
+   `.table*` and `.section*` below are still the pre-v2 rules; neither is a bundle component. */
+
+/* Card. components/data/Card.jsx, with the mock's own border alphas (map-design S7): .06 for a
+   panel card, .07 for the two hero cards, never the component file's .05. */
+.card { padding: 11px; background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: var(--r-card); }
+.card-hero { padding: 12px; background: var(--card-grad); border-color: var(--hairline); box-shadow: 0 4px 14px -8px rgba(0,0,0,.6); }
+/* The rails follow `.card-hero` so a hero card can still be railed: `border-color` above would
+   otherwise repaint the left edge the rail just claimed. Written as longhands rather than the
+   `border-left: 3px solid var(--tone)` shorthand the component file uses, because a shorthand
+   carrying a `var()` is one declaration a browser resolves at use time and jsdom drops whole:
+   under the shorthand all four rails were unreadable through the cascade AND reset the hero
+   border colour that had just applied, so cascade.test.ts could say nothing about them at all. */
+.card-rail-accent, .card-rail-ok, .card-rail-warn, .card-rail-error { border-left-width: 3px; border-left-style: solid; }
+.card-rail-accent { border-left-color: var(--accent); }
+.card-rail-ok     { border-left-color: var(--ok); }
+.card-rail-warn   { border-left-color: var(--warn); }
+.card-rail-error  { border-left-color: var(--error); }
+.card-lift { transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease); }
+/* Three longhands, not the plan literal's `border-color`: at (0,2,0) this hover beats every
+   `.card-rail-*` rule above it, so the shorthand would repaint the left edge and animate a
+   railed card's tone away for as long as the pointer sits on it. The left edge belongs to the
+   rail; the hover owns the other three. `transition: border-color` still covers all four. */
+.card-lift:hover { transform: translateY(-1px); border-top-color: var(--hairline-strong); border-right-color: var(--hairline-strong); border-bottom-color: var(--hairline-strong); }
+
+/* Key/value row. components/data/KV.jsx: 11px type, 2px of vertical rhythm, and `roomy` for the
+   4px the mock gives the Bank panel's rows. `text-align` and `overflow-wrap` are ours, not the
+   mock's: a value long enough to wrap is a panel-width problem the mock never had. */
+.kv { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 0; font-size: var(--fs-small); }
+.kv-roomy { padding: 4px 0; }
+.kv-label { color: var(--text-muted); }
+.kv-value { color: var(--text-strong); font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; overflow-wrap: anywhere; }
+.kv-value.num { font-family: var(--font-num); }
+.kv-stack { flex-direction: column; align-items: flex-start; gap: 2px; }
+.kv-stack .kv-value { text-align: left; font-weight: 500; }
+/* A control sitting in a key/value row takes the value's half of it, not the row's full width. */
+.kv .input, .kv select.input { width: auto; max-width: 55%; }
+
+/* Two-column grid of label/value pairs (xp tracker, loot) */
+.table { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; align-items: baseline; }
+.table .kv-label { font-size: var(--fs-small); }
+.table .kv-value { text-align: left; }
+/* The grid's right-hand column. Scoped off real tables: `table.table` below right-aligns with
+   `.num` per cell, and an unscoped `.table > :nth-child(even)` catches a `<table>`'s second element
+   child, which is its `<tbody>`, and right-aligns every cell in it that `.num` did not claim. */
+.table:not(table) > :nth-child(even) { text-align: right; }
+
+/* Real tables */
+table.table { display: table; width: 100%; border-collapse: collapse; font-size: 12px; }
+table.table th { text-align: left; font-weight: 600; color: rgb(var(--rl-text)); padding: 4px 8px; border-bottom: 1px solid rgb(var(--rl-border)); }
+table.table td { padding: 4px 8px; border-bottom: 1px solid rgba(var(--rl-border), .6); color: rgb(var(--rl-strong)); }
+table.table tr:hover td { background: rgb(var(--rl-hover)); }
+table.table td.num, table.table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Collapsible section, RuneLite config-group style */
+.section { border: 1px solid rgb(var(--rl-border)); border-radius: 2px; background: rgb(var(--rl-darker)); }
+.section + .section { margin-top: 8px; }
+.section > summary { list-style: none; display: flex; align-items: center; gap: 8px; min-height: 28px; padding: 0 8px; color: rgb(var(--rl-strong)); font-weight: 600; cursor: pointer; user-select: none; }
+.section > summary::-webkit-details-marker { display: none; }
+.section > summary::after { content: ''; margin-left: auto; width: 6px; height: 6px; border-right: 1.5px solid rgb(var(--rl-muted)); border-bottom: 1.5px solid rgb(var(--rl-muted)); transform: rotate(-45deg); transition: transform 90ms cubic-bezier(.2,.7,.3,1); }
+.section[open] > summary::after { transform: rotate(45deg); }
+.section > summary:hover { background: rgb(var(--rl-hover)); }
+.section-body { padding: 8px; border-top: 1px solid rgb(var(--rl-border)); display: flex; flex-direction: column; gap: 8px; }
+
+/* SectionLabel. components/core/SectionLabel.jsx. */
+/* map-design 2.6: "the mock adds margin-top:2px when it follows another block" -- the offset is
+   ABOVE the label, separating it from what came before. The label-to-content gap below it comes
+   from the panel body's own `gap:10px`, and the mock never adds a second one. */
+.section-label { display: block; color: var(--text-muted); font-size: var(--fs-label); font-weight: 650; letter-spacing: var(--label-tracking); text-transform: uppercase; }
+* + .section-label { margin-top: 2px; }

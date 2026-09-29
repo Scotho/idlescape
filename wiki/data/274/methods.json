@@ -1,0 +1,4602 @@
+[
+ {
+  "skill": "combat",
+  "level": 1,
+  "xp": 5.5,
+  "action": "Make magic spell wind strike",
+  "inputs": [
+   "mindrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_wind_strike",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_wind_strike"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 5,
+  "xp": 7.5,
+  "action": "Make magic spell water strike",
+  "inputs": [
+   "mindrune",
+   "waterrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_water_strike",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_water_strike"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 9,
+  "xp": 9.5,
+  "action": "Make magic spell earth strike",
+  "inputs": [
+   "mindrune",
+   "earthrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_earth_strike",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_earth_strike"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 13,
+  "xp": 11.5,
+  "action": "Make magic spell fire strike",
+  "inputs": [
+   "mindrune",
+   "firerune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_fire_strike",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_fire_strike"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 17,
+  "xp": 13.5,
+  "action": "Make magic spell wind bolt",
+  "inputs": [
+   "chaosrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_wind_bolt",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_wind_bolt"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 23,
+  "xp": 16.5,
+  "action": "Make magic spell water bolt",
+  "inputs": [
+   "chaosrune",
+   "waterrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_water_bolt",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_water_bolt"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 29,
+  "xp": 19.5,
+  "action": "Make magic spell earth bolt",
+  "inputs": [
+   "chaosrune",
+   "earthrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_earth_bolt",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_earth_bolt"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 35,
+  "xp": 22.5,
+  "action": "Make magic spell fire bolt",
+  "inputs": [
+   "chaosrune",
+   "firerune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_fire_bolt",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_fire_bolt"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 41,
+  "xp": 25.5,
+  "action": "Make magic spell wind blast",
+  "inputs": [
+   "deathrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_wind_blast",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_wind_blast"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 47,
+  "xp": 28.5,
+  "action": "Make magic spell water blast",
+  "inputs": [
+   "deathrune",
+   "waterrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_water_blast",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_water_blast"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 53,
+  "xp": 31.5,
+  "action": "Make magic spell earth blast",
+  "inputs": [
+   "deathrune",
+   "earthrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_earth_blast",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_earth_blast"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 59,
+  "xp": 34.5,
+  "action": "Make magic spell fire blast",
+  "inputs": [
+   "deathrune",
+   "firerune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_fire_blast",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_fire_blast"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 62,
+  "xp": 36,
+  "action": "Make magic spell wind wave",
+  "inputs": [
+   "bloodrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_wind_wave",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_wind_wave"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 65,
+  "xp": 37.5,
+  "action": "Make magic spell water wave",
+  "inputs": [
+   "bloodrune",
+   "waterrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_water_wave",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_water_wave"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 70,
+  "xp": 40,
+  "action": "Make magic spell earth wave",
+  "inputs": [
+   "bloodrune",
+   "earthrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_earth_wave",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_earth_wave"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 75,
+  "xp": 42.5,
+  "action": "Make magic spell fire wave",
+  "inputs": [
+   "bloodrune",
+   "firerune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_fire_wave",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_fire_wave"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 20,
+  "xp": 30,
+  "action": "Make magic spell bind",
+  "inputs": [
+   "naturerune",
+   "waterrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_bind",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_bind"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 50,
+  "xp": 60,
+  "action": "Make magic spell snare",
+  "inputs": [
+   "naturerune",
+   "waterrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_snare",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_snare"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 79,
+  "xp": 89,
+  "action": "Make magic spell entangle",
+  "inputs": [
+   "naturerune",
+   "waterrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_entangle",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_entangle"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 3,
+  "xp": 13,
+  "action": "Make magic spell confuse",
+  "inputs": [
+   "bodyrune",
+   "waterrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_confuse",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_confuse"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 11,
+  "xp": 21,
+  "action": "Make magic spell weaken",
+  "inputs": [
+   "bodyrune",
+   "waterrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_weaken",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_weaken"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 19,
+  "xp": 29,
+  "action": "Make magic spell curse",
+  "inputs": [
+   "bodyrune",
+   "waterrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_curse",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_curse"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 66,
+  "xp": 76,
+  "action": "Make magic spell vulnerability",
+  "inputs": [
+   "soulrune",
+   "waterrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_vulnerability",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_vulnerability"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 73,
+  "xp": 83,
+  "action": "Make magic spell enfeeble",
+  "inputs": [
+   "soulrune",
+   "waterrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_enfeeble",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_enfeeble"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 80,
+  "xp": 90,
+  "action": "Make magic spell stun",
+  "inputs": [
+   "soulrune",
+   "waterrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_stun",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_stun"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 39,
+  "xp": 49,
+  "action": "Make magic spell crumble undead",
+  "inputs": [
+   "chaosrune",
+   "airrune",
+   "earthrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_crumble_undead",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_crumble_undead"
+   },
+   {
+    "kind": "cited",
+    "ref": "https://oldschool.runescape.wiki/w/Update:Various_Small_Changes."
+   },
+   {
+    "kind": "cited",
+    "ref": "https://web.archive.org/web/20050416144009/http://www.trillionareguild.com/runescape/magic.php"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 60,
+  "xp": 35,
+  "action": "Make magic spell saradomin strike",
+  "inputs": [
+   "firerune",
+   "bloodrune",
+   "airrune",
+   "saradomin_staff"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_saradomin_strike",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_saradomin_strike"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 60,
+  "xp": 35,
+  "action": "Make magic spell claws of guthix",
+  "inputs": [
+   "firerune",
+   "bloodrune",
+   "airrune",
+   "guthix_staff"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_claws_of_guthix",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_claws_of_guthix"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 60,
+  "xp": 35,
+  "action": "Make magic spell flames of zamorak",
+  "inputs": [
+   "firerune",
+   "bloodrune",
+   "airrune",
+   "zamorak_staff"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_flames_of_zamorak",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_flames_of_zamorak"
+   }
+  ]
+ },
+ {
+  "skill": "combat",
+  "level": 50,
+  "xp": 30,
+  "action": "Make magic spell iban blast",
+  "inputs": [
+   "firerune",
+   "deathrune",
+   "ibanstaff"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_iban_blast",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_combat/configs/magic/magic_combat_spells.dbrow#magic_spell_iban_blast"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 40,
+  "action": "Cook cooking generic ugthanki meat",
+  "inputs": [
+   "cooked_ugthanki_meat",
+   "raw_ugthanki_meat",
+   "burnt_meat"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_ugthanki_meat",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_ugthanki_meat"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 25,
+  "xp": 117,
+  "action": "Cook cooking generic stew",
+  "inputs": [
+   "stew",
+   "uncooked_stew",
+   "burnt_stew"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_stew",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_stew"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 60,
+  "xp": 280,
+  "action": "Cook cooking generic curry",
+  "inputs": [
+   "curry",
+   "uncooked_curry",
+   "burnt_curry"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_curry",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_curry"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 30,
+  "action": "Cook cooking generic beef",
+  "inputs": [
+   "cooked_meat",
+   "raw_beef",
+   "burnt_meat"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_beef",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_beef"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 0,
+  "action": "Cook cooking burn meat",
+  "inputs": [
+   "burnt_meat",
+   "cooked_meat"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_burn_meat",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_burn_meat"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 30,
+  "action": "Cook cooking generic rat meat",
+  "inputs": [
+   "cooked_meat",
+   "raw_rat_meat",
+   "burnt_meat"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_rat_meat",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_rat_meat"
+   },
+   {
+    "kind": "cited",
+    "ref": "https://youtu.be/LWfcA_C2bJY?t=141"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 30,
+  "action": "Cook cooking generic bear meat",
+  "inputs": [
+   "cooked_meat",
+   "raw_bear_meat",
+   "burnt_meat"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_bear_meat",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_bear_meat"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 30,
+  "action": "Cook cooking generic chicken",
+  "inputs": [
+   "cooked_chicken",
+   "raw_chicken",
+   "burnt_chicken"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_chicken",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_chicken"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 53,
+  "xp": 140,
+  "action": "Cook cooking generic lava eel",
+  "inputs": [
+   "lava_eel",
+   "raw_lava_eel"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_lava_eel",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_lava_eel"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 50,
+  "xp": 30,
+  "action": "Cook cooking generic wrapped oomlie",
+  "inputs": [
+   "cooked_oomlie",
+   "wrapped_oomlie",
+   "burnt_oomlie"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_wrapped_oomlie",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_wrapped_oomlie"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 58,
+  "xp": 40,
+  "action": "Cook cooking generic pitta bread",
+  "inputs": [
+   "pitta_bread",
+   "uncooked_pitta_bread",
+   "burnt_pitta_bread"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_pitta_bread",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_pitta_bread"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 40,
+  "xp": 180,
+  "action": "Cook cooking generic cake",
+  "inputs": [
+   "cake",
+   "uncooked_cake",
+   "burnt_cake",
+   "cake_tin"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_cake",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_cake"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 35,
+  "xp": 143,
+  "action": "Cook cooking generic pizza",
+  "inputs": [
+   "plain_pizza",
+   "uncooked_pizza",
+   "burnt_pizza"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_pizza",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_pizza"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 40,
+  "action": "Cook cooking generic bread",
+  "inputs": [
+   "bread",
+   "bread_dough",
+   "burnt_bread"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_bread",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_bread"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 30,
+  "xp": 130,
+  "action": "Cook cooking generic apple pie",
+  "inputs": [
+   "apple_pie",
+   "uncooked_apple_pie",
+   "burnt_pie"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_apple_pie",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_apple_pie"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 20,
+  "xp": 110,
+  "action": "Cook cooking generic meat pie",
+  "inputs": [
+   "meat_pie",
+   "uncooked_meat_pie",
+   "burnt_pie"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_meat_pie",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_meat_pie"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 10,
+  "xp": 78,
+  "action": "Cook cooking generic redberry pie",
+  "inputs": [
+   "redberry_pie",
+   "uncooked_redberry_pie",
+   "burnt_pie"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_redberry_pie",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_redberry_pie"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 30,
+  "action": "Cook cooking generic shrimp",
+  "inputs": [
+   "shrimp",
+   "raw_shrimp",
+   "burntfish1"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_shrimp",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_shrimp"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 30,
+  "action": "Cook cooking generic anchovies",
+  "inputs": [
+   "anchovies",
+   "raw_anchovies",
+   "burntfish1"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_anchovies",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_anchovies"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 40,
+  "action": "Cook cooking generic sardine",
+  "inputs": [
+   "sardine",
+   "raw_sardine",
+   "burntfish5"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_sardine",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_sardine"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 25,
+  "xp": 90,
+  "action": "Cook cooking generic salmon",
+  "inputs": [
+   "salmon",
+   "raw_salmon",
+   "burntfish2"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_salmon",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_salmon"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 15,
+  "xp": 70,
+  "action": "Cook cooking generic trout",
+  "inputs": [
+   "trout",
+   "raw_trout",
+   "burntfish2"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_trout",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_trout"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 10,
+  "xp": 0,
+  "action": "Cook cooking generic giant carp",
+  "inputs": [
+   "giant_carp",
+   "raw_giant_carp",
+   "burntfish2"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_giant_carp",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_giant_carp"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 18,
+  "xp": 75,
+  "action": "Cook cooking generic cod",
+  "inputs": [
+   "cod",
+   "raw_cod",
+   "burntfish2"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_cod",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_cod"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 5,
+  "xp": 50,
+  "action": "Cook cooking generic herring",
+  "inputs": [
+   "herring",
+   "raw_herring",
+   "burntfish3"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_herring",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_herring"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 20,
+  "xp": 80,
+  "action": "Cook cooking generic pike",
+  "inputs": [
+   "pike",
+   "raw_pike",
+   "burntfish2"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_pike",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_pike"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 10,
+  "xp": 60,
+  "action": "Cook cooking generic mackerel",
+  "inputs": [
+   "mackerel",
+   "raw_mackerel",
+   "burntfish3"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_mackerel",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_mackerel"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 30,
+  "xp": 100,
+  "action": "Cook cooking generic tuna",
+  "inputs": [
+   "tuna",
+   "raw_tuna",
+   "burntfish4"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_tuna",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_tuna"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 43,
+  "xp": 130,
+  "action": "Cook cooking generic bass",
+  "inputs": [
+   "bass",
+   "raw_bass",
+   "burntfish4"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_bass",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_bass"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 45,
+  "xp": 140,
+  "action": "Cook cooking generic swordfish",
+  "inputs": [
+   "swordfish",
+   "raw_swordfish",
+   "burnt_swordfish"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_swordfish",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_swordfish"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 40,
+  "xp": 120,
+  "action": "Cook cooking generic lobster",
+  "inputs": [
+   "lobster",
+   "raw_lobster",
+   "burnt_lobster"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_lobster",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_lobster"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 80,
+  "xp": 210,
+  "action": "Cook cooking generic shark",
+  "inputs": [
+   "shark",
+   "raw_shark",
+   "burnt_shark"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_shark",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_shark"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 91,
+  "xp": 216.3,
+  "action": "Cook cooking generic mantaray",
+  "inputs": [
+   "mantaray",
+   "raw_mantaray",
+   "burnt_mantaray"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_mantaray",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_mantaray"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 82,
+  "xp": 211.3,
+  "action": "Cook cooking generic seaturtle",
+  "inputs": [
+   "seaturtle",
+   "raw_seaturtle",
+   "burnt_seaturtle"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_seaturtle",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_seaturtle"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 0,
+  "action": "Cook cooking generic seaweed",
+  "inputs": [
+   "soda_ash",
+   "seaweed"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_seaweed",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_seaweed"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 3,
+  "action": "Cook cooking generic half baked gnomebowl",
+  "inputs": [
+   "half_baked_bowl",
+   "raw_gnomebowl",
+   "burnt_gnomebowl",
+   "gnomebowl_mould"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_half_baked_gnomebowl",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_half_baked_gnomebowl"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 3,
+  "action": "Cook cooking generic half baked crunchies",
+  "inputs": [
+   "half_baked_crunchy",
+   "raw_crunchies",
+   "burnt_crunchies",
+   "crunchy_tray"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_half_baked_crunchies",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_half_baked_crunchies"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 3,
+  "action": "Cook cooking generic half baked batta",
+  "inputs": [
+   "half_baked_batta",
+   "raw_batta",
+   "burnt_batta",
+   "batta_tin"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_half_baked_batta",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_half_baked_batta"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 0,
+  "action": "Cook cooking generic chocolate saturday",
+  "inputs": [
+   "unfinished_chocolate_saturday3",
+   "unfinished_chocolate_saturday2"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_chocolate_saturday",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_chocolate_saturday"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 60,
+  "action": "Cook cooking generic drunk dragon",
+  "inputs": [
+   "drunk_dragon",
+   "unfinished_drunk_dragon3"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_drunk_dragon",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_drunk_dragon"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 0,
+  "action": "Cook cooking generic unfinished gnome batta",
+  "inputs": [
+   "spoilt_batta",
+   "half_baked_batta",
+   "batta_tin"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_unfinished_gnome_batta",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_unfinished_gnome_batta"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 0,
+  "action": "Cook cooking generic unfinished gnome crunchies",
+  "inputs": [
+   "spoilt_crunchies",
+   "half_baked_crunchy",
+   "crunchy_tray"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_unfinished_gnome_crunchies",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_unfinished_gnome_crunchies"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 0,
+  "action": "Cook cooking generic unfinished gnomebowl",
+  "inputs": [
+   "spoilt_gnomebowl",
+   "half_baked_bowl",
+   "gnomebowl_mould"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_unfinished_gnomebowl",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_unfinished_gnomebowl"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 2,
+  "action": "Cook cooking generic raw swamp paste",
+  "inputs": [
+   "swamppaste",
+   "rawswamppaste"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_raw_swamp_paste",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_raw_swamp_paste"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 30,
+  "action": "Cook cooking generic rabbit",
+  "inputs": [
+   "cooked_rabbit",
+   "raw_rabbit",
+   "burnt_meat"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_rabbit",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_rabbit"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 10,
+  "action": "Cook cooking generic karambwanji",
+  "inputs": [
+   "tbwt_cooked_karambwanji",
+   "tbwt_raw_karambwanji",
+   "ashes"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_karambwanji",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_karambwanji"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 190,
+  "action": "Cook cooking generic karambwan",
+  "inputs": [
+   "tbwt_cooked_karambwan",
+   "tbwt_raw_karambwan",
+   "tbwt_burnt_karambwan"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_karambwan",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_karambwan"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 80,
+  "action": "Cook cooking generic poor karambwan",
+  "inputs": [
+   "tbwt_poorly_cooked_karambwan",
+   "tbwt_raw_karambwan",
+   "tbwt_burnt_karambwan"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_poor_karambwan",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_poor_karambwan"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 30,
+  "xp": 100,
+  "action": "Cook cooking generic jogre bones in raw karambwanji paste",
+  "inputs": [
+   "tbwt_jogre_bones_marinated_in_karambwanji",
+   "tbwt_jogre_bones_in_raw_karambwanji_paste"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_jogre_bones_in_raw_karambwanji_paste",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_jogre_bones_in_raw_karambwanji_paste"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 30,
+  "xp": 100,
+  "action": "Cook cooking generic burnt jogre bones in raw karambwanji paste",
+  "inputs": [
+   "tbwt_burnt_jogre_bones_marinated_in_karambwanji",
+   "tbwt_burnt_jogre_bones_in_raw_karambwanji_paste"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_burnt_jogre_bones_in_raw_karambwanji_paste",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_burnt_jogre_bones_in_raw_karambwanji_paste"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 0,
+  "action": "Cook cooking generic jogre bones",
+  "inputs": [
+   "tbwt_jogre_bones"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_jogre_bones",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_jogre_bones"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 0,
+  "action": "Cook cooking generic burnt jogre bones",
+  "inputs": [
+   "tbwt_burnt_jogre_bones"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_burnt_jogre_bones",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_burnt_jogre_bones"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 12,
+  "xp": 70,
+  "action": "Cook cooking snail corpse1",
+  "inputs": [
+   "snail_corpse_cooked1",
+   "snail_corpse1",
+   "burnt_snail"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_snail_corpse1",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_snail_corpse1"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 17,
+  "xp": 80,
+  "action": "Cook cooking snail corpse2",
+  "inputs": [
+   "snail_corpse_cooked2",
+   "snail_corpse2",
+   "burnt_snail"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_snail_corpse2",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_snail_corpse2"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 22,
+  "xp": 95,
+  "action": "Cook cooking snail corpse3",
+  "inputs": [
+   "snail_corpse_cooked3",
+   "snail_corpse3",
+   "burnt_snail"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_snail_corpse3",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_snail_corpse3"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 28,
+  "xp": 95,
+  "action": "Cook cooking generic mort slimey eel",
+  "inputs": [
+   "mort_slimey_eel_cooked",
+   "mort_slimey_eel",
+   "burnt_eel"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_mort_slimey_eel",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_mort_slimey_eel"
+   }
+  ]
+ },
+ {
+  "skill": "cooking",
+  "level": 1,
+  "xp": 0,
+  "action": "Cook cooking generic troll thistle",
+  "inputs": [
+   "eadgar_dried_troll_thistle",
+   "eadgar_troll_thistle"
+  ],
+  "outputs": [],
+  "table": "cooking_generic",
+  "row": "cooking_generic_troll_thistle",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_cooking/configs/cooking_source/cooking_generic.dbrow#cooking_generic_troll_thistle"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 43,
+  "xp": 107.5,
+  "action": "Craft diamond cutting",
+  "inputs": [
+   "uncut_diamond",
+   "diamond"
+  ],
+  "outputs": [],
+  "table": "gem_cutting_table",
+  "row": "diamond_cutting",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/gem/gem.dbrow#diamond_cutting"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 27,
+  "xp": 67.5,
+  "action": "Craft emerald cutting",
+  "inputs": [
+   "uncut_emerald",
+   "emerald"
+  ],
+  "outputs": [],
+  "table": "gem_cutting_table",
+  "row": "emerald_cutting",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/gem/gem.dbrow#emerald_cutting"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 34,
+  "xp": 85,
+  "action": "Craft ruby cutting",
+  "inputs": [
+   "uncut_ruby",
+   "ruby"
+  ],
+  "outputs": [],
+  "table": "gem_cutting_table",
+  "row": "ruby_cutting",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/gem/gem.dbrow#ruby_cutting"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 20,
+  "xp": 50,
+  "action": "Craft sapphire cutting",
+  "inputs": [
+   "uncut_sapphire",
+   "sapphire"
+  ],
+  "outputs": [],
+  "table": "gem_cutting_table",
+  "row": "sapphire_cutting",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/gem/gem.dbrow#sapphire_cutting"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 1,
+  "xp": 15,
+  "action": "Craft opal cutting",
+  "inputs": [
+   "uncut_opal",
+   "opal"
+  ],
+  "outputs": [],
+  "table": "gem_cutting_table",
+  "row": "opal_cutting",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/gem/gem.dbrow#opal_cutting"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 16,
+  "xp": 25,
+  "action": "Craft red topaz cutting",
+  "inputs": [
+   "uncut_red_topaz",
+   "red_topaz"
+  ],
+  "outputs": [],
+  "table": "gem_cutting_table",
+  "row": "red_topaz_cutting",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/gem/gem.dbrow#red_topaz_cutting"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 13,
+  "xp": 20,
+  "action": "Craft jade cutting",
+  "inputs": [
+   "uncut_jade",
+   "jade"
+  ],
+  "outputs": [],
+  "table": "gem_cutting_table",
+  "row": "jade_cutting",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/gem/gem.dbrow#jade_cutting"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 55,
+  "xp": 137.5,
+  "action": "Craft dragonstone cutting",
+  "inputs": [
+   "uncut_dragonstone",
+   "dragonstone"
+  ],
+  "outputs": [],
+  "table": "gem_cutting_table",
+  "row": "dragonstone_cutting",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/gem/gem.dbrow#dragonstone_cutting"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 1,
+  "xp": 13.8,
+  "action": "Craft craft leather gloves",
+  "inputs": [
+   "leather"
+  ],
+  "outputs": [
+   "leather_gloves"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_leather_gloves",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_leather_gloves"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 7,
+  "xp": 16.3,
+  "action": "Craft craft leather boots",
+  "inputs": [
+   "leather"
+  ],
+  "outputs": [
+   "leather_boots"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_leather_boots",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_leather_boots"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 11,
+  "xp": 22,
+  "action": "Craft craft leather vambraces",
+  "inputs": [
+   "leather"
+  ],
+  "outputs": [
+   "leather_vambraces"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_leather_vambraces",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_leather_vambraces"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 57,
+  "xp": 62,
+  "action": "Craft craft dragonhide vamb",
+  "inputs": [
+   "dragon_leather"
+  ],
+  "outputs": [
+   "dragon_vambraces"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_vamb",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_vamb"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 18,
+  "xp": 27,
+  "action": "Craft craft leather chaps",
+  "inputs": [
+   "leather"
+  ],
+  "outputs": [
+   "leather_chaps"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_leather_chaps",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_leather_chaps"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 60,
+  "xp": 124,
+  "action": "Craft craft dragonhide chaps",
+  "inputs": [
+   "dragon_leather"
+  ],
+  "outputs": [
+   "dragonhide_chaps"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_chaps",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_chaps"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 14,
+  "xp": 25,
+  "action": "Craft craft leather body",
+  "inputs": [
+   "leather"
+  ],
+  "outputs": [
+   "leather_armour"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_leather_body",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_leather_body"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 28,
+  "xp": 35,
+  "action": "Craft craft hardleather body",
+  "inputs": [
+   "hard_leather"
+  ],
+  "outputs": [
+   "hardleather_body"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_hardleather_body",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_hardleather_body"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 63,
+  "xp": 186,
+  "action": "Craft craft dragonhide body",
+  "inputs": [
+   "dragon_leather"
+  ],
+  "outputs": [
+   "dragonhide_body"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_body",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_body"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 9,
+  "xp": 18.5,
+  "action": "Craft craft leather cowl",
+  "inputs": [
+   "leather"
+  ],
+  "outputs": [
+   "leather_cowl"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_leather_cowl",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_leather_cowl"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 38,
+  "xp": 37,
+  "action": "Craft craft coif",
+  "inputs": [
+   "leather"
+  ],
+  "outputs": [
+   "coif"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_coif",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_coif"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 66,
+  "xp": 70,
+  "action": "Craft craft dragonhide vamb blue",
+  "inputs": [
+   "dragon_leather_blue"
+  ],
+  "outputs": [
+   "blue_dragon_vambraces"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_vamb_blue",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_vamb_blue"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 73,
+  "xp": 78,
+  "action": "Craft craft dragonhide vamb red",
+  "inputs": [
+   "dragon_leather_red"
+  ],
+  "outputs": [
+   "red_dragon_vambraces"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_vamb_red",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_vamb_red"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 79,
+  "xp": 86,
+  "action": "Craft craft dragonhide vamb black",
+  "inputs": [
+   "dragon_leather_black"
+  ],
+  "outputs": [
+   "black_dragon_vambraces"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_vamb_black",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_vamb_black"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 68,
+  "xp": 140,
+  "action": "Craft craft dragonhide chaps blue",
+  "inputs": [
+   "dragon_leather_blue"
+  ],
+  "outputs": [
+   "blue_dragonhide_chaps"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_chaps_blue",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_chaps_blue"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 75,
+  "xp": 156,
+  "action": "Craft craft dragonhide chaps red",
+  "inputs": [
+   "dragon_leather_red"
+  ],
+  "outputs": [
+   "red_dragonhide_chaps"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_chaps_red",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_chaps_red"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 82,
+  "xp": 172,
+  "action": "Craft craft dragonhide chaps black",
+  "inputs": [
+   "dragon_leather_black"
+  ],
+  "outputs": [
+   "black_dragonhide_chaps"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_chaps_black",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_chaps_black"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 71,
+  "xp": 210,
+  "action": "Craft craft dragonhide body blue",
+  "inputs": [
+   "dragon_leather_blue"
+  ],
+  "outputs": [
+   "blue_dragonhide_body"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_body_blue",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_body_blue"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 77,
+  "xp": 234,
+  "action": "Craft craft dragonhide body red",
+  "inputs": [
+   "dragon_leather_red"
+  ],
+  "outputs": [
+   "red_dragonhide_body"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_body_red",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_body_red"
+   }
+  ]
+ },
+ {
+  "skill": "crafting",
+  "level": 84,
+  "xp": 258,
+  "action": "Craft craft dragonhide body black",
+  "inputs": [
+   "dragon_leather_black"
+  ],
+  "outputs": [
+   "black_dragonhide_body"
+  ],
+  "table": "craft_leather_table",
+  "row": "craft_dragonhide_body_black",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_crafting/configs/leather/leather.dbrow#craft_dragonhide_body_black"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 1,
+  "xp": 1.3,
+  "action": "Fletch fletching bronze arrow",
+  "inputs": [
+   "bronze_arrowheads"
+  ],
+  "outputs": [
+   "bronze_arrow"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_bronze_arrow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/arrows/arrows.dbrow#fletching_bronze_arrow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 15,
+  "xp": 2.5,
+  "action": "Fletch fletching iron arrow",
+  "inputs": [
+   "iron_arrowheads"
+  ],
+  "outputs": [
+   "iron_arrow"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_iron_arrow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/arrows/arrows.dbrow#fletching_iron_arrow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 30,
+  "xp": 5,
+  "action": "Fletch fletching steel arrow",
+  "inputs": [
+   "steel_arrowheads"
+  ],
+  "outputs": [
+   "steel_arrow"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_steel_arrow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/arrows/arrows.dbrow#fletching_steel_arrow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 45,
+  "xp": 7.5,
+  "action": "Fletch fletching mithril arrow",
+  "inputs": [
+   "mithril_arrowheads"
+  ],
+  "outputs": [
+   "mithril_arrow"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_mithril_arrow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/arrows/arrows.dbrow#fletching_mithril_arrow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 60,
+  "xp": 10,
+  "action": "Fletch fletching adamant arrow",
+  "inputs": [
+   "adamant_arrowheads"
+  ],
+  "outputs": [
+   "adamant_arrow"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_adamant_arrow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/arrows/arrows.dbrow#fletching_adamant_arrow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 75,
+  "xp": 12.5,
+  "action": "Fletch fletching rune arrow",
+  "inputs": [
+   "rune_arrowheads"
+  ],
+  "outputs": [
+   "rune_arrow"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_rune_arrow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/arrows/arrows.dbrow#fletching_rune_arrow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 11,
+  "xp": 1.5,
+  "action": "Fletch fletching opal tips",
+  "inputs": [
+   "opal"
+  ],
+  "outputs": [
+   "opal_bolttips"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_opal_tips",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/bolts/bolts.dbrow#fletching_opal_tips"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 41,
+  "xp": 3.2,
+  "action": "Fletch fletching oyster pearl tips",
+  "inputs": [
+   "smalloysterpearls"
+  ],
+  "outputs": [
+   "pearl_bolttips"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_oyster_pearl_tips",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/bolts/bolts.dbrow#fletching_oyster_pearl_tips"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 41,
+  "xp": 3.2,
+  "action": "Fletch fletching oyster pearls tips",
+  "inputs": [
+   "bigoysterpearls"
+  ],
+  "outputs": [
+   "pearl_bolttips"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_oyster_pearls_tips",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/bolts/bolts.dbrow#fletching_oyster_pearls_tips"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 11,
+  "xp": 1.6,
+  "action": "Fletch fletching opal bolts",
+  "inputs": [
+   "opal_bolttips"
+  ],
+  "outputs": [
+   "opal_bolt"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_opal_bolts",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/bolts/bolts.dbrow#fletching_opal_bolts"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 41,
+  "xp": 3.2,
+  "action": "Fletch fletching pearl bolts",
+  "inputs": [
+   "pearl_bolttips"
+  ],
+  "outputs": [
+   "pearl_bolt"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_pearl_bolts",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/bolts/bolts.dbrow#fletching_pearl_bolts"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 51,
+  "xp": 9.5,
+  "action": "Fletch fletching barb bolts",
+  "inputs": [
+   "barbed_bolttips"
+  ],
+  "outputs": [
+   "barbed_bolt"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_barb_bolts",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/bolts/bolts.dbrow#fletching_barb_bolts"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 1,
+  "xp": 1.8,
+  "action": "Fletch fletching bronze dart",
+  "inputs": [
+   "bronze_dart_tip"
+  ],
+  "outputs": [
+   "bronze_dart"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_bronze_dart",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/darts/darts.dbrow#fletching_bronze_dart"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 22,
+  "xp": 3.8,
+  "action": "Fletch fletching iron dart",
+  "inputs": [
+   "iron_dart_tip"
+  ],
+  "outputs": [
+   "iron_dart"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_iron_dart",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/darts/darts.dbrow#fletching_iron_dart"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 37,
+  "xp": 7.5,
+  "action": "Fletch fletching steel dart",
+  "inputs": [
+   "steel_dart_tip"
+  ],
+  "outputs": [
+   "steel_dart"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_steel_dart",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/darts/darts.dbrow#fletching_steel_dart"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 52,
+  "xp": 11.2,
+  "action": "Fletch fletching mithril dart",
+  "inputs": [
+   "mithril_dart_tip"
+  ],
+  "outputs": [
+   "mithril_dart"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_mithril_dart",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/darts/darts.dbrow#fletching_mithril_dart"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 67,
+  "xp": 15,
+  "action": "Fletch fletching adamant dart",
+  "inputs": [
+   "adamant_dart_tip"
+  ],
+  "outputs": [
+   "adamant_dart"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_adamant_dart",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/darts/darts.dbrow#fletching_adamant_dart"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 81,
+  "xp": 18.8,
+  "action": "Fletch fletching rune dart",
+  "inputs": [
+   "rune_dart_tip"
+  ],
+  "outputs": [
+   "rune_dart"
+  ],
+  "table": "fletching_table",
+  "row": "fletching_rune_dart",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/darts/darts.dbrow#fletching_rune_dart"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 5,
+  "xp": 5,
+  "action": "Fletch stringing normal shortbow",
+  "inputs": [
+   "unstrung_shortbow"
+  ],
+  "outputs": [
+   "shortbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_normal_shortbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_normal_shortbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 10,
+  "xp": 10,
+  "action": "Fletch stringing normal longbow",
+  "inputs": [
+   "unstrung_longbow"
+  ],
+  "outputs": [
+   "longbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_normal_longbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_normal_longbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 20,
+  "xp": 16.5,
+  "action": "Fletch stringing oak shortbow",
+  "inputs": [
+   "unstrung_oak_shortbow"
+  ],
+  "outputs": [
+   "oak_shortbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_oak_shortbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_oak_shortbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 25,
+  "xp": 25,
+  "action": "Fletch stringing oak longbow",
+  "inputs": [
+   "unstrung_oak_longbow"
+  ],
+  "outputs": [
+   "oak_longbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_oak_longbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_oak_longbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 35,
+  "xp": 33.2,
+  "action": "Fletch stringing willow shortbow",
+  "inputs": [
+   "unstrung_willow_shortbow"
+  ],
+  "outputs": [
+   "willow_shortbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_willow_shortbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_willow_shortbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 40,
+  "xp": 41.5,
+  "action": "Fletch stringing willow longbow",
+  "inputs": [
+   "unstrung_willow_longbow"
+  ],
+  "outputs": [
+   "willow_longbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_willow_longbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_willow_longbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 50,
+  "xp": 50,
+  "action": "Fletch stringing maple shortbow",
+  "inputs": [
+   "unstrung_maple_shortbow"
+  ],
+  "outputs": [
+   "maple_shortbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_maple_shortbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_maple_shortbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 55,
+  "xp": 58.2,
+  "action": "Fletch stringing maple longbow",
+  "inputs": [
+   "unstrung_maple_longbow"
+  ],
+  "outputs": [
+   "maple_longbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_maple_longbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_maple_longbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 65,
+  "xp": 67.5,
+  "action": "Fletch stringing yew shortbow",
+  "inputs": [
+   "unstrung_yew_shortbow"
+  ],
+  "outputs": [
+   "yew_shortbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_yew_shortbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_yew_shortbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 70,
+  "xp": 75,
+  "action": "Fletch stringing yew longbow",
+  "inputs": [
+   "unstrung_yew_longbow"
+  ],
+  "outputs": [
+   "yew_longbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_yew_longbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_yew_longbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 80,
+  "xp": 83.2,
+  "action": "Fletch stringing magic shortbow",
+  "inputs": [
+   "unstrung_magic_shortbow"
+  ],
+  "outputs": [
+   "magic_shortbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_magic_shortbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_magic_shortbow"
+   }
+  ]
+ },
+ {
+  "skill": "fletching",
+  "level": 85,
+  "xp": 91.5,
+  "action": "Fletch stringing magic longbow",
+  "inputs": [
+   "unstrung_magic_longbow"
+  ],
+  "outputs": [
+   "magic_longbow"
+  ],
+  "table": "fletching_table",
+  "row": "stringing_magic_longbow",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_fletching/configs/stringing/bows.dbrow#stringing_magic_longbow"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 7,
+  "xp": 17.5,
+  "action": "Make magic spell enchant level1",
+  "inputs": [
+   "waterrune",
+   "cosmicrune",
+   "sapphire_ring",
+   "ring_of_recoil",
+   "strung_sapphire_amulet",
+   "amulet_of_magic",
+   "sapphire_necklace",
+   "necklace_of_minigames_8",
+   "unstrung_sapphire_amulet"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_enchant_level1",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_enchant_level1"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 27,
+  "xp": 37,
+  "action": "Make magic spell enchant level2",
+  "inputs": [
+   "airrune",
+   "cosmicrune",
+   "emerald_ring",
+   "ring_of_dueling_8",
+   "strung_emerald_amulet",
+   "amulet_of_defence",
+   "unstrung_emerald_amulet"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_enchant_level2",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_enchant_level2"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 49,
+  "xp": 59,
+  "action": "Make magic spell enchant level3",
+  "inputs": [
+   "firerune",
+   "cosmicrune",
+   "ruby_ring",
+   "ring_of_forging",
+   "strung_ruby_amulet",
+   "amulet_of_strength",
+   "unstrung_ruby_amulet"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_enchant_level3",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_enchant_level3"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 57,
+  "xp": 67,
+  "action": "Make magic spell enchant level4",
+  "inputs": [
+   "earthrune",
+   "cosmicrune",
+   "diamond_ring",
+   "ring_of_life",
+   "strung_diamond_amulet",
+   "amulet_of_power",
+   "unstrung_diamond_amulet"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_enchant_level4",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_enchant_level4"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 68,
+  "xp": 78,
+  "action": "Make magic spell enchant level5",
+  "inputs": [
+   "earthrune",
+   "waterrune",
+   "cosmicrune",
+   "dragonstone_ring",
+   "ring_of_wealth",
+   "strung_dragonstone_amulet",
+   "amulet_of_glory",
+   "unstrung_dragonstone_amulet"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_enchant_level5",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_enchant_level5"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 25,
+  "xp": 35,
+  "action": "Make magic spell teleport varrock",
+  "inputs": [
+   "firerune",
+   "airrune",
+   "lawrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_teleport_varrock",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_teleport_varrock"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 31,
+  "xp": 41,
+  "action": "Make magic spell teleport lumbridge",
+  "inputs": [
+   "earthrune",
+   "airrune",
+   "lawrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_teleport_lumbridge",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_teleport_lumbridge"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 37,
+  "xp": 48,
+  "action": "Make magic spell teleport falador",
+  "inputs": [
+   "waterrune",
+   "airrune",
+   "lawrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_teleport_falador",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_teleport_falador"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 45,
+  "xp": 55.5,
+  "action": "Make magic spell teleport camelot",
+  "inputs": [
+   "airrune",
+   "lawrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_teleport_camelot",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_teleport_camelot"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 51,
+  "xp": 61,
+  "action": "Make magic spell teleport ardougne",
+  "inputs": [
+   "waterrune",
+   "lawrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_teleport_ardougne",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_teleport_ardougne"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 58,
+  "xp": 68,
+  "action": "Make magic spell teleport watchtower",
+  "inputs": [
+   "earthrune",
+   "lawrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_teleport_watchtower",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_teleport_watchtower"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 61,
+  "xp": 68,
+  "action": "Make magic spell teleport trollheim",
+  "inputs": [
+   "firerune",
+   "lawrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_teleport_trollheim",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_teleport_trollheim"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 66,
+  "xp": 76,
+  "action": "Make magic spell charge air orb",
+  "inputs": [
+   "airrune",
+   "cosmicrune",
+   "obelisk_air",
+   "stafforb",
+   "air_orb"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_charge_air_orb",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_charge_air_orb"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 56,
+  "xp": 66,
+  "action": "Make magic spell charge water orb",
+  "inputs": [
+   "waterrune",
+   "cosmicrune",
+   "obelisk_water",
+   "stafforb",
+   "water_orb"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_charge_water_orb",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_charge_water_orb"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 60,
+  "xp": 70,
+  "action": "Make magic spell charge earth orb",
+  "inputs": [
+   "earthrune",
+   "cosmicrune",
+   "obelisk_earth",
+   "stafforb",
+   "earth_orb"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_charge_earth_orb",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_charge_earth_orb"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 63,
+  "xp": 73,
+  "action": "Make magic spell charge fire orb",
+  "inputs": [
+   "firerune",
+   "cosmicrune",
+   "obelisk_fire",
+   "stafforb",
+   "fire_orb"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_charge_fire_orb",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_charge_fire_orb"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 21,
+  "xp": 31,
+  "action": "Make magic spell low alch",
+  "inputs": [
+   "naturerune",
+   "firerune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_low_alch",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_low_alch"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 55,
+  "xp": 65,
+  "action": "Make magic spell high alch",
+  "inputs": [
+   "naturerune",
+   "firerune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_high_alch",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_high_alch"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 43,
+  "xp": 53,
+  "action": "Make magic spell superheat",
+  "inputs": [
+   "naturerune",
+   "firerune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_superheat",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_superheat"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 15,
+  "xp": 25,
+  "action": "Make magic spell bones to bananas",
+  "inputs": [
+   "earthrune",
+   "waterrune",
+   "naturerune",
+   "banana"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_bones_to_bananas",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_bones_to_bananas"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 33,
+  "xp": 43,
+  "action": "Make magic spell telegrab",
+  "inputs": [
+   "airrune",
+   "lawrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_telegrab",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_telegrab"
+   }
+  ]
+ },
+ {
+  "skill": "magic",
+  "level": 80,
+  "xp": 180,
+  "action": "Make magic spell charge",
+  "inputs": [
+   "firerune",
+   "bloodrune",
+   "airrune"
+  ],
+  "outputs": [],
+  "table": "magic_spell_table",
+  "row": "magic_spell_charge",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_magic/configs/magic_spells.dbrow#magic_spell_charge"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 1,
+  "xp": 5,
+  "action": "Craft runecraft air",
+  "inputs": [
+   "airrune",
+   "air_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_air",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_air"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 2,
+  "xp": 5.5,
+  "action": "Craft runecraft mind",
+  "inputs": [
+   "mindrune",
+   "mind_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_mind",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_mind"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 5,
+  "xp": 6,
+  "action": "Craft runecraft water",
+  "inputs": [
+   "waterrune",
+   "water_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_water",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_water"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 9,
+  "xp": 6.5,
+  "action": "Craft runecraft earth",
+  "inputs": [
+   "earthrune",
+   "earth_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_earth",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_earth"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 14,
+  "xp": 7,
+  "action": "Craft runecraft fire",
+  "inputs": [
+   "firerune",
+   "fire_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_fire",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_fire"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 20,
+  "xp": 7.5,
+  "action": "Craft runecraft body",
+  "inputs": [
+   "bodyrune",
+   "body_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_body",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_body"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 27,
+  "xp": 8,
+  "action": "Craft runecraft cosmic",
+  "inputs": [
+   "cosmicrune",
+   "cosmic_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_cosmic",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_cosmic"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 35,
+  "xp": 8.5,
+  "action": "Craft runecraft chaos",
+  "inputs": [
+   "chaosrune",
+   "chaos_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_chaos",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_chaos"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 44,
+  "xp": 9,
+  "action": "Craft runecraft nature",
+  "inputs": [
+   "naturerune",
+   "nature_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_nature",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_nature"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 54,
+  "xp": 9.5,
+  "action": "Craft runecraft law",
+  "inputs": [
+   "lawrune",
+   "law_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_law",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_law"
+   }
+  ]
+ },
+ {
+  "skill": "runecraft",
+  "level": 65,
+  "xp": 10,
+  "action": "Craft runecraft death",
+  "inputs": [
+   "deathrune",
+   "death_talisman"
+  ],
+  "outputs": [],
+  "table": "runecraft_table",
+  "row": "runecraft_death",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_runecraft/configs/runecraft.dbrow#runecraft_death"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 13,
+  "xp": 7.8,
+  "action": "Make trapped chest chest 10 coins",
+  "inputs": [
+   "chest_10_coins",
+   "coins"
+  ],
+  "outputs": [],
+  "table": "trapped_chest",
+  "row": "trapped_chest_chest_10_coins",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/chests/trapped_chest.dbrow#trapped_chest_chest_10_coins"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 28,
+  "xp": 25,
+  "action": "Make trapped chest chest nature rune",
+  "inputs": [
+   "chest_nature_rune",
+   "naturerune",
+   "coins"
+  ],
+  "outputs": [],
+  "table": "trapped_chest",
+  "row": "trapped_chest_chest_nature_rune",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/chests/trapped_chest.dbrow#trapped_chest_chest_nature_rune"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 43,
+  "xp": 125,
+  "action": "Make trapped chest chest 50 coins",
+  "inputs": [
+   "chest_50_coins",
+   "coins"
+  ],
+  "outputs": [],
+  "table": "trapped_chest",
+  "row": "trapped_chest_chest_50_coins",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/chests/trapped_chest.dbrow#trapped_chest_chest_50_coins"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 47,
+  "xp": 150,
+  "action": "Make trapped chest chest steel arrowtips",
+  "inputs": [
+   "chest_steel_arrowtips",
+   "steel_arrowheads",
+   "coins"
+  ],
+  "outputs": [],
+  "table": "trapped_chest",
+  "row": "trapped_chest_chest_steel_arrowtips",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/chests/trapped_chest.dbrow#trapped_chest_chest_steel_arrowtips"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 59,
+  "xp": 250,
+  "action": "Make trapped chest chest blood runes",
+  "inputs": [
+   "chest_blood_runes",
+   "bloodrune",
+   "coins"
+  ],
+  "outputs": [],
+  "table": "trapped_chest",
+  "row": "trapped_chest_chest_blood_runes",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/chests/trapped_chest.dbrow#trapped_chest_chest_blood_runes"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 72,
+  "xp": 500,
+  "action": "Make trapped chest chest ardougne castle",
+  "inputs": [
+   "chest_ardougne_castle",
+   "coins",
+   "raw_shark",
+   "adamantite_ore",
+   "uncut_sapphire"
+  ],
+  "outputs": [],
+  "table": "trapped_chest",
+  "row": "trapped_chest_chest_ardougne_castle",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/chests/trapped_chest.dbrow#trapped_chest_chest_ardougne_castle"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 1,
+  "xp": 3.8,
+  "action": "Make locked door loc 2550",
+  "inputs": [
+   "loc_2550",
+   "loc_1532"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_loc_2550",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_loc_2550"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 16,
+  "xp": 15,
+  "action": "Make locked door loc 2551",
+  "inputs": [
+   "loc_2551",
+   "loc_1532"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_loc_2551",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_loc_2551"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 31,
+  "xp": 25,
+  "action": "Make locked door east ardy sewer gate north",
+  "inputs": [
+   "east_ardy_sewer_gate_north",
+   "loc_1562"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_east_ardy_sewer_gate_north",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_east_ardy_sewer_gate_north"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 31,
+  "xp": 25,
+  "action": "Make locked door east ardy sewer gate south",
+  "inputs": [
+   "east_ardy_sewer_gate_south",
+   "loc_1563"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_east_ardy_sewer_gate_south",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_east_ardy_sewer_gate_south"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 46,
+  "xp": 37.5,
+  "action": "Make locked door loc 2554",
+  "inputs": [
+   "loc_2554",
+   "loc_1532"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_loc_2554",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_loc_2554"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 61,
+  "xp": 50,
+  "action": "Make locked door loc 2555",
+  "inputs": [
+   "loc_2555",
+   "loc_1538"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_loc_2555",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_loc_2555"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 13,
+  "xp": 15,
+  "action": "Make locked door loc 2556",
+  "inputs": [
+   "loc_2556",
+   "loc_1538"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_loc_2556",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_loc_2556"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 23,
+  "xp": 25,
+  "action": "Make locked door loc 2557",
+  "inputs": [
+   "loc_2557",
+   "loc_1541",
+   "lockpick"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_loc_2557",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_loc_2557"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 39,
+  "xp": 35,
+  "action": "Make locked door loc 2558",
+  "inputs": [
+   "loc_2558",
+   "loc_1532",
+   "lockpick"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_loc_2558",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_loc_2558"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 82,
+  "xp": 50,
+  "action": "Make locked door loc 2559",
+  "inputs": [
+   "loc_2559",
+   "loc_1535",
+   "lockpick"
+  ],
+  "outputs": [],
+  "table": "locked_door",
+  "row": "locked_door_loc_2559",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/doors/locked_door.dbrow#locked_door_loc_2559"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 1,
+  "xp": 8,
+  "action": "Make pickpocket man",
+  "inputs": [
+   "coins"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_man",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_man"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 1,
+  "xp": 8,
+  "action": "Make pickpocket woman",
+  "inputs": [
+   "coins"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_woman",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_woman"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 10,
+  "xp": 14.5,
+  "action": "Make pickpocket farmer",
+  "inputs": [
+   "coins"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_farmer",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_farmer"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 25,
+  "xp": 26,
+  "action": "Make pickpocket warrior",
+  "inputs": [
+   "coins"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_warrior",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_warrior"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 32,
+  "xp": 36.5,
+  "action": "Make pickpocket rogue",
+  "inputs": [
+   "coins",
+   "airrune",
+   "jug_wine",
+   "lockpick",
+   "iron_dagger_p"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_rogue",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_rogue"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 40,
+  "xp": 46.8,
+  "action": "Make pickpocket guard",
+  "inputs": [
+   "coins"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_guard",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_guard"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 55,
+  "xp": 84.3,
+  "action": "Make pickpocket knight of ardougne",
+  "inputs": [
+   "coins"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_knight_of_ardougne",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_knight_of_ardougne"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 65,
+  "xp": 137.5,
+  "action": "Make pickpocket watchman",
+  "inputs": [
+   "coins",
+   "bread"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_watchman",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_watchman"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 70,
+  "xp": 151.8,
+  "action": "Make pickpocket paladin",
+  "inputs": [
+   "coins",
+   "chaosrune"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_paladin",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_paladin"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 75,
+  "xp": 198.3,
+  "action": "Make pickpocket gnome",
+  "inputs": [
+   "king_worm",
+   "coins",
+   "swamp_toad",
+   "gold_ore",
+   "earthrune",
+   "fire_orb"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_gnome",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_gnome"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 80,
+  "xp": 273.3,
+  "action": "Make pickpocket hero",
+  "inputs": [
+   "coins",
+   "deathrune",
+   "jug_wine",
+   "bloodrune",
+   "fire_orb",
+   "diamond",
+   "gold_ore"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_hero",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_hero"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 45,
+  "xp": 65,
+  "action": "Make pickpocket viking",
+  "inputs": [
+   "coins"
+  ],
+  "outputs": [],
+  "table": "pickpocket",
+  "row": "pickpocket_viking",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/pickpocking/pickpocket.dbrow#pickpocket_viking"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 5,
+  "xp": 16,
+  "action": "Make stealing bakery stall",
+  "inputs": [
+   "bakers_stall_stealing",
+   "cake",
+   "bread",
+   "chocolate_slice"
+  ],
+  "outputs": [],
+  "table": "stealing",
+  "row": "stealing_bakery_stall",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/stalls/stealing.dbrow#stealing_bakery_stall"
+   },
+   {
+    "kind": "cited",
+    "ref": "https://youtu.be/ZsyY5R9Gvqw?t=24"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 5,
+  "xp": 16,
+  "action": "Make stealing tea stall",
+  "inputs": [
+   "tea_stall",
+   "cup_of_tea"
+  ],
+  "outputs": [],
+  "table": "stealing",
+  "row": "stealing_tea_stall",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/stalls/stealing.dbrow#stealing_tea_stall"
+   },
+   {
+    "kind": "cited",
+    "ref": "https://youtu.be/T8Ok0zcgkis"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 20,
+  "xp": 24,
+  "action": "Make stealing silk stall",
+  "inputs": [
+   "silk_stall_stealing",
+   "silk"
+  ],
+  "outputs": [],
+  "table": "stealing",
+  "row": "stealing_silk_stall",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/stalls/stealing.dbrow#stealing_silk_stall"
+   },
+   {
+    "kind": "cited",
+    "ref": "https://youtu.be/zv3gyIj-yeo?t=44"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 35,
+  "xp": 36,
+  "action": "Make stealing fur stall",
+  "inputs": [
+   "fur_stall_stealing",
+   "grey_wolf_fur"
+  ],
+  "outputs": [],
+  "table": "stealing",
+  "row": "stealing_fur_stall",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/stalls/stealing.dbrow#stealing_fur_stall"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 50,
+  "xp": 54,
+  "action": "Make stealing silver stall",
+  "inputs": [
+   "silver_stall_stealing",
+   "silver_ore"
+  ],
+  "outputs": [],
+  "table": "stealing",
+  "row": "stealing_silver_stall",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/stalls/stealing.dbrow#stealing_silver_stall"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 65,
+  "xp": 81,
+  "action": "Make stealing spice stall",
+  "inputs": [
+   "spice_stall_stealing",
+   "spicespot"
+  ],
+  "outputs": [],
+  "table": "stealing",
+  "row": "stealing_spice_stall",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/stalls/stealing.dbrow#stealing_spice_stall"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 75,
+  "xp": 16,
+  "action": "Make stealing gem stall",
+  "inputs": [
+   "gem_stall_stealing",
+   "uncut_sapphire",
+   "uncut_emerald",
+   "uncut_ruby",
+   "uncut_diamond"
+  ],
+  "outputs": [],
+  "table": "stealing",
+  "row": "stealing_gem_stall",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/stalls/stealing.dbrow#stealing_gem_stall"
+   },
+   {
+    "kind": "cited",
+    "ref": "https://oldschool.runescape.wiki/w/Update:Salamanders_and_Special_Attack"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 35,
+  "xp": 36,
+  "action": "Make stealing viking fur stall",
+  "inputs": [
+   "viking_fur_market",
+   "grey_wolf_fur"
+  ],
+  "outputs": [],
+  "table": "stealing",
+  "row": "stealing_viking_fur_stall",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/stalls/stealing.dbrow#stealing_viking_fur_stall"
+   }
+  ]
+ },
+ {
+  "skill": "thieving",
+  "level": 42,
+  "xp": 42,
+  "action": "Make stealing viking fish stall",
+  "inputs": [
+   "viking_fish_market",
+   "raw_lobster",
+   "raw_tuna",
+   "raw_salmon"
+  ],
+  "outputs": [],
+  "table": "stealing",
+  "row": "stealing_viking_fish_stall",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_thieving/configs/stalls/stealing.dbrow#stealing_viking_fish_stall"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 1,
+  "xp": 25,
+  "action": "Chop normal tree",
+  "inputs": [
+   "tree",
+   "lighttree",
+   "tree2",
+   "tree3",
+   "lighttree2",
+   "deadtree1",
+   "deadtree1_large",
+   "deadtree4",
+   "lightdeadtree1",
+   "deadtree2",
+   "deadtree2_dark",
+   "deadtree3",
+   "deadtree2_snowy",
+   "snowtree1",
+   "snowtree2",
+   "snowtree3",
+   "deadtree2_swamp",
+   "deadtree6",
+   "evergreen_snowy_large",
+   "evergreen_vsnowy_large",
+   "evergreen_large",
+   "evergreen",
+   "regicide_tree_large",
+   "regicide_tree_large2",
+   "regicide_tree_large3",
+   "regicide_tree_small",
+   "bronze_axe",
+   "iron_axe",
+   "steel_axe",
+   "black_axe",
+   "mithril_axe",
+   "adamant_axe",
+   "rune_axe"
+  ],
+  "outputs": [
+   "logs"
+  ],
+  "table": "woodcutting_trees",
+  "row": "normal_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#normal_tree_table"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 1,
+  "xp": 100,
+  "action": "Chop jungle tree",
+  "inputs": [
+   "kharazi_jungle_tree_logs",
+   "kharazi_jungle_tree1",
+   "kharazi_jungle_tree2",
+   "kharazi_jungle_plant1",
+   "kharazi_jungle_plant2"
+  ],
+  "outputs": [
+   "logs"
+  ],
+  "table": "woodcutting_trees",
+  "row": "jungle_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#jungle_tree_table"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 1,
+  "xp": 25,
+  "action": "Chop burnt tree",
+  "inputs": [
+   "deadtree_burnt",
+   "bronze_axe",
+   "iron_axe",
+   "steel_axe",
+   "black_axe",
+   "mithril_axe",
+   "adamant_axe",
+   "rune_axe"
+  ],
+  "outputs": [
+   "charcoal"
+  ],
+  "table": "woodcutting_trees",
+  "row": "burnt_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#burnt_tree_table"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 1,
+  "xp": 25,
+  "action": "Chop achey tree",
+  "inputs": [
+   "achey_tree",
+   "bronze_axe",
+   "iron_axe",
+   "steel_axe",
+   "black_axe",
+   "mithril_axe",
+   "adamant_axe",
+   "rune_axe"
+  ],
+  "outputs": [
+   "achey_tree_logs"
+  ],
+  "table": "woodcutting_trees",
+  "row": "achey_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#achey_tree_table"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 15,
+  "xp": 37.5,
+  "action": "Chop oak tree",
+  "inputs": [
+   "oaktree",
+   "bronze_axe",
+   "iron_axe",
+   "steel_axe",
+   "black_axe",
+   "mithril_axe",
+   "adamant_axe",
+   "rune_axe"
+  ],
+  "outputs": [
+   "oak_logs"
+  ],
+  "table": "woodcutting_trees",
+  "row": "oak_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#oak_tree_table"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 30,
+  "xp": 67.5,
+  "action": "Chop willow tree",
+  "inputs": [
+   "willowtree",
+   "bronze_axe",
+   "iron_axe",
+   "steel_axe",
+   "black_axe",
+   "mithril_axe",
+   "adamant_axe",
+   "rune_axe"
+  ],
+  "outputs": [
+   "willow_logs"
+  ],
+  "table": "woodcutting_trees",
+  "row": "willow_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#willow_tree_table"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 45,
+  "xp": 100,
+  "action": "Chop maple tree",
+  "inputs": [
+   "mapletree",
+   "bronze_axe",
+   "iron_axe",
+   "steel_axe",
+   "black_axe",
+   "mithril_axe",
+   "adamant_axe",
+   "rune_axe"
+  ],
+  "outputs": [
+   "maple_logs"
+  ],
+  "table": "woodcutting_trees",
+  "row": "maple_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#maple_tree_table"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 60,
+  "xp": 175,
+  "action": "Chop yew tree",
+  "inputs": [
+   "yewtree",
+   "bronze_axe",
+   "iron_axe",
+   "steel_axe",
+   "black_axe",
+   "mithril_axe",
+   "adamant_axe",
+   "rune_axe"
+  ],
+  "outputs": [
+   "yew_logs"
+  ],
+  "table": "woodcutting_trees",
+  "row": "yew_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#yew_tree_table"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 75,
+  "xp": 250,
+  "action": "Chop magic tree",
+  "inputs": [
+   "magictree",
+   "bronze_axe",
+   "iron_axe",
+   "steel_axe",
+   "black_axe",
+   "mithril_axe",
+   "adamant_axe",
+   "rune_axe"
+  ],
+  "outputs": [
+   "magic_logs"
+  ],
+  "table": "woodcutting_trees",
+  "row": "magic_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#magic_tree_table"
+   }
+  ]
+ },
+ {
+  "skill": "woodcutting",
+  "level": 45,
+  "xp": 82.5,
+  "action": "Chop hollow tree",
+  "inputs": [
+   "hollow_tree",
+   "hollow_tree_big",
+   "bronze_axe",
+   "iron_axe",
+   "steel_axe",
+   "black_axe",
+   "mithril_axe",
+   "adamant_axe",
+   "rune_axe"
+  ],
+  "outputs": [
+   "hollow_bark"
+  ],
+  "table": "woodcutting_trees",
+  "row": "hollow_tree_table",
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:scripts/skill_woodcutting/configs/trees.dbrow#hollow_tree_table"
+   }
+  ]
+ }
+]

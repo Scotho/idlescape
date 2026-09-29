@@ -1,0 +1,9 @@
+<!-- Audit C18: the boot failure surface. Every other screen starts hidden and is shown only by the
+     app state, so a boot that throws before the home screen paints has nowhere else to say so.
+     showBootError() in web/src/boot.ts hides every other .screen and shows this one. -->
+<section id="screen-boot" class="screen hidden">
+  <div class="screen-card">
+    <h1 class="screen-title">idlescape</h1>
+    <p id="boot-error" class="alert alert-error" role="alert"></p>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+/* idlescape — type tokens. Three voices: UI (system), numerals (mono), game (pixel). */
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap');
+:root {
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-num: ui-monospace, Menlo, Consolas, monospace;   /* all digits: timers, counters, counts */
+  --font-pixel: "Pixelify Sans", ui-monospace, monospace; /* game voice: wordmark + canvas caption only */
+  --fs-label: 9.5px;   /* uppercase section labels */
+  --fs-micro: 10px;    /* metadata, footers */
+  --fs-tiny: 10.5px;   /* chips, pills, hud */
+  --fs-small: 11px;    /* body-secondary, descriptions */
+  --fs-base: 12px;     /* panel body */
+  --fs-md: 12.5px;     /* panel titles */
+  --fs-emph: 13.5px;   /* empty-state titles */
+  --fs-title: 14.5px;  /* run-card script name */
+  --fs-brand: 16px;    /* wordmark */
+  --lh: 1.45;
+  --label-tracking: .09em;
+}

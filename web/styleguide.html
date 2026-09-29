@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>idlescape styleguide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap">
+  <link rel="stylesheet" href="/src/styles/index.css">
+  <style>
+    /* Styleguide chrome only; nothing here is part of the design system. */
+    .sg { display: grid; grid-template-columns: 180px 1fr; min-height: 100vh; }
+    .sg-nav { position: sticky; top: 0; align-self: start; height: 100vh; overflow: auto; padding: 16px 12px; background: rgb(var(--rl-darker)); border-right: 1px solid rgb(var(--rl-border)); display: flex; flex-direction: column; gap: 2px; }
+    .sg-nav .brand { font-size: 18px; margin-bottom: 12px; }
+    .sg-nav a { display: block; padding: 4px 8px; border-radius: 2px; color: rgb(var(--rl-text)); font-size: 12px; }
+    .sg-nav a:hover { background: rgb(var(--rl-hover)); color: rgb(var(--rl-strong)); text-decoration: none; }
+    .sg-nav .sg-group { margin-top: 10px; padding: 0 8px; color: rgb(var(--rl-muted)); font-size: 10px; }
+    .sg-main { padding: 24px 32px 64px; max-width: 980px; }
+    .sg-main > section { padding: 24px 0; border-bottom: 1px solid rgb(var(--rl-border)); }
+    .sg-main h1 { font-family: var(--font-pixel); font-size: 28px; color: rgb(var(--rl-orange)); margin-bottom: 4px; }
+    .sg-main h2 { font-size: 18px; color: rgb(var(--rl-strong)); margin-bottom: 4px; }
+    .sg-main h3 { font-size: 13px; color: rgb(var(--rl-strong)); margin: 16px 0 8px; }
+    .sg-lede { color: rgb(var(--rl-muted)); max-width: 62ch; margin-bottom: 12px; }
+    .sg-demo { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px; background: rgb(var(--rl-panel)); border: 1px solid rgb(var(--rl-border)); border-radius: 4px; }
+    .sg-demo.col { flex-direction: column; align-items: stretch; }
+    .sg-demo.narrow { max-width: 260px; }
+    .sg-code { margin-top: 6px; padding: 6px 10px; background: rgb(var(--rl-darker)); border: 1px solid rgb(var(--rl-border)); border-radius: 2px; color: rgb(var(--rl-muted)); font: 11px/1.6 ui-monospace, monospace; white-space: pre-wrap; }
+    .sg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+    .sg-swatch { background: var(--frame); border: 1px solid rgb(var(--rl-border)); border-radius: 2px; overflow: hidden; }
+    .sg-swatch i { display: block; height: 44px; }
+    .sg-swatch span { display: block; padding: 4px 6px; font-size: 10px; color: rgb(var(--rl-muted)); }
+    .sg-swatch b { display: block; color: rgb(var(--rl-strong)); font-size: 11px; }
+    .sg-type-row { display: grid; grid-template-columns: 90px 1fr; align-items: baseline; gap: 12px; padding: 4px 0; }
+    .sg-type-row span { color: rgb(var(--rl-muted)); font-size: 10px; font-variant-numeric: tabular-nums; }
+    .sg-space { display: flex; align-items: flex-end; gap: 12px; }
+    .sg-space div { background: rgb(var(--rl-orange)); width: 24px; }
+    .sg-space small { display: block; color: rgb(var(--rl-muted)); font-size: 10px; text-align: center; margin-top: 4px; }
+    .sg-icon { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; width: 76px; color: rgb(var(--rl-strong)); }
+    .sg-icon small { color: rgb(var(--rl-muted)); font-size: 10px; }
+    .sg-bank-frame { position: relative; width: 100%; min-height: 480px; background: #000; border: 1px solid rgb(var(--rl-border)); border-radius: 4px; overflow: hidden; }
+    .sg-frame { position: relative; height: 320px; }
+    .sg-copilot-frame { background: #000; border: 1px solid rgb(var(--rl-border)); border-radius: 2px; overflow: hidden; }
+    .sg-frame .frame { min-height: 0; height: 100%; border: 1px solid rgb(var(--rl-border)); }
+    .sg-frame .frame-body { padding: 8px; overflow: hidden; }
+    .sg-frame .canvas-fake { flex: 1; position: relative; background: #000; min-height: 200px; }
+    @media (max-width: 1100px) { .sg-frame .canvas-fake { flex-basis: 100%; } .sg-frame { height: auto; } }
+    @media (max-width: 800px) { .sg { grid-template-columns: 1fr; } .sg-nav { position: static; height: auto; flex-direction: row; flex-wrap: wrap; } .sg-nav .sg-group { display: none; } .sg-main { padding: 16px; } }
+  </style>
+</head>
+<body>
+<div class="sg">
+  <nav class="sg-nav" aria-label="Styleguide sections">
+    <span class="brand">idlescape</span>
+    <span class="sg-group">Foundations</span>
+    <a href="#colour">Colour</a>
+    <a href="#type">Type</a>
+    <a href="#space">Space and shape</a>
+    <span class="sg-group">Components</span>
+    <a href="#buttons">Buttons</a>
+    <a href="#badges">Badges and dots</a>
+    <a href="#alerts">Alerts</a>
+    <a href="#forms">Forms</a>
+    <a href="#data">Data display</a>
+    <a href="#icons">Icons</a>
+    <a href="#navigation">Navigation</a>
+    <a href="#feedback">Feedback</a>
+    <a href="#sections">Sections and cards</a>
+    <span class="sg-group">Patterns</span>
+    <a href="#bank">Bank</a>
+    <a href="#frame">Game frame</a>
+    <a href="#copilot">Co-pilot bar</a>
+    <a href="#automation">Automation</a>
+    <a href="#panel">Side panel</a>
+    <a href="#home">Home card</a>
+    <a href="#events">Events feed</a>
+    <a href="#overlay">Overlays and windows</a>
+  </nav>
+
+  <main class="sg-main">
+    <section>
+      <h1>idlescape</h1>
+      <p class="sg-lede">The web shell's design library. Every class on this page is real and shared with the app; the source is <code>web/src/styles/</code> and the helpers in <code>web/src/ui/</code>. RuneLite's sidebar is the reference point: dark, dense, one orange accent, and nothing decorative that does not carry information.</p>
+      <p class="sg-lede">Rules of thumb: orange marks the current thing or the main action, and nothing else. Controls are 27px tall, with 22, 25 and 29px for row actions, card actions and panel-width calls to action. Labels are sentence case. Motion only answers an action.</p>
+    </section>
+
+    <section id="colour">
+      <h2>Colour</h2>
+      <p class="sg-lede">Colours are read straight: <code>var(--panel)</code>, or an <code>rgba()</code> the bundle already declares, like <code>var(--hairline)</code>. Sections 1 and 8 of <code>styles/tokens.css</code> are the whole palette and this is all of it; <code>styles/tokens.test.ts</code> pins every value against the vendored bundle, and pins that a token declared there has a swatch here.</p>
+      <h3>Surfaces, darkest to lightest</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:var(--ground)"></i><span><b>--ground</b>#111112 page behind the frame</span></div>
+        <div class="sg-swatch"><i style="background:var(--frame)"></i><span><b>--frame</b>#18181a frame body</span></div>
+        <div class="sg-swatch"><i style="background:var(--sunken)"></i><span><b>--sunken</b>#141416 inputs, wells, tab rails</span></div>
+        <div class="sg-swatch"><i style="background:var(--bar)"></i><span><b>--bar</b>#1a1a1c headers, strips, footers</span></div>
+        <div class="sg-swatch"><i style="background:var(--panel)"></i><span><b>--panel</b>#1e1e20 side panel ground</span></div>
+        <div class="sg-swatch"><i style="background:var(--card)"></i><span><b>--card</b>#232325 cards, raised rows</span></div>
+        <div class="sg-swatch"><i style="background:var(--card-grad)"></i><span><b>--card-grad</b>gradient card fill</span></div>
+        <div class="sg-swatch"><i style="background:var(--control)"></i><span><b>--control</b>#2e2e2d buttons at rest</span></div>
+        <div class="sg-swatch"><i style="background:var(--control-hover)"></i><span><b>--control-hover</b>#3a3a38 buttons under the cursor</span></div>
+      </div>
+      <h3>Hairlines and edges</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:var(--hairline)"></i><span><b>--hairline</b>rgba(255,255,255,.07) rules inside a surface</span></div>
+        <div class="sg-swatch"><i style="background:var(--hairline-soft)"></i><span><b>--hairline-soft</b>rgba(255,255,255,.05) the quietest rule</span></div>
+        <div class="sg-swatch"><i style="background:var(--hairline-strong)"></i><span><b>--hairline-strong</b>rgba(255,255,255,.12) a divider that has to read</span></div>
+        <div class="sg-swatch"><i style="background:var(--edge)"></i><span><b>--edge</b>rgba(0,0,0,.55) borders between chrome regions</span></div>
+      </div>
+      <h3>Text ramp</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:var(--text-strong)"></i><span><b>--text-strong</b>#e8e8e6 values, titles</span></div>
+        <div class="sg-swatch"><i style="background:var(--text)"></i><span><b>--text</b>#b4b4b2 body copy</span></div>
+        <div class="sg-swatch"><i style="background:var(--text-muted)"></i><span><b>--text-muted</b>#7c7c7a labels, hints</span></div>
+        <div class="sg-swatch"><i style="background:var(--text-faint)"></i><span><b>--text-faint</b>#575755 metadata</span></div>
+        <div class="sg-swatch"><i style="background:var(--text-disabled)"></i><span><b>--text-disabled</b>#4e4e4c a control that cannot be used</span></div>
+      </div>
+      <h3>The one accent</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:var(--accent)"></i><span><b>--accent</b>#ff981f the one accent</span></div>
+        <div class="sg-swatch"><i style="background:var(--accent-bright)"></i><span><b>--accent-bright</b>#ffb95e hover on the accent</span></div>
+        <div class="sg-swatch"><i style="background:var(--accent-deep)"></i><span><b>--accent-deep</b>#d6780a pressed</span></div>
+        <div class="sg-swatch"><i style="background:var(--accent-grad)"></i><span><b>--accent-grad</b>gradient primary button fill</span></div>
+        <div class="sg-swatch"><i style="background:var(--on-accent)"></i><span><b>--on-accent</b>#1c1300 text on the accent</span></div>
+        <div class="sg-swatch"><i style="background:var(--accent-tint)"></i><span><b>--accent-tint</b>rgba(255,152,31,.15) selected rows and chips</span></div>
+        <div class="sg-swatch"><i style="background:var(--accent-glow)"></i><span><b>--accent-glow</b>rgba(255,152,31,.28) the glow under a call to action</span></div>
+      </div>
+      <h3>Semantic tones</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:var(--ok)"></i><span><b>--ok</b>#43a047 success</span></div>
+        <div class="sg-swatch"><i style="background:var(--ok-bright)"></i><span><b>--ok-bright</b>#6ec873 success text</span></div>
+        <div class="sg-swatch"><i style="background:var(--ok-pop)"></i><span><b>--ok-pop</b>#7ddc84 a fresh gain</span></div>
+        <div class="sg-swatch"><i style="background:var(--warn)"></i><span><b>--warn</b>#ffb300 paused, missing</span></div>
+        <div class="sg-swatch"><i style="background:var(--error)"></i><span><b>--error</b>#e53935 failed</span></div>
+        <div class="sg-swatch"><i style="background:var(--danger)"></i><span><b>--danger</b>#a02828 destructive button</span></div>
+        <div class="sg-swatch"><i style="background:var(--danger-deep)"></i><span><b>--danger-deep</b>#781c1c its border</span></div>
+        <div class="sg-swatch"><i style="background:var(--danger-hover)"></i><span><b>--danger-hover</b>#b93030 its hover</span></div>
+        <div class="sg-swatch"><i style="background:var(--info)"></i><span><b>--info</b>#4a90d9 an action row</span></div>
+        <div class="sg-swatch"><i style="background:var(--info-bright)"></i><span><b>--info-bright</b>#78afeb its text</span></div>
+      </div>
+      <h3>HUD meters</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:var(--hp)"></i><span><b>--hp</b>#c0392b hitpoints fill</span></div>
+        <div class="sg-swatch"><i style="background:var(--hp-bright)"></i><span><b>--hp-bright</b>#e05a4b its highlight</span></div>
+        <div class="sg-swatch"><i style="background:var(--prayer)"></i><span><b>--prayer</b>#2980b9 prayer fill</span></div>
+        <div class="sg-swatch"><i style="background:var(--prayer-bright)"></i><span><b>--prayer-bright</b>#4aa3dc its highlight</span></div>
+        <div class="sg-swatch"><i style="background:var(--run)"></i><span><b>--run</b>#27ae60 run fill</span></div>
+        <div class="sg-swatch"><i style="background:var(--run-bright)"></i><span><b>--run-bright</b>#43ca7e its highlight</span></div>
+      </div>
+      <h3>Scrim</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:var(--overlay-scrim)"></i><span><b>--overlay-scrim</b>rgba(0,0,0,.62) behind a modal dialog</span></div>
+      </div>
+      <p class="sg-lede">Four aliases name a role rather than a colour and resolve to swatches above: <code>--surface-page</code>, <code>--surface-card</code>, <code>--text-body</code>, <code>--border-card</code>. <code>--focus-ring</code> is the fifth and is a shadow, not a fill: <code>0 0 0 3px rgba(255,152,31,.18)</code>, the one ring in the shell.</p>
+      <h3>Colours the mock hard-codes (ruling R18)</h3>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><i style="background:var(--window)"></i><span><b>--window</b>#202022 floating window ground: trace pop-out, bank, studio (D29)</span></div>
+        <div class="sg-swatch"><i style="background:var(--chrome-bar)"></i><span><b>--chrome-bar</b>#1b1b1d char tab bar, window headers</span></div>
+        <div class="sg-swatch"><i style="background:var(--chrome-tab-active)"></i><span><b>--chrome-tab-active</b>#28282a active char tab gradient top</span></div>
+        <div class="sg-swatch"><i style="background:var(--chrome-hover)"></i><span><b>--chrome-hover</b>#2a2a2c strip button hover</span></div>
+        <div class="sg-swatch"><i style="background:var(--track)"></i><span><b>--track</b>#2c2c2e meter track, event character badge</span></div>
+        <div class="sg-swatch"><i style="background:var(--kbd-border)"></i><span><b>--kbd-border</b>#3e3e3c the keycap</span></div>
+        <div class="sg-swatch"><i style="background:var(--dot-idle)"></i><span><b>--dot-idle</b>#666666 unpaired co-pilot dot</span></div>
+        <div class="sg-swatch"><i style="background:var(--glyph-rest)"></i><span><b>--glyph-rest</b>#9a9a98 resting strip glyph</span></div>
+        <div class="sg-swatch"><i style="background:var(--text-quiet)"></i><span><b>--text-quiet</b>#a0a09e outline button label, tag, neutral badge, inactive char tab</span></div>
+        <div class="sg-swatch"><i style="background:var(--error-text)"></i><span><b>--error-text</b>#f07370 error copy on a dark ground</span></div>
+        <div class="sg-swatch"><i style="background:var(--xp-chip)"></i><span><b>--xp-chip</b>#2e7d32 the xp drop chip</span></div>
+        <div class="sg-swatch"><i style="background:var(--count-stack)"></i><span><b>--count-stack</b>#ffff00 item count over 100k</span></div>
+        <div class="sg-swatch"><i style="background:var(--count-large)"></i><span><b>--count-large</b>#00ff80 item count over 10m</span></div>
+        <div class="sg-swatch"><i style="background:var(--bank-ground)"></i><span><b>--bank-ground</b>#252220 the bank window</span></div>
+        <div class="sg-swatch"><i style="background:var(--bank-head)"></i><span><b>--bank-head</b>#2c2925 its header</span></div>
+        <div class="sg-swatch"><i style="background:var(--bank-tab-active)"></i><span><b>--bank-tab-active</b>#33302c its selected tab</span></div>
+        <div class="sg-swatch"><i style="background:var(--bank-well)"></i><span><b>--bank-well</b>#171513 its slot well</span></div>
+        <div class="sg-swatch"><i style="background:var(--bank-dash)"></i><span><b>--bank-dash</b>#4e4a44 its placeholder dash</span></div>
+        <div class="sg-swatch"><i style="background:var(--shot-a)"></i><span><b>--shot-a</b>#141414 screenshot thumb, top</span></div>
+        <div class="sg-swatch"><i style="background:var(--shot-b)"></i><span><b>--shot-b</b>#191919 screenshot thumb, foot</span></div>
+        <div class="sg-swatch"><i style="background:var(--canvas-a)"></i><span><b>--canvas-a</b>#0a0a0a empty canvas, top</span></div>
+        <div class="sg-swatch"><i style="background:var(--canvas-b)"></i><span><b>--canvas-b</b>#0d0d0d empty canvas, foot</span></div>
+      </div>
+    </section>
+
+    <section id="type">
+      <h2>Type</h2>
+      <p class="sg-lede">Two voices. The game voice is Pixelify Sans: the wordmark, canvas overlays and HUD numbers. The tool voice is the system UI face: 12px for body, 11px and 10px for secondary detail, close to the size RuneLite renders its panels at.</p>
+      <div class="sg-demo col">
+        <div class="sg-type-row"><span>pixel 24</span><div class="screen-title" style="text-align:left">idlescape</div></div>
+        <div class="sg-type-row"><span>pixel 14</span><div class="brand">idlescape</div></div>
+        <div class="sg-type-row"><span>pixel 11</span><div class="pixel" style="color:var(--accent)">Woodcutting 42,180 xp/h</div></div>
+        <div class="sg-type-row"><span>ui 18 / 600</span><div style="font-size:18px;font-weight:600;color:var(--text-strong)">Name your character</div></div>
+        <div class="sg-type-row"><span>ui 15 / 600</span><div style="font-size:15px;font-weight:600;color:var(--text-strong)">Revoke "MacBook"?</div></div>
+        <div class="sg-type-row"><span>ui 12</span><div style="font-size:12px">Body copy in panels and cards, panel rows, labels and button text.</div></div>
+        <div class="sg-type-row"><span>ui 11 muted</span><div class="muted" style="font-size:var(--fs-sm)">Hints, timestamps, secondary detail.</div></div>
+        <div class="sg-type-row"><span>ui 10 muted</span><div class="muted" style="font-size:var(--fs-xs)">Footer status cells and badges.</div></div>
+      </div>
+    </section>
+
+    <section id="space">
+      <h2>Space and shape</h2>
+      <p class="sg-lede">A 2px rhythm, eight steps, tight enough that a panel row can be built out of it. Radius is 6px on controls, 8px on cards and dialogs, 10px on floating windows and badges; there are no shadows except under a modal dialog.</p>
+      <div class="sg-demo">
+        <div class="sg-space">
+          <div><div style="height:2px"></div><small>1</small></div>
+          <div><div style="height:3px"></div><small>2</small></div>
+          <div><div style="height:4px"></div><small>3</small></div>
+          <div><div style="height:6px"></div><small>4</small></div>
+          <div><div style="height:8px"></div><small>5</small></div>
+          <div><div style="height:10px"></div><small>6</small></div>
+          <div><div style="height:12px"></div><small>7</small></div>
+          <div><div style="height:14px"></div><small>8</small></div>
+        </div>
+        <div class="sg-code" style="margin:0 0 0 auto">--sp-1..8: 2 3 4 6 8 10 12 14
+--r-pill-sm: 3px  --r-ctl: 6px  --r-seg: 7px  --r-card: 8px  --r-window: 10px  --r-badge: 10px
+--ctl-h-xs: 22px  --ctl-h-sm: 25px  --ctl-h: 27px  --ctl-h-lg: 29px</div>
+      </div>
+    </section>
+
+    <section id="buttons">
+      <h2>Buttons</h2>
+      <p class="sg-lede">Five variants, four sizes. One primary per view; never two side by side. <code>.btn-xs</code> for row-level actions, <code>.btn-lg</code> for panel-width calls to action.</p>
+      <div class="sg-demo" data-sg-component="Button">
+        <button class="btn btn-primary">Run a script</button>
+        <button class="btn">Pause</button>
+        <button class="btn btn-danger">Stop</button>
+        <button class="btn btn-outline">Trace</button>
+        <button class="btn btn-link">Copy for Claude</button>
+        <button class="btn" disabled>Disabled</button>
+        <button class="btn btn-icon" aria-label="Close trace">×</button>
+        <button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button>
+        <button class="btn btn-icon btn-icon-xs" aria-label="Unpin">×</button>
+      </div>
+      <h3>Sizes</h3>
+      <div class="sg-demo">
+        <button class="btn btn-lg btn-primary btn-cta">Open bank window</button>
+        <button class="btn">Resume now</button>
+        <button class="btn btn-sm btn-primary btn-in-card">Run</button>
+        <button class="btn btn-xs btn-outline">Trace</button>
+        <button class="btn btn-quiet btn-outline">Pin</button>
+        <button class="btn btn-tiny">Copy for Claude</button>
+      </div>
+      <h3>Glow contexts and full width</h3>
+      <div class="sg-demo col narrow">
+        <button class="btn btn-primary btn-block btn-cta">Capture the canvas</button>
+        <div class="btn-row"><button class="btn btn-sm btn-primary btn-in-card">Run now</button><button class="btn btn-sm">Add to tasks</button></div>
+        <p>Inline <button class="link" type="button">link button</button> inside a sentence.</p>
+      </div>
+      <h3>In flight</h3>
+      <p class="sg-lede">Not a v2 component: the sign-in flow is the shell's one long-running action, and <code>.spinner</code> is the same ring with no button under it.</p>
+      <div class="sg-demo">
+        <button class="btn btn-primary is-loading">Signing in</button>
+        <button class="btn is-loading">Loading</button>
+        <span class="spinner" aria-hidden="true"></span>
+      </div>
+      <div class="sg-code">.btn .btn-primary .btn-danger .btn-outline .btn-link .btn-icon .btn-icon-lg .btn-icon-xs | .btn-xs .btn-sm .btn-lg .btn-quiet .btn-tiny .btn-block | .btn-in-card .btn-cta .btn-row .link .is-loading .spinner</div>
+    </section>
+
+    <section id="badges">
+      <h2>Badges, tags and dots</h2>
+      <p class="sg-lede">A badge is a state. A tag is a noun. A dot is a state with no room for a word.</p>
+      <div class="sg-demo">
+        <span class="badge">Neutral</span>
+        <span class="badge badge-accent">Fork</span>
+        <span class="badge badge-ok"><i class="badge-dot"></i>live</span>
+        <span class="badge badge-warn">Paused</span>
+        <span class="badge badge-error">Failed</span>
+        <span class="badge badge-info">Library</span>
+        <span class="badge badge-lg badge-accent" data-sg-component="Badge">Running</span>
+        <span class="badge badge-sm badge-accent">Start here</span>
+        <span class="badge badge-quiet">alt_miner</span>
+        <span class="tag" data-sg-component="Tag">woodcutting</span>
+      </div>
+      <div class="sg-demo" data-sg-component="StatusDot">
+        <span class="dot"></span>
+        <span class="dot dot-idle"></span>
+        <span class="dot dot-ok dot-glow"></span>
+        <span class="dot dot-accent dot-pulse dot-glow"></span>
+        <span class="dot dot-warn"></span>
+        <span class="dot dot-error"></span>
+      </div>
+      <div class="sg-code">.badge .badge-{accent,ok,warn,error,info} .badge-lg .badge-sm .badge-quiet .badge-dot | .tag | .dot .dot-{idle,ok,accent,warn,error} .dot-pulse .dot-glow</div>
+    </section>
+
+    <section id="alerts">
+      <h2>Alerts</h2>
+      <p class="sg-lede">A tone rail over a 7% tint of the same tone. Errors take <code>role="alert"</code>; everything else is <code>role="status"</code>.</p>
+      <div class="sg-demo col" data-sg-component="Alert">
+        <div class="alert alert-accent"><div class="alert-title">Pair a Claude session</div>Paste this into your Claude session and say: <b>connect to this</b>.</div>
+        <div class="alert alert-ok">Bank updated.</div>
+        <div class="alert alert-warn">Needs a bronze axe in your inventory or equipped</div>
+        <div class="alert alert-error">Couldn't create a link.</div>
+        <div class="alert alert-info alert-roomy">Items only move in and out of the bank in game. One bank per account, shared by every character.</div>
+      </div>
+      <div class="sg-demo col narrow">
+        <span class="section-label" data-sg-component="SectionLabel">Paired sessions</span>
+        <div class="alert alert-ok">One session, seen a moment ago.</div>
+        <span class="section-label">Link</span>
+      </div>
+      <h3>Toast tones</h3>
+      <p class="sg-lede">The same family, thrown over the canvas by <code>createToastHost</code>. The live driver is in Feedback below; these are the four tones and the leaving state, static, because a class is only demonstrated when it is rendered.</p>
+      <div class="sg-demo col narrow">
+        <div class="toast">Saved</div>
+        <div class="toast toast-ok">Screenshot saved</div>
+        <div class="toast toast-error">Couldn't reach the gateway</div>
+        <div class="toast toast-info">World 1 restarts in 10 minutes</div>
+        <div class="toast toast-info is-leaving">On its way out, at opacity 0</div>
+      </div>
+      <div class="sg-code">.alert .alert-{accent,ok,warn,error,info} .alert-title .alert-roomy | .section-label | .toast .toast-{ok,error,info} .toast.is-leaving</div>
+    </section>
+
+    <section id="forms">
+      <h2>Forms</h2>
+      <p class="sg-lede">Inputs sit on the sunken surface so they read as wells. The focus ring is the accent, and it comes from base.css. Errors are inline, under the control, and say what to do.</p>
+      <div class="sg-demo col narrow">
+        <div class="field"><label class="field-label" for="sg-name">New character name</label><input id="sg-name" class="input" data-sg-component="Input" maxlength="12" placeholder="New character name"></div>
+        <input class="input input-lg" placeholder="Search scripts">
+        <input class="input input-sm" placeholder="Pair URL" readonly value="https://osrs.scotho.com/pair#7f3a…">
+        <input class="input input-quiet" placeholder="Filter">
+        <input class="input mono" value="00:03.9 xp Woodcutting +25" readonly>
+        <input class="input input-search" type="search" placeholder="Search plugins" aria-label="Search plugins">
+        <select class="select" data-sg-component="Select"><option>Fit window</option><option>1x</option><option>2x</option></select>
+        <select class="select select-sm"><option>All skills</option><option>Woodcutting</option></select>
+        <textarea class="textarea" data-sg-component="Textarea" rows="2" placeholder="Notes for this character"></textarea>
+        <textarea class="textarea code" rows="2">await bot.chopTree("Tree")</textarea>
+        <label class="field field-inline"><input type="checkbox" class="switch" data-sg-component="Checkbox" checked><span class="field-label">Hide overlays</span></label>
+        <input class="input" value="Disabled" disabled>
+      </div>
+      <h3>Hints, errors and message lines</h3>
+      <div class="sg-demo col narrow">
+        <div class="field"><label class="field-label" for="sg-char">Character name</label><input id="sg-char" class="input" value="Zezima"><span class="field-hint">1 to 12 characters, starting with a letter.</span></div>
+        <div class="field"><label class="field-label" for="sg-email">Email</label><input id="sg-email" class="input" type="email" value="not-an-email" aria-invalid="true"><p class="field-error">Enter an email address like name@example.com.</p></div>
+        <p class="notice">Account created. Signed in as Zezima.</p>
+        <p class="notice-warn">You are playing as a guest. Progress lives in this browser.</p>
+        <p class="error">That gate password was not accepted.</p>
+      </div>
+      <h3>Panel rows</h3>
+      <div class="sg-demo col narrow">
+        <label class="field-inline"><span class="field-label">Canvas size</span><select class="select"><option>1x</option><option selected>Fit window</option></select></label>
+        <label class="field-inline"><span class="field-label">Refresh (ms)</span><input class="input" type="number" value="600"></label>
+        <label class="field-inline"><span class="field-label">Tint</span><input class="input" type="color" value="#ff981f"></label>
+        <label class="field-inline"><span class="field-label">Show stat boosts</span><input type="checkbox" class="switch" checked></label>
+        <label class="field-inline"><span class="field-label">Always on</span><input type="checkbox" class="switch" checked disabled></label>
+      </div>
+      <h3>Segmented and chips</h3>
+      <div class="sg-demo col narrow">
+        <div class="seg" role="group" data-sg-component="Segmented"><button class="seg-btn active" type="button" aria-pressed="true">My tasks</button><button class="seg-btn" type="button" aria-pressed="false">Marketplace</button></div>
+        <div class="sg-demo" style="gap:4px;padding:0;background:none;border:0">
+          <button class="chip active" type="button" aria-pressed="true">XP</button>
+          <button class="chip" type="button" aria-pressed="false">Loot</button>
+          <button class="chip" type="button" aria-pressed="false">Levels</button>
+        </div>
+      </div>
+      <div class="sg-code">.input .input-lg .input-sm .input-quiet .input-search .input.mono | .select .select-sm | .textarea .textarea.code | .switch .field .field-inline .field-label .field-hint .field-error | .error .notice .notice-warn | .seg .seg-btn .seg-btn.active | .chip .chip.active</div>
+    </section>
+
+    <section id="data">
+      <h2>Data display</h2>
+      <p class="sg-lede">A card groups facts, a key/value row states one, a meter draws one as a bar. These three are the whole vocabulary a panel body has for saying what is true right now.</p>
+      <h3>Cards</h3>
+      <p class="sg-lede">One ground, one radius, an optional 3px tone rail down the left edge. The hero is the gradient and drop shadow, and it is for the one card a surface is about: the run card, the pairing card.</p>
+      <div class="sg-demo col narrow" data-sg-component="Card">
+        <div class="card">Plain card</div>
+        <div class="card card-rail-accent">Rail: running now</div>
+        <div class="card card-rail-ok">Rail: finished cleanly</div>
+        <div class="card card-rail-warn">Rail: waiting on you</div>
+        <div class="card card-rail-error">Rail: it stopped</div>
+        <div class="card card-hero card-rail-warn">
+          <div class="kv"><span class="kv-label">Used</span><span class="kv-value num">27 / 240</span></div>
+          <div class="meter"><span class="meter-fill meter-flat" style="width:11%"></span></div>
+        </div>
+        <div class="card card-rail-ok card-lift">Hover me: the rail stays put</div>
+      </div>
+      <h3>Key/value rows</h3>
+      <p class="sg-lede">Muted label, strong value, 11px, tabular figures always. <code>.num</code> adds the mono face for a value that is only digits; <code>.kv-roomy</code> is the 4px rhythm the bank rows take.</p>
+      <div class="sg-demo col narrow" data-sg-component="KV">
+        <div class="kv"><span class="kv-label">Gateway</span><span class="kv-value" style="color:var(--ok-bright)">up</span></div>
+        <div class="kv"><span class="kv-label">Link health</span><span class="kv-value num">fps 50 · rtt 41ms</span></div>
+        <div class="kv"><span class="kv-label">Account</span><span class="badge badge-warn">Guest</span></div>
+        <div class="kv kv-roomy"><span class="kv-label">Bank value</span><span class="kv-value num">1,204,880</span></div>
+        <div class="kv kv-stack"><span class="kv-label">Script</span><span class="kv-value">chop-and-drop at Draynor</span></div>
+        <hr class="rule">
+        <div class="table">
+          <span class="kv-value">Woodcutting</span><span class="kv-value">+12,480</span>
+          <span class="kv-label">41,600/h</span><span class="kv-label">lvl 61</span>
+          <span class="kv-value">Firemaking</span><span class="kv-value">+3,120</span>
+          <span class="kv-label">10,400/h</span><span class="kv-label">lvl 52</span>
+        </div>
+      </div>
+      <h3>Session and character rows</h3>
+      <div class="sg-demo col narrow">
+        <div class="row-list">
+          <div class="kv session-row"><span class="dot dot-ok dot-glow dot-pulse"></span><span class="kv-value">MacBook</span><span class="kv-label">Active now</span><button class="btn">Revoke</button></div>
+          <div class="kv session-row"><span class="dot"></span><span class="kv-value">Office desktop</span><span class="kv-label">Last seen 3d ago</span><button class="btn">Revoke</button></div>
+        </div>
+        <div class="card card-rail-accent char-row active"><div class="char-row-main"><b class="char-row-name">Zezima</b><span class="char-status char-status-online">online · this tab</span></div><button class="btn btn-outline btn-xs">Delete</button></div>
+        <div class="card char-row"><div class="char-row-main"><b class="char-row-name">Alt_Iron</b><span class="char-status">offline</span></div><button class="btn btn-outline btn-xs">Open tab</button><button class="btn btn-outline btn-xs">Delete</button></div>
+      </div>
+      <h3>Table</h3>
+      <div class="sg-demo col">
+        <table class="table">
+          <thead><tr><th>Skill</th><th class="num">Level</th><th class="num">XP</th><th class="num">Rank</th></tr></thead>
+          <tbody>
+            <tr><td>Attack</td><td class="num">70</td><td class="num">737,627</td><td class="num">1,204</td></tr>
+            <tr><td>Strength</td><td class="num">72</td><td class="num">899,257</td><td class="num">980</td></tr>
+            <tr><td>Defence</td><td class="num">65</td><td class="num">449,428</td><td class="num">2,317</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Meters</h3>
+      <p class="sg-lede">A 5px track with a fill. The tone class is worn by the fill, never by the track: the default is the accent gradient, and hp, prayer and run are the flat single-stop colours the HUD uses. The number always sits beside it in words, which is why the track is <code>aria-hidden</code>.</p>
+      <div class="sg-demo col narrow" data-sg-component="Meter">
+        <div class="kv"><span class="kv-label">Level 61</span><span class="kv-value num">38% to 62</span></div>
+        <div class="meter"><span class="meter-fill shimmer" style="width:64%"></span></div>
+        <div class="meter"><span class="meter-fill meter-hp" style="width:78%"></span></div>
+        <div class="meter"><span class="meter-fill meter-prayer" style="width:40%"></span></div>
+        <div class="meter"><span class="meter-fill meter-run" style="width:62%"></span></div>
+        <div class="meter"><span class="meter-fill meter-flat" style="width:11%"></span></div>
+      </div>
+      <div class="sg-code">.card .card-hero .card-rail-{accent,ok,warn,error} .card-lift | .kv .kv-roomy .kv-stack .kv-label .kv-value .num | .table | table.table td.num | .meter .meter-fill .shimmer .meter-{hp,prayer,run,flat} | .row-list .session-row .char-row .char-row-main .char-row-name .char-status .char-status-online</div>
+    </section>
+
+    <section id="icons">
+      <h2>Icons</h2>
+      <p class="sg-lede">Eleven drawn glyphs and no twelfth. Each is 16 by 16 on a 1.5px stroke, drawn in <code>currentColor</code>, so a glyph takes the colour of whatever it sits in and no call site ever sets one on the svg. This is the whole icon set, and every strip button, panel header and plugin row on this page draws from it. The settings gear on a plugin row was the last font glyph left in the shell; Task 20 rebuilt the Plugins panel and it draws <code>config</code> now, so the set below is the only glyph source the shell has.</p>
+      <p class="sg-lede">The names are display names, not plugin ids: <code>automation</code> is the plugin <code>tasks</code> and <code>claude</code> is <code>connect</code>. A manifest naming a glyph that does not exist draws <code>plugins</code> rather than an empty button.</p>
+      <div class="sg-demo" data-sg-component="Icon" data-sg-icons></div>
+
+      <h3>Size</h3>
+      <p class="sg-lede">The second argument scales the box only. The viewBox never moves, so a bigger glyph is the same drawing with a proportionally finer stroke.</p>
+      <div class="sg-demo" data-sg-icon-sizes></div>
+      <div class="sg-code">icon(name, size = 16) -&gt; svg.icon | ICON_NAMES | IconName | web/src/ui/icon.ts</div>
+    </section>
+
+    <section id="navigation">
+      <h2>Navigation</h2>
+      <p class="sg-lede">Two families and one rule between them: the thing you are on is marked in orange and nothing else is. The icon strip is a vertical tab list down the right edge, generated from the plugin manifest; the character tabs are four slots across the top, always four. Every glyph is one of the eleven drawn icons above.</p>
+
+      <h3>Icon strip</h3>
+      <p class="sg-lede">Eleven buttons in three groups, separated by hairlines, with Plugins and Configuration pushed to the bottom. The open panel takes the card ground, the accent glyph and the 2px rail. A live run paints a 6px corner dot on the button that owns it. The spacer that makes that bottom group rides on the first button in it, which is Plugins.</p>
+      <div class="sg-demo" style="background:var(--frame)">
+        <nav class="icon-strip" style="height:420px" aria-label="Panels" data-sg-component="StripButton">
+          <button class="strip-btn active" data-tip="Automation" aria-label="Automation" data-sg-icon="automation"><span class="strip-dot dot dot-accent dot-glow dot-pulse" aria-hidden="true"></span></button>
+          <button class="strip-btn" data-tip="Claude" aria-label="Claude" data-sg-icon="claude"></button>
+          <span class="strip-sep" aria-hidden="true"></span>
+          <button class="strip-btn" data-tip="XP Tracker" aria-label="XP Tracker" data-sg-icon="xp"></button>
+          <button class="strip-btn" data-tip="Loot Tracker" aria-label="Loot Tracker" data-sg-icon="loot"></button>
+          <button class="strip-btn" data-tip="Events" aria-label="Events" data-sg-icon="events"></button>
+          <button class="strip-btn" data-tip="Notes" aria-label="Notes" data-sg-icon="notes"></button>
+          <button class="strip-btn" data-tip="Screenshot" aria-label="Screenshot" data-sg-icon="screenshot"></button>
+          <span class="strip-sep" aria-hidden="true"></span>
+          <button class="strip-btn" data-tip="Bank" aria-label="Bank" data-sg-icon="bank"></button>
+          <button class="strip-btn" data-tip="Account" aria-label="Account" data-sg-icon="account"></button>
+          <button class="strip-btn strip-tail" data-tip="Plugins" aria-label="Plugins" data-sg-icon="plugins"></button>
+          <button class="strip-btn" data-tip="Configuration" aria-label="Configuration" data-sg-icon="config"></button>
+        </nav>
+      </div>
+
+      <h3>Character tabs</h3>
+      <p class="sg-lede">Four slots, always: the character you are on, the ones you have made, the open slot, and the one that is not built yet. Only the online clock is mono; the words beside it are not.</p>
+      <div class="sg-demo col">
+        <nav class="char-tabs" aria-label="Characters" data-sg-component="CharTab">
+          <button class="char-tab active" aria-selected="true">
+            <span class="char-tab-dot online" aria-hidden="true"></span>
+            <span class="char-tab-name">shoth4019zr</span>
+            <span class="char-tab-status num">1:29:07</span>
+          </button>
+          <button class="char-tab" aria-selected="false">
+            <span class="char-tab-dot" aria-hidden="true"></span>
+            <span class="char-tab-name">alt_miner</span>
+            <span class="char-tab-status">offline</span>
+          </button>
+          <button class="char-tab" aria-selected="false">
+            <span class="char-tab-dot connecting" aria-hidden="true"></span>
+            <span class="char-tab-name">alt_fisher</span>
+            <span class="char-tab-status">connecting</span>
+          </button>
+          <button class="char-tab char-tab-empty"><span class="char-tab-name">+ New character</span></button>
+          <button class="char-tab char-tab-locked" disabled title="Create an account to unlock a third character"><span class="char-tab-name">+ New character</span></button>
+          <button class="char-tab char-tab-more" disabled><span class="char-tab-name">Add more</span><span class="char-tab-status">coming soon</span></button>
+        </nav>
+      </div>
+      <div class="sg-code">.icon-strip .strip-btn(.active)[data-tip] .strip-sep .strip-tail .strip-dot | .char-tabs .char-tab(.active)(:disabled) .char-tab-empty .char-tab-locked .char-tab-more .char-tab-dot(.online/.connecting) .char-tab-name .char-tab-status(.num)</div>
+    </section>
+
+    <section id="feedback">
+      <h2>Feedback</h2>
+      <p class="sg-lede">Alerts stay in the flow and explain what to do. Toasts answer an action and go away. A dialog only for questions that need an answer before anything else happens.</p>
+      <div class="sg-demo col narrow">
+        <div class="alert alert-accent">Paste this into your Claude session and say: <b>connect to this</b>.</div>
+        <div class="alert alert-ok"><div class="alert-title">Paired</div>Claude on MacBook can now see this character.</div>
+        <div class="alert alert-warn">Guest progress lives in this browser. Attach an email to keep this character on any device.</div>
+        <div class="alert alert-error"><div class="alert-title">Couldn't create a link</div>Check your connection and try again.</div>
+        <div class="alert alert-info">World 1 restarts in 10 minutes for an update.</div>
+        <div class="empty"><div class="empty-title">No loot yet</div>Items you pick up will appear here.</div>
+      </div>
+      <h3>Toasts and dialog</h3>
+      <div class="sg-demo">
+        <button class="btn" data-sg-toast="neutral">Toast</button>
+        <button class="btn" data-sg-toast="ok">Success toast</button>
+        <button class="btn" data-sg-toast="error">Error toast</button>
+        <button class="btn" data-sg-toast="info">Info toast</button>
+        <button class="btn btn-danger" data-sg-dialog>Open confirm dialog</button>
+        <span class="muted" data-sg-dialog-result></span>
+      </div>
+      <div class="sg-frame" style="height:120px;margin-top:10px"><div class="canvas-fake" style="position:absolute;inset:0;background:#000;border:1px solid rgb(var(--rl-border))"><div id="sg-toasts"></div></div></div>
+      <div class="sg-code">.alert .alert-ok/-warn/-error/-info .alert-title | .empty .empty-title | ui/toast.ts createToastHost(root).show(msg, tone) | ui/dialog.ts confirmDialog({ title, body, confirmLabel, danger })</div>
+    </section>
+
+    <section id="sections">
+      <h2>Sections and cards</h2>
+      <p class="sg-lede">A section is a native <code>&lt;details&gt;</code> styled like a RuneLite config group. Cards are for the full-screen entry flow only; inside a panel, use sections and rows.</p>
+      <div class="sg-demo col narrow">
+        <details class="section" open>
+          <summary>Display</summary>
+          <div class="section-body">
+            <label class="field-inline"><span class="field-label">Canvas size</span><select class="select"><option>Fit window</option></select></label>
+            <label class="field-inline"><span class="field-label">Hide overlays</span><input class="switch" type="checkbox"></label>
+          </div>
+        </details>
+        <details class="section">
+          <summary>Advanced</summary>
+          <div class="section-body"><div class="empty">Nothing to configure yet.</div></div>
+        </details>
+      </div>
+      <div class="sg-code">details.section > summary + .section-body | .screen-card .screen-title .screen-heading .screen-sub .screen-foot | .stack .cluster .spread .grid-2 .divider hr.rule</div>
+    </section>
+
+    <section id="bank">
+      <h2>Bank</h2>
+      <p class="sg-lede">The window chrome is the shared family above, worn as <code>window window-warm window-centred</code>: decision D22 makes the bank its one modifier, so the ground, the header gradient, the shadow and the placement are not the bank's to draw. What is the bank's is here - the 470px width, the tab rail, the eight-column grid and the footer README never describes. No Jagex art is vendored; the only pixels that are not CSS are the item icons the running client rasterises, shown here as their text fallback since no client is open on this page. <code>styles/bank.test.ts</code> is exercised against this same class contract, so the page and the stylesheet cannot drift apart.</p>
+      <div class="sg-demo" style="justify-content:center;background:var(--ground)">
+        <div class="sg-bank-frame">
+          <div class="window window-warm window-centred bank-window" role="dialog" aria-label="Bank of Gielinor" tabindex="-1">
+            <div class="window-head"><span class="window-title bank-title">Bank of Gielinor</span><span class="window-sub bank-capacity">6 / 240</span><span class="badge badge-ok bank-live"><span class="badge-dot" aria-hidden="true"></span>live</span><button type="button" class="btn btn-icon window-close" aria-label="Close the bank" title="Close">×</button></div>
+            <div class="bank-body">
+              <div class="bank-tabs" role="tablist" aria-orientation="vertical" data-sg-bank-tabs>
+                <button type="button" role="tab" class="bank-tab" data-bank-tab="0" aria-selected="true" tabindex="0" title="All items"><span class="bank-tab-glyph" aria-hidden="true">∞</span></button>
+                <button type="button" role="tab" class="bank-tab" data-bank-tab="1" aria-selected="false" tabindex="-1" title="Tab 1, 2 items"><span class="bank-tab-glyph">1</span></button>
+                <button type="button" role="tab" class="bank-tab" data-bank-tab="2" aria-selected="false" tabindex="-1" title="Tab 2, 1 item"><span class="bank-tab-initials">RU</span></button>
+                <button type="button" role="tab" class="bank-tab bank-tab-new" aria-label="New tab" title="New tab" tabindex="-1">+</button>
+              </div>
+              <div class="bank-pane" role="grid">
+                <div class="bank-row" role="row">
+                  <div class="bank-slot" role="gridcell" data-bank-slot="0" tabindex="0" aria-label="Slot 1: Coins, 5"><span class="bank-fallback">Coins</span><span class="bank-count count-yellow">5</span></div>
+                  <div class="bank-slot" role="gridcell" data-bank-slot="1" tabindex="-1" aria-label="Slot 2: Iron ore, 150000"><span class="bank-fallback">Iron ore</span><span class="bank-count count-white">150K</span></div>
+                  <div class="bank-slot" role="gridcell" data-bank-slot="2" tabindex="-1" aria-label="Slot 3: Coins, 12000000"><span class="bank-fallback">Coins</span><span class="bank-count count-green">12M</span></div>
+                  <div class="bank-slot dim" role="gridcell" data-bank-slot="3" tabindex="-1" aria-label="Slot 4: Yew logs"><span class="bank-fallback">Yew logs</span></div>
+                  <div class="bank-slot is-source" role="gridcell" data-bank-slot="4" tabindex="-1" aria-label="Slot 5: Rune platebody"><span class="bank-fallback">Rune…</span></div>
+                  <div class="bank-slot is-target" role="gridcell" data-bank-slot="5" tabindex="-1" aria-label="Slot 6: empty"></div>
+                  <div class="bank-slot is-held" role="gridcell" data-bank-slot="6" tabindex="-1" aria-label="Slot 7: Shark, 4"><span class="bank-fallback">Shark</span><span class="bank-count count-yellow">4</span></div>
+                  <div class="bank-slot bank-slot-filler" role="presentation"></div>
+                </div>
+                <div class="bank-divider"><span class="bank-fallback">2</span></div>
+              </div>
+            </div>
+            <div class="bank-status" role="status">Picked up Shark. Use the arrow keys, then Enter to place it.</div>
+            <div class="bank-bottom">
+              <div class="bank-group" role="group" aria-label="Rearrange mode"><button type="button" class="btn btn-quiet bank-toggle" aria-pressed="true">Swap</button><button type="button" class="btn btn-quiet bank-toggle" aria-pressed="false">Insert</button></div>
+              <div class="bank-group" role="group" aria-label="Quantity"><button type="button" class="btn btn-quiet bank-toggle" aria-pressed="true">1</button><button type="button" class="btn btn-quiet bank-toggle" aria-pressed="false">5</button><button type="button" class="btn btn-quiet bank-toggle" aria-pressed="false">All</button></div>
+              <input class="input bank-search" type="search" placeholder="Search" aria-label="Search the bank">
+              <span class="bank-note" data-sg-copy="bankFooterNote"></span>
+            </div>
+          </div>
+          <div class="bank-menu" role="menu" aria-label="Item options" style="position:absolute; left:380px; top:170px">
+            <button type="button" role="menuitem" class="bank-menu-row"><span class="bank-menu-label">Withdraw-5</span></button>
+            <button type="button" role="menuitem" class="bank-menu-row"><span class="bank-menu-label">Examine</span></button>
+            <button type="button" role="menuitem" class="bank-menu-row disabled" aria-disabled="true"><span class="bank-menu-label">Sell...</span><span class="bank-menu-hint">Contracts coming soon</span></button>
+            <button type="button" role="menuitem" class="bank-menu-row"><span class="bank-menu-label">Cancel</span></button>
+          </div>
+        </div>
+      </div>
+      <h3>Empty states</h3>
+      <div class="sg-demo col narrow">
+        <div class="bank-pane" role="grid" style="width:100%"><div class="bank-empty">Your bank is empty.</div></div>
+      </div>
+      <div class="sg-code">.bank-window .bank-title .bank-capacity .bank-live .bank-error .bank-body .bank-status | .bank-tabs .bank-tab[aria-selected] .bank-tab-new .bank-tab-glyph .bank-tab-initials | .bank-pane .bank-row [data-bank-slot] .bank-slot-filler .bank-icon .bank-fallback .bank-count(.count-yellow/-white/-green) .bank-divider .bank-empty | .is-dragging .is-insert-mode .is-source .is-target .is-held | .bank-bottom .bank-group .bank-toggle[aria-pressed] .bank-search .bank-note | .bank-menu .bank-menu-row(.disabled) .bank-menu-label .bank-menu-hint | .bank-meter (the Bank PANEL's capacity tuck, not drawn here)</div>
+    </section>
+
+    <section id="frame">
+      <h2>Game frame</h2>
+      <p class="sg-lede">Title bar, canvas, side panel, icon strip and footer. The strip is a vertical tab list: the orange rail marks the open tab, arrow keys move between tabs, each tab has a tooltip.</p>
+      <div class="sg-frame">
+        <section class="frame">
+          <header class="frame-title"><span class="brand">idlescape</span><span class="title-centre">osrs.scotho.com · world 1 · <b>shoth4019zr</b></span></header>
+          <nav class="char-tabs" aria-label="Characters">
+            <button class="char-tab active" aria-selected="true"><span class="char-tab-dot online" aria-hidden="true"></span><span class="char-tab-name">shoth4019zr</span><span class="char-tab-status num">1:29:07</span></button>
+            <button class="char-tab" aria-selected="false"><span class="char-tab-dot" aria-hidden="true"></span><span class="char-tab-name">alt_miner</span><span class="char-tab-status">offline</span></button>
+            <button class="char-tab char-tab-empty"><span class="char-tab-name">+ New character</span></button>
+            <button class="char-tab char-tab-more" disabled><span class="char-tab-name">Add more</span><span class="char-tab-status">coming soon</span></button>
+          </nav>
+          <div class="frame-body"><div class="stage">
+            <div class="canvas-fake">
+              <div class="overlays">
+                <span class="ov-pill ov-pill-accent ov-pill-corner ov-xp">Woodcutting · 41,600 xp/h</span>
+                <span class="ov-pill ov-pill-ok ov-pill-corner ov-pairing">● claude paired</span>
+              </div>
+              <div class="plugin-overlays"><div class="hud-stack">
+                <span class="ov-pill hud-pill hud-pill-hp" aria-label="HP 63/70"><span class="hud-label">HP</span><span class="hud-bar" aria-hidden="true"><span class="hud-fill hud-fill-hp" style="width:90%"></span></span><span class="hud-value">63/70</span></span>
+                <span class="ov-pill hud-pill hud-pill-prayer" aria-label="PRAY 12/43"><span class="hud-label">PRAY</span><span class="hud-bar" aria-hidden="true"><span class="hud-fill hud-fill-prayer" style="width:28%"></span></span><span class="hud-value">12/43</span></span>
+                <span class="ov-pill hud-pill hud-pill-run" aria-label="RUN 100"><span class="hud-label">RUN</span><span class="hud-bar" aria-hidden="true"><span class="hud-fill hud-fill-run" style="width:100%"></span></span><span class="hud-value">100</span></span>
+                <span class="ov-pill ov-pill-accent">Strength +3, Attack +3</span>
+              </div></div>
+            </div>
+            <aside class="side-panel">
+              <div class="pinned-tracker">
+                <div class="pin-head"><span class="section-label">Pinned · XP</span><button class="btn btn-icon btn-icon-xs" aria-label="Unpin">×</button></div>
+                <div class="pin-value"><b class="pin-name">Woodcutting</b><span class="pin-gain">+4,180</span><span class="pin-sub">24.2k/h · lvl 34</span></div>
+                <div class="meter"><span class="meter-fill shimmer" style="width:64%"></span></div>
+              </div>
+              <div class="panel-header"><span class="panel-icon" data-sg-icon="claude"></span><b>Claude</b><button class="btn btn-outline btn-quiet">Pin</button><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+              <div class="panel-body">
+                <div class="row-list"><div class="kv session-row"><span class="dot dot-ok dot-glow dot-pulse"></span><span class="kv-value">MacBook</span><span class="kv-label">Active now</span><button class="btn">Revoke</button></div></div>
+                <button class="btn">Pair another</button>
+                <div class="kv"><span class="kv-label">Gateway</span><span class="kv-value">up</span></div>
+                <div class="kv"><span class="kv-label">Link health</span><span class="kv-value">fps 50 · rtt 41ms · ws connected</span></div>
+              </div>
+            </aside>
+            <nav class="icon-strip" aria-label="Panels" data-sg-strip>
+              <button class="strip-btn active" data-panel="connect" title="Claude" data-sg-icon="claude"></button>
+              <button class="strip-btn" data-panel="tasks" title="Automation" data-sg-icon="automation"></button>
+              <button class="strip-btn" data-panel="xp" title="XP Tracker" data-sg-icon="xp"></button>
+              <button class="strip-btn" data-panel="loot" title="Loot Tracker" data-sg-icon="loot"></button>
+              <button class="strip-btn" data-panel="account" title="Account" data-sg-icon="account"></button>
+              <button class="strip-btn strip-tail" data-panel="plugins" title="Plugins" data-sg-icon="plugins"></button>
+              <button class="strip-btn" data-panel="config" title="Configuration" data-sg-icon="config"></button>
+            </nav>
+          </div></div>
+          <footer class="frame-foot"><span><span>guest</span><span>attach an email to keep this character</span></span><span class="num"><span>fps 50</span><span>rtt 41ms</span></span></footer>
+        </section>
+      </div>
+      <div class="sg-code">.frame .frame-title .brand .title-left .title-link .title-centre | .frame-body .stage .canvas-wrap .overlays | .side-panel .pinned-tracker(.pin-head .pin-value .pin-name .pin-gain .pin-sub) .panel-header .panel-icon .panel-body | .icon-strip .strip-btn(.active)[data-tip] .strip-tail | .frame-foot | .offline</div>
+    </section>
+
+    <section id="panel">
+      <h2>Side panel content</h2>
+      <p class="sg-lede">Panels are 280px wide with a 34px header. Everything inside is 12px text on 25 to 27px controls, stacked with 10px gaps in an 11px gutter. Empty states tell the player what will show up and how. Every panel the shell ships is below: the five README never describes (Claude, Notes, Screenshot, Plugins and Configuration) beside Account and the two trackers. Plugins is the one panel on a 6px rhythm rather than the panel body 10px, and it brings a container of its own to get it. The screenshot tiles are drawn as empty divs here because this page has no captures to show; in the panel they are <code>&lt;img&gt;</code> wearing the same class over the same checkerboard.</p>
+      <div class="sg-demo" style="align-items:flex-start">
+        <aside class="side-panel" style="height:300px"><div class="panel-header"><span class="panel-icon" data-sg-icon="plugins"></span><b>Plugins</b><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+          <div class="panel-body">
+            <div class="plugin-panel">
+              <input class="input input-lg" type="search" placeholder="Search plugins" aria-label="Search plugins">
+              <div class="plugin-list">
+                <div class="plugin-row"><span class="plugin-icon" data-sg-icon="xp"></span><div class="plugin-main"><div class="plugin-name">XP Tracker</div><div class="plugin-desc muted">Per-skill XP, xp/h, actions to next level.</div></div><div class="plugin-controls"><input class="switch" type="checkbox" checked aria-label="Enable XP Tracker"></div></div>
+                <div class="plugin-row"><span class="plugin-icon" data-sg-icon="xp"></span><div class="plugin-main"><div class="plugin-name">Status HUD</div><div class="plugin-desc muted">HP, prayer and run energy over the game.</div></div><div class="plugin-controls"><button class="btn btn-icon" title="Settings" aria-label="Status HUD settings" data-sg-icon="config" data-sg-icon-size="14"></button><input class="switch" type="checkbox" checked aria-label="Enable Status HUD"></div><div class="plugin-settings"><form class="settings-form"><label class="setting-row"><span class="field-label">Show stat boosts</span><input class="switch" type="checkbox" checked></label><label class="setting-row"><span class="field-label">Position</span><select class="select"><option selected>Top right</option><option>Top left</option></select></label></form></div></div>
+                <div class="plugin-row"><span class="plugin-icon" data-sg-icon="claude"></span><div class="plugin-main"><div class="plugin-name">Claude</div><div class="plugin-desc muted">Pair and manage your Claude session.</div></div><div class="plugin-controls"><span class="muted">always on</span><input class="switch" type="checkbox" checked disabled aria-label="Claude is always on"></div></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <aside class="side-panel" style="height:300px"><div class="panel-header"><span class="panel-icon" data-sg-icon="account"></span><b>Account</b><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+          <div class="panel-body">
+            <div class="kv"><span class="kv-label">Signed in as</span><span class="kv-value">Guest</span></div>
+            <div class="kv"><span class="kv-label">Account</span><span class="kv-value"><span class="badge badge-warn">Guest</span></span></div>
+            <div class="alert alert-warn" role="status"><div>Guest progress lives in this browser. Attach an email to keep this character on any device.</div></div>
+            <form class="stack"><input class="input" type="email" placeholder="Email"><input class="input" type="password" placeholder="Password (6 or more characters)"><button class="btn btn-primary" type="submit">Attach email</button></form>
+            <div class="stack">
+              <span class="section-label">Characters &middot; 2 of 3</span>
+              <div class="card card-rail-accent char-row active"><div class="char-row-main"><b class="char-row-name">Zezima</b><span class="char-status char-status-online">online &middot; this tab</span></div><button class="btn btn-outline btn-xs" type="button">Delete</button></div>
+              <div class="card char-row"><div class="char-row-main"><b class="char-row-name">Alt_Iron</b><span class="char-status">offline</span></div><button class="btn btn-outline btn-xs" type="button">Open tab</button><button class="btn btn-outline btn-xs" type="button">Delete</button></div>
+              <form class="char-create"><input class="input" placeholder="New character name" maxlength="12"><button class="btn" type="submit">Create</button></form>
+            </div>
+            <button class="btn btn-lg btn-block" type="button">Sign out</button>
+          </div>
+        </aside>
+        <aside class="side-panel" style="height:300px"><div class="panel-header"><span class="panel-icon" data-sg-icon="claude"></span><b>Claude</b><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+          <div class="panel-body">
+            <div class="card card-hero connect-card">
+              <b class="connect-title">Pair a Claude session</b>
+              <div class="connect-url-row"><input class="input input-sm mono" readonly value="https://osrs.scotho.com/pair#7f3a…"><button class="btn btn-sm">Copy</button></div>
+              <div class="kv"><span class="kv-label">Expires in</span><span class="kv-value num">14:22</span></div>
+              <div class="alert alert-accent connect-hint" role="status"><div>Paste this into your Claude session and say: <b>connect to this</b>.</div></div>
+              <div class="connect-wait"><span class="dot dot-pulse" aria-hidden="true" style="width:7px;height:7px"></span><span>Waiting for Claude…</span></div>
+              <a class="link" href="#">How do I connect?</a>
+            </div>
+          </div>
+        </aside>
+        <aside class="side-panel" style="height:300px"><div class="panel-header"><span class="panel-icon" data-sg-icon="claude"></span><b>Claude</b><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+          <div class="panel-body">
+            <span class="section-label">Paired sessions</span>
+            <div class="row-list">
+              <div class="kv session-row"><span class="dot dot-ok dot-pulse dot-glow" aria-hidden="true" style="width:8px;height:8px"></span><span class="kv-value">MacBook</span><span class="kv-label">Active now</span><button class="btn btn-outline btn-xs">Revoke</button></div>
+              <div class="kv session-row"><span class="dot" aria-hidden="true" style="width:8px;height:8px"></span><span class="kv-value">work desktop</span><span class="kv-label">Last seen 3h ago</span><button class="btn btn-outline btn-xs">Revoke</button></div>
+            </div>
+            <button class="btn btn-link">Pair another session</button>
+            <span class="section-label">Link</span>
+            <div class="kv"><span class="kv-label">Gateway</span><span class="kv-value" style="color:var(--ok-bright)">● up</span></div>
+            <div class="kv"><span class="kv-label">Health</span><span class="kv-value num">fps 50 · rtt 38ms · ws ok</span></div>
+          </div>
+        </aside>
+        <aside class="side-panel" style="height:300px"><div class="panel-header"><span class="panel-icon" data-sg-icon="xp"></span><b>XP Tracker</b><button class="btn btn-outline btn-quiet">Pin</button><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+          <div class="panel-body">
+            <div class="xp-head"><span class="xp-since">Session · 42:18</span><button class="btn btn-outline btn-quiet">Reset</button></div>
+            <div class="card xp-card">
+              <div class="xp-row"><span class="xp-level">34</span><span class="xp-main"><b class="xp-name">Woodcutting</b><span class="xp-sub">24,180/h · 52 actions to 35</span></span><span class="xp-gain">+4,180</span></div>
+              <div class="meter"><span class="meter-fill shimmer" style="width:64%"></span></div>
+              <div class="xp-foot"><span>lvl 34</span><span>1,290 xp to lvl 35</span></div>
+            </div>
+            <div class="card xp-card">
+              <div class="xp-row"><span class="xp-level">21</span><span class="xp-main"><b class="xp-name">Firemaking</b><span class="xp-sub">3,400/h · 12 actions to 22</span></span><span class="xp-gain">+610</span></div>
+              <div class="meter"><span class="meter-fill shimmer" style="width:31%"></span></div>
+              <div class="xp-foot"><span>lvl 21</span><span>240 xp to lvl 22</span></div>
+            </div>
+          </div>
+        </aside>
+        <aside class="side-panel" style="height:300px"><div class="panel-header"><span class="panel-icon" data-sg-icon="loot"></span><b>Loot Tracker</b><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+          <div class="panel-body">
+            <div class="empty-state">
+              <span class="empty-state-mark" aria-hidden="true">◌</span>
+              <b class="empty-state-title">Nothing looted yet</b>
+              <span class="empty-state-copy" data-sg-copy="lootEmpty"></span>
+              <button class="btn btn-primary btn-cta">Run a script</button>
+            </div>
+          </div>
+        </aside>
+        <aside class="side-panel" style="height:300px"><div class="panel-header"><span class="panel-icon" data-sg-icon="notes"></span><b>Notes</b><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+          <div class="panel-body">
+            <textarea class="textarea notes-body" rows="12" placeholder="Notes for this character (synced to your account).">Willow spot: north of Draynor bank.
+Need 30 mining before the iron loop is worth it.</textarea>
+          </div>
+        </aside>
+        <aside class="side-panel" style="height:300px"><div class="panel-header"><span class="panel-icon" data-sg-icon="screenshot"></span><b>Screenshot</b><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+          <div class="panel-body">
+            <button class="btn btn-primary btn-lg btn-block btn-cta">Capture the canvas</button>
+            <div class="shot-strip">
+              <div class="shot-thumb"></div><div class="shot-thumb"></div><div class="shot-thumb"></div><div class="shot-thumb"></div>
+            </div>
+            <span class="shot-note">Keeps the last 10. Click a thumbnail to download.</span>
+          </div>
+        </aside>
+        <aside class="side-panel" style="height:300px"><div class="panel-header"><span class="panel-icon" data-sg-icon="config"></span><b>Configuration</b><button class="btn btn-icon btn-icon-lg" aria-label="Close panel">×</button></div>
+          <div class="panel-body">
+            <details class="section" open>
+              <summary>Display</summary>
+              <div class="section-body">
+                <label class="field-inline"><span class="field-label">Canvas size</span><select class="select"><option>1x</option><option>2x</option><option selected>Fit window</option></select></label>
+                <label class="field-inline"><span class="field-label">Scaling</span><select class="select"><option selected>Smooth</option><option>Pixelated</option></select></label>
+                <label class="field-inline"><span class="field-label">Hide overlays</span><input class="switch" type="checkbox"></label>
+                <button class="btn btn-lg btn-block">Enter fullscreen</button>
+              </div>
+            </details>
+            <details class="section">
+              <summary>Sound</summary>
+              <div class="section-body"><p class="empty">Nothing to set yet.</p></div>
+            </details>
+          </div>
+        </aside>
+      </div>
+      <div class="sg-code">.connect-card .connect-title .connect-url-row .connect-hint .connect-wait | .row-list .session-row | .plugin-panel .plugin-list .plugin-row .plugin-icon .plugin-main .plugin-name .plugin-desc .plugin-controls .plugin-settings | .settings-form .setting-row | .notes-body | .shot-strip .shot-thumb .shot-note | .xp-head .xp-since | .card.xp-card .xp-row .xp-level .xp-main .xp-name .xp-sub .xp-gain .xp-foot | .loot-head .loot-count .loot-list</div>
+    </section>
+
+    <section id="home">
+      <h2>Home card</h2>
+      <p class="sg-lede">The entry flow. One primary action, two quiet alternatives, and the Claude link for players who arrive with a session to pair. Patch notes and the player count sit below a rule so they never compete with the buttons.</p>
+      <div class="sg-demo" style="justify-content:center;background:var(--ground)">
+        <div class="screen-card">
+          <h1 class="screen-title">idlescape</h1>
+          <p class="screen-sub">Lost City, in your browser, with a Claude that can play alongside you.</p>
+          <div class="stack">
+            <button class="btn btn-primary btn-lg btn-block">Play as guest</button>
+            <div class="entry-buttons-row"><button class="btn">Log in</button><button class="btn">Create account</button></div>
+            <button class="link">Connect a Claude session</button>
+          </div>
+          <div class="screen-foot stack">
+            <p class="screen-sub">3 players online</p>
+            <ul class="patch-notes">
+              <li><span class="pn-date">2026-09-05</span> <b>Characters</b><ul><li>Guests get one character, accounts get three.</li><li>Pick a character before entering the world.</li></ul></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="copilot">
+      <h2>Co-pilot bar</h2>
+      <p class="sg-lede">Forty-two pixels of chrome between the character tabs and the canvas, in all five presented states. It answers two questions at once, which is why it reads two sources: is Claude paired, and is anything running. The dot and the 2px rule beneath carry the state, the clock is mono and tabular, and the second row says what the run is doing on the left and what it is earning on the right. Every bar below is drawn by the real renderer, so nothing here can drift from the frame.</p>
+      <div class="sg-demo col">
+        <div class="sg-copilot-frame">
+          <div class="copilot-bar" role="status" data-sg-copilot="unpaired"></div>
+          <div class="copilot-detail" hidden></div>
+          <div class="copilot-rule" data-state="idle"></div>
+        </div>
+        <div class="sg-copilot-frame">
+          <div class="copilot-bar" role="status" data-sg-copilot="standby"></div>
+          <div class="copilot-detail" hidden></div>
+          <div class="copilot-rule" data-state="idle"></div>
+        </div>
+        <div class="sg-copilot-frame">
+          <div class="copilot-bar" role="status" data-sg-copilot="running"></div>
+          <div class="copilot-detail" hidden></div>
+          <div class="copilot-rule" data-state="idle"></div>
+        </div>
+        <div class="sg-copilot-frame">
+          <div class="copilot-bar" role="status" data-sg-copilot="paused"></div>
+          <div class="copilot-detail" hidden></div>
+          <div class="copilot-rule" data-state="idle"></div>
+        </div>
+        <div class="sg-copilot-frame">
+          <div class="copilot-bar" role="status" data-sg-copilot="stuck"></div>
+          <div class="copilot-detail" hidden></div>
+          <div class="copilot-rule" data-state="idle"></div>
+        </div>
+      </div>
+      <div class="sg-code">.copilot-bar[data-state] .copilot-label .copilot-body .copilot-text .copilot-headline .copilot-summary .copilot-script .copilot-task .copilot-msg .copilot-sep .copilot-countdown .copilot-grow .copilot-esc .copilot-elapsed .copilot-health .copilot-actions .copilot-detail .copilot-detail-what .copilot-detail-rate .copilot-detail-toggle .copilot-rule[data-state]</div>
+    </section>
+
+    <section id="automation">
+      <h2>Automation</h2>
+      <p class="sg-lede">The panel a player spends a run inside. The run card is a hero card with a rail that follows the presented state, a large badge, a mono clock at 16px, the quest steps the trace has named, and a counter row under the health checks. The script and market cards are the same lifting card at two densities; a history row is a 7px dot, a name, a meta line that is deliberately not mono, and a way into the report. Every demo below is drawn by the real builders and sits in the panel's own list container, so this page cannot drift from the panel in either the card or the rhythm between cards.</p>
+
+      <h3>Run card</h3>
+      <div class="sg-demo col narrow" style="background:var(--panel)">
+        <div data-sg-run="running"></div>
+        <div data-sg-run="paused"></div>
+        <div data-sg-run="stuck"></div>
+      </div>
+      <div class="sg-code">.run-card .run-card-head .run-title .run-elapsed .run-steps .run-step[data-step] .run-step-mark .run-step-label .run-step-link .run-status-line .run-detail-line .run-health .run-health-item .run-counters .run-actions</div>
+
+      <h3>My tasks</h3>
+      <p class="sg-lede">One card per script the player owns, each naming where it came from. The requirement line is amber prose with no glyph in front of it (ruling R19), and a turned-off script keeps its switch, its reason and a Run button that refuses.</p>
+      <div class="sg-demo col narrow" style="background:var(--panel)">
+        <div class="task-list" data-sg-scripts></div>
+      </div>
+      <div class="sg-code">.task-list .task-row .task-row-head .task-row-name .task-row-desc .task-meta .task-req .task-row-actions .task-row-toggle | .snippet-code .params-form</div>
+
+      <h3>History</h3>
+      <div class="sg-demo col narrow" style="background:var(--panel)" data-sg-history></div>
+      <div class="sg-code">.history-row .history-body .history-name .history-meta</div>
+
+      <h3>Marketplace</h3>
+      <div class="sg-demo col narrow" style="background:var(--panel)">
+        <div class="market-tab">
+          <input class="input input-lg" type="search" placeholder="Search scripts" aria-label="Search scripts">
+          <div class="market-list" data-sg-market></div>
+        </div>
+      </div>
+      <div class="sg-code">.market-tab .market-list .market-card .market-head .market-name .market-desc .market-meta .market-est .market-missing .market-actions | .automation-content</div>
+    </section>
+
+    <section id="events">
+      <h2>Events feed</h2>
+      <p class="sg-lede">One session, every character. Three filter axes are ANDed: the character segmented, the six type chips (multi-select, and none selected means all of them) and the skill select. A row is a time, a line of text and the character it belongs to; its 2px rail is drawn from <code>data-event-type</code>, so the palette lives in the stylesheet and never in the rendering code.</p>
+      <div class="sg-demo col narrow">
+        <div class="seg" role="group">
+          <button class="seg-btn active" type="button" aria-pressed="true">All</button>
+          <button class="seg-btn" type="button" aria-pressed="false">shoth4019zr</button>
+          <button class="seg-btn" type="button" aria-pressed="false">alt_miner</button>
+        </div>
+        <div class="events-chips">
+          <button class="chip active" type="button" aria-pressed="true">XP</button>
+          <button class="chip" type="button" aria-pressed="false">Loot</button>
+          <button class="chip" type="button" aria-pressed="false">Levels</button>
+          <button class="chip" type="button" aria-pressed="false">Runs</button>
+          <button class="chip" type="button" aria-pressed="false">Claude</button>
+          <button class="chip" type="button" aria-pressed="false">Bank</button>
+        </div>
+        <div class="events-filters">
+          <select class="select select-sm" aria-label="Filter by skill"><option value="all">All skills</option><option value="Woodcutting">Woodcutting</option></select>
+          <button class="btn btn-outline btn-sm" type="button">Clear</button>
+        </div>
+      </div>
+
+      <h3>Rows, one per type</h3>
+      <p class="sg-lede">Levels are the one type with a ground and a text colour of their own; a failed run keeps the run type and takes the failure tone, which is a red rail over amber text. An account-scoped row (the bank, the gateway) carries no character badge at all.</p>
+      <div class="sg-demo col narrow" style="background:var(--panel)">
+        <div class="events-row" data-event-type="level"><span class="events-time">14:07</span><span class="events-text">Level up! Woodcutting 34 &#8594; 35</span><span class="badge badge-quiet">shoth4019zr</span></div>
+        <div class="events-row" data-event-type="xp"><span class="events-time">14:05</span><span class="events-text">+250 Woodcutting xp</span><span class="badge badge-quiet">shoth4019zr</span></div>
+        <div class="events-row" data-event-type="loot"><span class="events-time">13:58</span><span class="events-text">Bird nest picked up</span><span class="badge badge-quiet">shoth4019zr</span></div>
+        <div class="events-row" data-event-type="run"><span class="events-time">13:52</span><span class="events-text">Run resumed after you took control</span><span class="badge badge-quiet">shoth4019zr</span></div>
+        <div class="events-row" data-event-type="claude"><span class="events-time">13:30</span><span class="events-text">Claude started Chop and drop</span><span class="badge badge-quiet">shoth4019zr</span></div>
+        <div class="events-row" data-event-type="run" data-event-tone="fail"><span class="events-time">12:55</span><span class="events-text" data-sg-copy="runFailed"></span><span class="badge badge-quiet">alt_miner</span></div>
+        <div class="events-row" data-event-type="bank"><span class="events-time">12:40</span><span class="events-text" data-sg-copy="bankUpdated"></span></div>
+        <div class="events-foot"><span class="events-count">7 of 14 events &#183; this session</span><button class="btn btn-link" type="button">Copy for Claude</button></div>
+      </div>
+
+      <h3>The two empty states</h3>
+      <p class="sg-lede">Not one pattern. The default is the trackers' state: it fills its host, its mark is 40px and it bobs. The Events one is the same component with <code>compact</code> on it, which stops the bob, sits at the top of the scroller and steps every metric down; its action is the quiet grey button rather than the primary call to action, because the filters are one click from being wrong rather than a thing to celebrate.</p>
+      <div class="sg-demo narrow" style="background:var(--panel);min-height:210px">
+        <div class="empty-state">
+          <span class="empty-state-mark" aria-hidden="true">&#9678;</span>
+          <b class="empty-state-title">Nothing looted yet</b>
+          <span class="empty-state-copy" data-sg-copy="lootEmpty"></span>
+          <button class="btn btn-primary btn-cta" type="button">Run a script</button>
+        </div>
+      </div>
+      <div class="sg-demo narrow" style="background:var(--panel)">
+        <div class="empty-state compact">
+          <span class="empty-state-mark" aria-hidden="true">&#8981;</span>
+          <b class="empty-state-title">No events match</b>
+          <span class="empty-state-copy" data-sg-copy="eventsEmpty"></span>
+          <button class="btn btn-quiet" type="button">Clear filters</button>
+        </div>
+      </div>
+      <div class="sg-code">.events-row[data-event-type] [data-event-tone="fail"] .events-time .events-text .events-chips .events-filters .events-feed .events-foot .events-count | .empty-state(.compact) .empty-state-mark .empty-state-title .empty-state-copy | .badge-quiet</div>
+    </section>
+
+    <section id="overlay">
+      <h2>Overlays, windows and menus</h2>
+      <p class="sg-lede">Everything that floats speaks one language: a black scrim, a 1px tone-tinted border, a 3px radius, bold mono and a 2px backdrop blur. Pills float over the game canvas, windows over the whole stage, and a menu is the same surface at menu size. Transparency and blur live here and never inside a panel.</p>
+
+      <h3>Overlay pills</h3>
+      <p class="sg-lede">The component's own geometry, 2px 7px at 10.5px. Five tones, and unlike a dot or a meter the default names itself, because a bare pill is already the neutral grey.</p>
+      <div class="sg-demo" style="background:var(--canvas-a)" data-sg-component="OverlayPill">
+        <span class="ov-pill ov-pill-accent">Woodcutting · 24,180 xp/h</span>
+        <span class="ov-pill ov-pill-ok">● claude paired</span>
+        <span class="ov-pill ov-pill-warn">recovering</span>
+        <span class="ov-pill ov-pill-error">gateway lost</span>
+        <span class="ov-pill ov-pill-neutral">● not paired</span>
+      </div>
+
+      <h3>The two canvas corner pills</h3>
+      <p class="sg-lede">One step larger, 3px 8px at 11px, with the accent border one step brighter. The xp/h line sits top-left of the canvas and the pairing state top-right; it says driving only when Claude is paired and a run is live, which is why an unpaired account with a player-started run still reads as not paired.</p>
+      <div class="sg-demo" style="background:var(--canvas-a)">
+        <span class="ov-pill ov-pill-accent ov-pill-corner">Woodcutting · 24,180 xp/h</span>
+        <span class="ov-pill ov-pill-neutral ov-pill-corner">● not paired</span>
+        <span class="ov-pill ov-pill-ok ov-pill-corner">● claude paired</span>
+        <span class="ov-pill ov-pill-accent ov-pill-corner">● claude driving</span>
+      </div>
+
+      <h3>HUD stack and the xp drop</h3>
+      <p class="sg-lede">Three meters, and a fourth pill with no bar when boosts are on. The stack hangs under the co-pilot bar on the right; the label is the only toned part and the value is always white. The drop spawns top-centre and floats up over 2.6 seconds, so it is drawn here with its animation off.</p>
+      <div class="sg-demo" style="position:relative;height:150px;background:var(--canvas-a)">
+        <div class="hud-stack">
+          <span class="ov-pill hud-pill hud-pill-hp" aria-label="HP 14/18" data-sg-component="HudPill"><span class="hud-label">HP</span><span class="hud-bar" aria-hidden="true"><span class="hud-fill hud-fill-hp" style="width:78%"></span></span><span class="hud-value">14/18</span></span>
+          <span class="ov-pill hud-pill hud-pill-prayer" aria-label="PRAY 4/10"><span class="hud-label">PRAY</span><span class="hud-bar" aria-hidden="true"><span class="hud-fill hud-fill-prayer" style="width:40%"></span></span><span class="hud-value">4/10</span></span>
+          <span class="ov-pill hud-pill hud-pill-run" aria-label="RUN 62"><span class="hud-label">RUN</span><span class="hud-bar" aria-hidden="true"><span class="hud-fill hud-fill-run" style="width:62%"></span></span><span class="hud-value">62</span></span>
+          <span class="ov-pill ov-pill-accent">Woodcutting +3</span>
+        </div>
+        <span class="xp-drop" style="animation:none"><span class="xp-drop-chip"></span><span class="xp-drop-value">+25</span></span>
+      </div>
+
+      <h3>Windows</h3>
+      <p class="sg-lede">One family, two shipped windows and a third coming with the Script Studio. The default is the neutral ground under a flat header; <code>.window-warm</code> is the bank's warm identity and the only modifier that repaints the family. Placement is a modifier too: docked bottom-right for the trace pop-out, centred for the bank. The trace adds only its width and its 2px kind rails; the header row, the 24px controls and the footer are all the family's. Both live on the same stacking lane, so two open windows are ordered by which was opened last.</p>
+      <div class="sg-demo" style="position:relative;height:190px;background:var(--canvas-a)">
+        <div class="window window-docked trace-window" style="width:300px" role="dialog" aria-label="Trace">
+          <div class="window-head"><span class="window-title">Trace</span><span class="window-sub">Chop and drop</span><input class="input input-quiet" type="text" placeholder="Filter" aria-label="Filter the trace"><button class="btn btn-tiny" type="button">Copy for Claude</button><button class="btn btn-icon window-close" type="button" aria-label="Close trace">×</button></div>
+          <div class="window-body" style="max-height:74px">
+            <div class="trace"><div class="trace-rows">
+              <div class="trace-row" data-kind="task_enter"><span class="trace-line">00:00.1 task_enter Chop tree</span></div>
+              <div class="trace-row" data-kind="xp"><span class="trace-line">00:03.9 xp Woodcutting +25</span></div>
+              <div class="trace-row" data-kind="paused"><span class="trace-line">02:11.2 paused reason=stuck by runner</span></div>
+            </div></div>
+          </div>
+          <div class="window-foot" data-sg-copy="tracePoppedOut"></div>
+        </div>
+      </div>
+      <div class="sg-demo" style="position:relative;height:220px;background:var(--canvas-a)">
+        <div class="window window-warm window-centred" style="width:300px" role="dialog" aria-label="Bank of Gielinor">
+          <div class="window-head"><span class="window-title" style="flex:1">Bank of Gielinor</span><span class="window-sub">27 / 240</span><span class="badge badge-ok"><i class="badge-dot"></i>live</span><button class="btn btn-icon window-close" type="button" aria-label="Close the bank">×</button></div>
+          <div class="window-body" style="max-height:74px;padding:10px">
+            <div class="meter"><span class="meter-fill meter-flat" style="width:11%"></span></div>
+          </div>
+          <div class="window-foot" data-sg-copy="bankFooterNote"></div>
+        </div>
+      </div>
+
+      <h3>Menu</h3>
+      <p class="sg-lede">The same floating surface at menu size. This family ships as classes and markup only: what opens one, dismisses it on a click away or an Escape, and moves between items on the arrow keys belongs to the sound entry that gets the first real menu.</p>
+      <div class="sg-demo" style="position:relative;height:120px;background:var(--canvas-a)">
+        <div class="menu" role="menu" aria-label="Character" style="left:14px;top:14px">
+          <button class="menu-item" type="button" role="menuitem">Mute this character</button>
+          <button class="menu-item" type="button" role="menuitem">Open the trace</button>
+          <button class="menu-item" type="button" role="menuitem" disabled>Log out</button>
+        </div>
+      </div>
+
+      <h3>The three pills the frame draws, in place</h3>
+      <p class="sg-lede">The xp/h line and the pairing pill take opposite top corners; the status line trails the xp line until its four session strings move onto the co-pilot bar. The HUD stack is the status-hud plugin's whole overlay.</p>
+      <div class="sg-demo col">
+        <div class="sg-frame" style="height:180px"><div class="canvas-fake" style="position:absolute;inset:0;background:#000;border:1px solid rgb(var(--rl-border))">
+          <div class="overlays">
+            <span class="ov-pill ov-pill-accent ov-pill-corner ov-xp">Woodcutting · 41,600 xp/h</span>
+            <span class="ov-pill ov-pill-neutral ov-pill-corner ov-status">connecting…</span>
+            <span class="ov-pill ov-pill-neutral ov-pill-corner ov-pairing">● not paired</span>
+          </div>
+          <div class="plugin-overlays"><div class="hud-stack">
+            <span class="ov-pill hud-pill hud-pill-hp" aria-label="HP 14/18"><span class="hud-label">HP</span><span class="hud-bar" aria-hidden="true"><span class="hud-fill hud-fill-hp" style="width:78%"></span></span><span class="hud-value">14/18</span></span>
+            <span class="ov-pill hud-pill hud-pill-prayer" aria-label="PRAY 4/10"><span class="hud-label">PRAY</span><span class="hud-bar" aria-hidden="true"><span class="hud-fill hud-fill-prayer" style="width:40%"></span></span><span class="hud-value">4/10</span></span>
+            <span class="ov-pill hud-pill hud-pill-run" aria-label="RUN 62"><span class="hud-label">RUN</span><span class="hud-bar" aria-hidden="true"><span class="hud-fill hud-fill-run" style="width:62%"></span></span><span class="hud-value">62</span></span>
+            <span class="ov-pill ov-pill-accent">Woodcutting +3</span>
+          </div></div>
+          <span class="xp-drop"><span class="xp-drop-chip"></span><span class="xp-drop-value">+25</span></span>
+          <div class="toast-host"><div class="toast toast-ok">Screenshot saved</div></div>
+        </div></div>
+      </div>
+      <div class="sg-code">.ov-pill .ov-pill-{accent,ok,warn,error,neutral} .ov-pill-corner | .hud-stack .hud-pill .hud-pill-{hp,prayer,run} .hud-label .hud-bar .hud-fill .hud-fill-{hp,prayer,run} .hud-value | .xp-drop .xp-drop-chip .xp-drop-value | .window .window-{warm,docked,centred} .window-head .window-title .window-sub .window-close .window-body .window-foot | .trace-host .trace-window .trace .trace-rows .trace-row[data-kind] .trace-line .trace-toggle .trace-pre | .ov-xp .ov-status .ov-pairing | .menu .menu-item</div>
+    </section>
+  </main>
+</div>
+<script type="module" src="/src/styleguide.ts"></script>
+</body>
+</html>

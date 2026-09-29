@@ -1,9 +1,123 @@
-/node_modules/
-package-lock.json
+# upstream clones (pinned in scripts/upstream.lock, restored by scripts/setup.ps1). This does
+# NOT cover content-custom/ or engine-custom/ (siblings, tracked directories, not under
+# engine/) -- see content-custom/README.md and engine-custom/README.md for the overlay
+# mechanism that patches engine/content and engine/server without touching the pristine
+# clone. The pattern is anchored with a leading slash for exactly that reason: unanchored,
+# `engine/` also matches engine-custom/src/engine/, which is where the overlay's replacement
+# of src/engine/entity/PlayerLoading.ts lives.
+/engine/
+# client is a fork we track ourselves, except its build and deps
+client/node_modules/
+client/out/
+# packages
+node_modules/
+server/secrets/
+server/.env
+web/.env.local
+web/dist/
+web/test-results/
+web/playwright-report/
+wiki/build/
+wiki/data/*/loc-spawns.json
+logs/
+.superpowers/
 .env
+*.log
 
-/out/
-private.pem
-public.pem
+# separate running live instance (own copy of the engine clones); never track or read into it
+live/
+client/.upstream-git/
+web/dist-e2e/
 
-.idea
+# ---------------------------------------------------------------------------------------------
+# Everything above this line is cited by line number from CLAUDE.md, docs/ARCHITECTURE.md,
+# docs/OPERATIONS.md, scripts/lib/OverlayHash.ps1 and the engine-overlay skill. Add below, never
+# above, or those citations point at the wrong rule.
+# ---------------------------------------------------------------------------------------------
+
+# --- secrets and credentials: nothing matching these is ever committed ------------------------
+.env.*
+!.env.example
+**/.env.local
+**/.env.*.local
+# The two tracked env files carry public or placeholder values only. See SECURITY.md.
+!web/.env.e2e
+!web/.env.production
+**/secrets/*
+!**/secrets/.gitkeep
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+id_rsa*
+id_ed25519*
+*-firebase-adminsdk-*.json
+firebase-admin*.json
+service-account*.json
+serviceAccount*.json
+tunnel-credentials*.json
+.cloudflared/
+compose.env
+server.env
+.npmrc
+!firebase/.npmrc
+.netrc
+
+# --- the operator's own deployment values (see deploy/lightsail/README.md) -------------------
+deploy/**/*.local.*
+deploy/docker/.env
+
+# --- game data that must never be tracked: it is built locally from the Lost City clones -----
+lostcity/
+*.jag
+*.dat2
+*.idx[0-9]*
+*.sav
+
+# --- dependencies, build output, caches ----------------------------------------------------------
+**/node_modules/
+*.tsbuildinfo
+.vite/
+.cache/
+coverage/
+.eslintcache
+**/test-results/
+**/playwright-report/
+**/blob-report/
+
+# --- Firebase emulator state -----------------------------------------------------------------
+.firebase/
+firebase/.firebase/
+firebase-export-*/
+ui-debug.log*
+
+# --- local databases and run records ---------------------------------------------------------
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+
+# --- agent and tool state (the project skills under .claude/skills/ stay tracked) ------------
+.claude/*
+!.claude/skills/
+.mcp.json
+.aider*
+.worktrees/
+
+# --- the public export (scripts/public-export.ps1 writes a sibling directory, never in here) -
+/public-export/
+
+# --- editors and operating systems -------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+*.bak
+*.tmp
+*.orig

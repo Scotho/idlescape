@@ -1,0 +1,13 @@
+# Pinned upstream shas. Updated by hand when bumping revisions; scripts/setup.ps1 reads this file.
+# 274 pin recorded 2026-09-05 (SP1b Task 1): git ls-remote https://github.com/LostCityRS/Engine-TS 274
+#                                             git ls-remote https://github.com/LostCityRS/Content 274
+# client 274 tip pinned 2026-09-05 (SP1b Task 4): origin/274 of LostCityRS/Client-TS
+engine/server 1d25566cb53e7af1b1cb18ade8af996316c19614
+engine/content 2b62ae68dfed02b441bae47987a01d6bcbaeb358
+client 7d6ca61abda277cfed87d542e9e4aa3fe383b38d
+# The client fork's IMPORT commit into this repository, the base the pristine-274 claim in
+# client/PATCHES.md is measured against (scripts/patches-check.ps1). Not an upstream sha.
+# rs-sdk is the third-party bot surface vendored under client/src/vendor and web/src/vendor
+# (MaxBittker/rs-sdk, MIT); it is itself a fork of Client-TS 274 and does not move with the client.
+client-import dec1dc58d3b958aadadeb341b51886cd3f855383
+rs-sdk 56b73e08fc01a1d683d7a86d145a494ae945d071

@@ -1,0 +1,6 @@
+[opnpc3,helemos]
+~chatnpc("<p,happy>Why yes! We DO run an exclusive shop for our members!");
+~openshop_activenpc;
+
+[opnpc3,fixture_shopkeeper]
+~openshop(fixture_generalshop, 550, 1000, 20, "Fixture General Store");

@@ -1,0 +1,13 @@
+/* idlescape — motion. Answers an action; off under reduced-motion. */
+:root { --dur: .13s; --ease: ease; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(255,152,31,.10); } }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes barflow { to { background-position: -200% 0; } }
+@keyframes floatUp { 0% { opacity:0; transform:translateY(8px) scale(.9);} 15% {opacity:1; transform:translateY(0) scale(1);} 75% {opacity:1;} 100% {opacity:0; transform:translateY(-30px);} }
+@keyframes fadeUp { from { opacity:0; transform:translateY(6px); } }
+@keyframes popIn { from { opacity:0; transform:scale(.94); } }
+@keyframes bob { 50% { transform:translateY(-5px); } }
+@keyframes stepPulse { 50% { box-shadow: 0 0 0 4px rgba(255,152,31,.15); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

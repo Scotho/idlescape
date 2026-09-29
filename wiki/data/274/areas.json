@@ -1,0 +1,2994 @@
+[
+ {
+  "type": "area",
+  "id": 0,
+  "key": "lumbridge",
+  "slug": "lumbridge",
+  "name": "Lumbridge",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3239,
+   "z": 3233,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Lumbridge"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 1,
+  "key": "varrock",
+  "slug": "varrock",
+  "name": "Varrock",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3211,
+   "z": 3450,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Varrock"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 2,
+  "key": "kingdom-of-misthalin",
+  "slug": "kingdom-of-misthalin",
+  "name": "Kingdom Of Misthalin",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3217,
+   "z": 3321,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Kingdom Of Misthalin"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 3,
+  "key": "al-kharid",
+  "slug": "al-kharid",
+  "name": "Al Kharid",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3297,
+   "z": 3150,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Al Kharid"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 4,
+  "key": "duel-arena",
+  "slug": "duel-arena",
+  "name": "Duel Arena",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3361,
+   "z": 3233,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Duel Arena"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 5,
+  "key": "shantay-pass",
+  "slug": "shantay-pass",
+  "name": "Shantay Pass",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3304,
+   "z": 3126,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Shantay Pass"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 6,
+  "key": "toll-gate",
+  "slug": "toll-gate",
+  "name": "Toll Gate",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3278,
+   "z": 3227,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Toll Gate"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 7,
+  "key": "tutorial-island",
+  "slug": "tutorial-island",
+  "name": "Tutorial Island",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3105,
+   "z": 3099,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Tutorial Island"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 8,
+  "key": "port-sarim",
+  "slug": "port-sarim",
+  "name": "Port Sarim",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3047,
+   "z": 3221,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Port Sarim"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 9,
+  "key": "falador",
+  "slug": "falador",
+  "name": "Falador",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2989,
+   "z": 3355,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Falador"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 10,
+  "key": "edgeville",
+  "slug": "edgeville",
+  "name": "Edgeville",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3098,
+   "z": 3488,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Edgeville"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 11,
+  "key": "brimhaven",
+  "slug": "brimhaven",
+  "name": "Brimhaven",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2779,
+   "z": 3174,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Brimhaven"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 12,
+  "key": "karamja",
+  "slug": "karamja",
+  "name": "Karamja",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2860,
+   "z": 3059,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Karamja"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 13,
+  "key": "crandor",
+  "slug": "crandor",
+  "name": "Crandor",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2839,
+   "z": 3271,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Crandor"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 14,
+  "key": "entrana",
+  "slug": "entrana",
+  "name": "Entrana",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2850,
+   "z": 3379,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Entrana"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 15,
+  "key": "draynor-village",
+  "slug": "draynor-village",
+  "name": "Draynor Village",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3120,
+   "z": 3267,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Draynor Village"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 16,
+  "key": "jail",
+  "slug": "jail",
+  "name": "Jail",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3126,
+   "z": 3244,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Jail"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 17,
+  "key": "market",
+  "slug": "market",
+  "name": "Market",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3090,
+   "z": 3252,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Market"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 18,
+  "key": "draynor-manor",
+  "slug": "draynor-manor",
+  "name": "Draynor Manor",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3108,
+   "z": 3345,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Draynor Manor"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 19,
+  "key": "barbarian-village",
+  "slug": "barbarian-village",
+  "name": "Barbarian Village",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3063,
+   "z": 3416,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Barbarian Village"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 20,
+  "key": "desert-mining-camp",
+  "slug": "desert-mining-camp",
+  "name": "Desert Mining Camp",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3291,
+   "z": 3022,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Desert Mining Camp"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 21,
+  "key": "bedabin-camp",
+  "slug": "bedabin-camp",
+  "name": "Bedabin Camp",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3170,
+   "z": 3038,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Bedabin Camp"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 22,
+  "key": "exam-centre",
+  "slug": "exam-centre",
+  "name": "Exam Centre",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3361,
+   "z": 3345,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Exam Centre"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 23,
+  "key": "dig-site",
+  "slug": "dig-site",
+  "name": "Dig Site",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3365,
+   "z": 3419,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Dig Site"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 24,
+  "key": "lumber-yard",
+  "slug": "lumber-yard",
+  "name": "Lumber Yard",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3308,
+   "z": 3507,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Lumber Yard"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 25,
+  "key": "palace",
+  "slug": "palace",
+  "name": "Palace",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3213,
+   "z": 3483,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Palace"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 26,
+  "key": "cooks-guild",
+  "slug": "cooks-guild",
+  "name": "Cooks' Guild",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3137,
+   "z": 3437,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Cooks' Guild"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 27,
+  "key": "monastery",
+  "slug": "monastery",
+  "name": "Monastery",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3052,
+   "z": 3477,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Monastery"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 28,
+  "key": "dwarven-mine",
+  "slug": "dwarven-mine",
+  "name": "Dwarven Mine",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3016,
+   "z": 3441,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Dwarven Mine"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 29,
+  "key": "ice-mountain",
+  "slug": "ice-mountain",
+  "name": "Ice Mountain",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3009,
+   "z": 3487,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Ice Mountain"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 30,
+  "key": "black-knights-fortress",
+  "slug": "black-knights-fortress",
+  "name": "Black Knights' Fortress",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3018,
+   "z": 3522,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Black Knights' Fortress"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 31,
+  "key": "goblin-village",
+  "slug": "goblin-village",
+  "name": "Goblin Village",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2963,
+   "z": 3502,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Goblin Village"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 32,
+  "key": "white-knights-castle",
+  "slug": "white-knights-castle",
+  "name": "White Knights' Castle",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2961,
+   "z": 3345,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#White Knights' Castle"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 33,
+  "key": "park",
+  "slug": "park",
+  "name": "Park",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3005,
+   "z": 3379,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Park"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 34,
+  "key": "kingdom-of-asgarnia",
+  "slug": "kingdom-of-asgarnia",
+  "name": "Kingdom of Asgarnia",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2988,
+   "z": 3412,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Kingdom of Asgarnia"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 35,
+  "key": "dark-wizards-tower",
+  "slug": "dark-wizards-tower",
+  "name": "Dark Wizards' Tower",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2907,
+   "z": 3336,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Dark Wizards' Tower"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 36,
+  "key": "due-jan-2005",
+  "slug": "due-jan-2005",
+  "name": "(due Jan-2005)",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3429,
+   "z": 3555,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#(due Jan-2005)"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 37,
+  "key": "melzars-maze",
+  "slug": "melzars-maze",
+  "name": "Melzar's Maze",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2931,
+   "z": 3248,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Melzar's Maze"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 38,
+  "key": "rimmington",
+  "slug": "rimmington",
+  "name": "Rimmington",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2960,
+   "z": 3222,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Rimmington"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 39,
+  "key": "wizards-tower",
+  "slug": "wizards-tower",
+  "name": "Wizards' Tower",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3112,
+   "z": 3153,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Wizards' Tower"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 40,
+  "key": "lumbridge-swamp",
+  "slug": "lumbridge-swamp",
+  "name": "Lumbridge Swamp",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3195,
+   "z": 3183,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Lumbridge Swamp"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 41,
+  "key": "fishing-platform",
+  "slug": "fishing-platform",
+  "name": "Fishing Platform",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2775,
+   "z": 3287,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Fishing Platform"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 42,
+  "key": "tai-bwo-wannai",
+  "slug": "tai-bwo-wannai",
+  "name": "Tai Bwo Wannai",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2794,
+   "z": 3066,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Tai Bwo Wannai"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 43,
+  "key": "shilo-village",
+  "slug": "shilo-village",
+  "name": "Shilo Village",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2849,
+   "z": 2986,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Shilo Village"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 44,
+  "key": "ship-yard",
+  "slug": "ship-yard",
+  "name": "Ship Yard",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2990,
+   "z": 3055,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Ship Yard"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 45,
+  "key": "cairn-isle",
+  "slug": "cairn-isle",
+  "name": "Cairn Isle",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2764,
+   "z": 2979,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Cairn Isle"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 46,
+  "key": "kharazi-jungle",
+  "slug": "kharazi-jungle",
+  "name": "Kharazi Jungle",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2844,
+   "z": 2923,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Kharazi Jungle"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 47,
+  "key": "chaos-temple",
+  "slug": "chaos-temple",
+  "name": "Chaos Temple",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3238,
+   "z": 3610,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Chaos Temple"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 48,
+  "key": "graveyard-of-shadows",
+  "slug": "graveyard-of-shadows",
+  "name": "Graveyard of Shadows",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3167,
+   "z": 3673,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Graveyard of Shadows"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 49,
+  "key": "bandit-camp",
+  "slug": "bandit-camp",
+  "name": "Bandit Camp",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3036,
+   "z": 3689,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Bandit Camp"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 50,
+  "key": "dark-knight-fortress",
+  "slug": "dark-knight-fortress",
+  "name": "Dark Knight Fortress",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3030,
+   "z": 3633,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Dark Knight Fortress"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 51,
+  "key": "ruins",
+  "slug": "ruins",
+  "name": "Ruins",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2966,
+   "z": 3697,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Ruins"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 52,
+  "key": "the-forgotten-cemetery",
+  "slug": "the-forgotten-cemetery",
+  "name": "The Forgotten Cemetery",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2977,
+   "z": 3753,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#The Forgotten Cemetery"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 53,
+  "key": "ruins",
+  "slug": "ruins-2",
+  "name": "Ruins",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3164,
+   "z": 3735,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Ruins"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 54,
+  "key": "bone-yard",
+  "slug": "bone-yard",
+  "name": "Bone Yard",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3246,
+   "z": 3746,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Bone Yard"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 55,
+  "key": "red-dragon-isle",
+  "slug": "red-dragon-isle",
+  "name": "Red Dragon Isle",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3199,
+   "z": 3824,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Red Dragon Isle"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 56,
+  "key": "wilderness",
+  "slug": "wilderness",
+  "name": "Wilderness",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3144,
+   "z": 3773,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Wilderness"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 57,
+  "key": "lava-maze",
+  "slug": "lava-maze",
+  "name": "Lava Maze",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3079,
+   "z": 3848,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Lava Maze"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 58,
+  "key": "frozen-waste-plateau",
+  "slug": "frozen-waste-plateau",
+  "name": "Frozen Waste Plateau",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2972,
+   "z": 3919,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Frozen Waste Plateau"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 59,
+  "key": "agility-training-area",
+  "slug": "agility-training-area",
+  "name": "Agility Training Area",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3005,
+   "z": 3950,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Agility Training Area"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 60,
+  "key": "pirates-hideout",
+  "slug": "pirates-hideout",
+  "name": "Pirates' Hideout",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3043,
+   "z": 3948,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Pirates' Hideout"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 61,
+  "key": "mage-arena",
+  "slug": "mage-arena",
+  "name": "Mage Arena",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3107,
+   "z": 3933,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Mage Arena"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 62,
+  "key": "deserted-keep",
+  "slug": "deserted-keep",
+  "name": "Deserted Keep",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3156,
+   "z": 3937,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Deserted Keep"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 63,
+  "key": "scorpion-pit",
+  "slug": "scorpion-pit",
+  "name": "Scorpion Pit",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3236,
+   "z": 3945,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Scorpion Pit"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 64,
+  "key": "rogues-castle",
+  "slug": "rogues-castle",
+  "name": "Rogues' Castle",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3286,
+   "z": 3931,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Rogues' Castle"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 65,
+  "key": "demonic-ruins",
+  "slug": "demonic-ruins",
+  "name": "Demonic Ruins",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3293,
+   "z": 3884,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Demonic Ruins"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 66,
+  "key": "chaos-temple",
+  "slug": "chaos-temple-2",
+  "name": "Chaos Temple",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2934,
+   "z": 3526,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Chaos Temple"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 67,
+  "key": "heros-guild",
+  "slug": "heros-guild",
+  "name": "Heros' Guild",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2894,
+   "z": 3501,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Heros' Guild"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 68,
+  "key": "druids-circle",
+  "slug": "druids-circle",
+  "name": "Druids' Circle",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2925,
+   "z": 3473,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Druids' Circle"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 69,
+  "key": "taverley",
+  "slug": "taverley",
+  "name": "Taverley",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2900,
+   "z": 3458,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Taverley"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 70,
+  "key": "white-wolf-mountain",
+  "slug": "white-wolf-mountain",
+  "name": "White Wolf Mountain",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2849,
+   "z": 3492,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#White Wolf Mountain"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 71,
+  "key": "catherby",
+  "slug": "catherby",
+  "name": "Catherby",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2821,
+   "z": 3432,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Catherby"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 72,
+  "key": "camelot-castle",
+  "slug": "camelot-castle",
+  "name": "Camelot Castle",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2763,
+   "z": 3505,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Camelot Castle"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 73,
+  "key": "seers-village",
+  "slug": "seers-village",
+  "name": "Seers' Village",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2692,
+   "z": 3489,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Seers' Village"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 74,
+  "key": "sinclair-mansion",
+  "slug": "sinclair-mansion",
+  "name": "Sinclair Mansion",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2739,
+   "z": 3551,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Sinclair Mansion"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 75,
+  "key": "flax",
+  "slug": "flax",
+  "name": "Flax",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2744,
+   "z": 3445,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Flax"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 76,
+  "key": "beehives",
+  "slug": "beehives",
+  "name": "Beehives",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2767,
+   "z": 3443,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Beehives"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 77,
+  "key": "sorcerers-tower",
+  "slug": "sorcerers-tower",
+  "name": "Sorcerers' Tower",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2718,
+   "z": 3415,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Sorcerers' Tower"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 78,
+  "key": "keep-le-faye",
+  "slug": "keep-le-faye",
+  "name": "Keep Le Faye",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2770,
+   "z": 3399,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Keep Le Faye"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 79,
+  "key": "legends-guild",
+  "slug": "legends-guild",
+  "name": "Legends' Guild",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2737,
+   "z": 3374,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Legends' Guild"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 80,
+  "key": "hemenster",
+  "slug": "hemenster",
+  "name": "Hemenster",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2655,
+   "z": 3438,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Hemenster"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 81,
+  "key": "mcgrubors-wood",
+  "slug": "mcgrubors-wood",
+  "name": "McGrubor's Wood",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2647,
+   "z": 3480,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#McGrubor's Wood"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 82,
+  "key": "coal-trucks",
+  "slug": "coal-trucks",
+  "name": "Coal Trucks",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2600,
+   "z": 3491,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Coal Trucks"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 83,
+  "key": "fishing-guild",
+  "slug": "fishing-guild",
+  "name": "Fishing Guild",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2607,
+   "z": 3403,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Fishing Guild"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 84,
+  "key": "kingdom-of-kandarin",
+  "slug": "kingdom-of-kandarin",
+  "name": "Kingdom of Kandarin",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2578,
+   "z": 3443,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Kingdom of Kandarin"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 85,
+  "key": "east-ardougne",
+  "slug": "east-ardougne",
+  "name": "East Ardougne",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2597,
+   "z": 3298,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#East Ardougne"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 86,
+  "key": "west-ardougne",
+  "slug": "west-ardougne",
+  "name": "West Ardougne",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2524,
+   "z": 3308,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#West Ardougne"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 87,
+  "key": "combat-training-camp",
+  "slug": "combat-training-camp",
+  "name": "Combat Training Camp",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2519,
+   "z": 3370,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Combat Training Camp"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 88,
+  "key": "agility-training-area",
+  "slug": "agility-training-area-2",
+  "name": "Agility Training Area",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2481,
+   "z": 3426,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Agility Training Area"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 89,
+  "key": "tree-gnome-stronghold",
+  "slug": "tree-gnome-stronghold",
+  "name": "Tree Gnome Stronghold",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2433,
+   "z": 3454,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Tree Gnome Stronghold"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 90,
+  "key": "grand-tree",
+  "slug": "grand-tree",
+  "name": "Grand Tree",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2469,
+   "z": 3504,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Grand Tree"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 91,
+  "key": "swamp",
+  "slug": "swamp",
+  "name": "Swamp",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2419,
+   "z": 3513,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Swamp"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 92,
+  "key": "gnome-ball-field",
+  "slug": "gnome-ball-field",
+  "name": "Gnome Ball Field",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2401,
+   "z": 3487,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Gnome Ball Field"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 93,
+  "key": "agility-training-area",
+  "slug": "agility-training-area-3",
+  "name": "Agility Training Area",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2539,
+   "z": 3533,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Agility Training Area"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 94,
+  "key": "barbarian-outpost",
+  "slug": "barbarian-outpost",
+  "name": "Barbarian Outpost",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2550,
+   "z": 3563,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Barbarian Outpost"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 95,
+  "key": "underground-pass",
+  "slug": "underground-pass",
+  "name": "Underground Pass",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2443,
+   "z": 3315,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Underground Pass"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 96,
+  "key": "battlefield",
+  "slug": "battlefield",
+  "name": "Battlefield",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2522,
+   "z": 3232,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Battlefield"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 97,
+  "key": "baxtorian-falls",
+  "slug": "baxtorian-falls",
+  "name": "Baxtorian Falls",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2515,
+   "z": 3462,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Baxtorian Falls"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 98,
+  "key": "tree-gnome-village",
+  "slug": "tree-gnome-village",
+  "name": "Tree Gnome Village",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2528,
+   "z": 3174,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Tree Gnome Village"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 99,
+  "key": "fight-arena",
+  "slug": "fight-arena",
+  "name": "Fight Arena",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2594,
+   "z": 3162,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Fight Arena"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 100,
+  "key": "port-khazard",
+  "slug": "port-khazard",
+  "name": "Port Khazard",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2659,
+   "z": 3189,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Port Khazard"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 101,
+  "key": "yanille",
+  "slug": "yanille",
+  "name": "Yanille",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2549,
+   "z": 3091,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Yanille"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 102,
+  "key": "wizards-guild",
+  "slug": "wizards-guild",
+  "name": "Wizards' Guild",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2589,
+   "z": 3077,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Wizards' Guild"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 103,
+  "key": "observatory",
+  "slug": "observatory",
+  "name": "Observatory",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2440,
+   "z": 3151,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Observatory"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 104,
+  "key": "necromancer",
+  "slug": "necromancer",
+  "name": "Necromancer",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2669,
+   "z": 3243,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": true,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Necromancer"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 105,
+  "key": "gutanoth",
+  "slug": "gutanoth",
+  "name": "Gu'Tanoth",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2528,
+   "z": 3046,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Gu'Tanoth"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 106,
+  "key": "feldip-hills",
+  "slug": "feldip-hills",
+  "name": "Feldip Hills",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2566,
+   "z": 2985,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Feldip Hills"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 107,
+  "key": "zoo",
+  "slug": "zoo",
+  "name": "Zoo",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2614,
+   "z": 3273,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Zoo"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 108,
+  "key": "morytania",
+  "slug": "morytania",
+  "name": "Morytania",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3469,
+   "z": 3443,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Morytania"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 109,
+  "key": "mort-myre-swamp",
+  "slug": "mort-myre-swamp",
+  "name": "Mort Myre Swamp",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3439,
+   "z": 3383,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Mort Myre Swamp"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 110,
+  "key": "canifis",
+  "slug": "canifis",
+  "name": "Canifis",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3491,
+   "z": 3487,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Canifis"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 111,
+  "key": "river-salve",
+  "slug": "river-salve",
+  "name": "River Salve",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3410,
+   "z": 3438,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#River Salve"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 112,
+  "key": "river-lum",
+  "slug": "river-lum",
+  "name": "River Lum",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3167,
+   "z": 3350,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#River Lum"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 113,
+  "key": "temple",
+  "slug": "temple",
+  "name": "Temple",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3421,
+   "z": 3489,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Temple"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 114,
+  "key": "agility-arena",
+  "slug": "agility-arena",
+  "name": "Agility Arena",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2815,
+   "z": 3193,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Agility Arena"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 115,
+  "key": "burthorpe",
+  "slug": "burthorpe",
+  "name": "Burthorpe",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2895,
+   "z": 3549,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Burthorpe"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 116,
+  "key": "death-plateau",
+  "slug": "death-plateau",
+  "name": "Death Plateau",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2865,
+   "z": 3592,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Death Plateau"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 117,
+  "key": "tirannwn",
+  "slug": "tirannwn",
+  "name": "Tirannwn",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2241,
+   "z": 3265,
+   "level": 0
+  },
+  "size": 2,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Tirannwn"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 118,
+  "key": "isafdar",
+  "slug": "isafdar",
+  "name": "Isafdar",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2243,
+   "z": 3186,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Isafdar"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 119,
+  "key": "arandar",
+  "slug": "arandar",
+  "name": "Arandar",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2340,
+   "z": 3296,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Arandar"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 120,
+  "key": "prifddinas",
+  "slug": "prifddinas",
+  "name": "Prifddinas",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2237,
+   "z": 3309,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Prifddinas"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 121,
+  "key": "tyras-camp",
+  "slug": "tyras-camp",
+  "name": "Tyras Camp",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2180,
+   "z": 3147,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Tyras Camp"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 122,
+  "key": "elf-camp",
+  "slug": "elf-camp",
+  "name": "Elf Camp",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2196,
+   "z": 3256,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Elf Camp"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 123,
+  "key": "trollheim",
+  "slug": "trollheim",
+  "name": "Trollheim",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2892,
+   "z": 3678,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Trollheim"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 124,
+  "key": "troll-stronghold",
+  "slug": "troll-stronghold",
+  "name": "Troll Stronghold",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2835,
+   "z": 3681,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Troll Stronghold"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 125,
+  "key": "mortton",
+  "slug": "mortton",
+  "name": "Mort'ton",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3491,
+   "z": 3281,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Mort'ton"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 126,
+  "key": "the-hollows",
+  "slug": "the-hollows",
+  "name": "The Hollows",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3500,
+   "z": 3384,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#The Hollows"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 127,
+  "key": "poison-waste",
+  "slug": "poison-waste",
+  "name": "Poison Waste",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2241,
+   "z": 3098,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Poison Waste"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 128,
+  "key": "castle-wars-due-dec-2004",
+  "slug": "castle-wars-due-dec-2004",
+  "name": "Castle Wars (due Dec-2004)",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2432,
+   "z": 3111,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Castle Wars (due Dec-2004)"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 129,
+  "key": "champions-guild",
+  "slug": "champions-guild",
+  "name": "Champions' Guild",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 3201,
+   "z": 3354,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Champions' Guild"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 130,
+  "key": "rellekka",
+  "slug": "rellekka",
+  "name": "Rellekka",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2672,
+   "z": 3681,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Rellekka"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 131,
+  "key": "golden-apple-tree",
+  "slug": "golden-apple-tree",
+  "name": "Golden Apple Tree",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2765,
+   "z": 3608,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Golden Apple Tree"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 132,
+  "key": "lighthouse",
+  "slug": "lighthouse",
+  "name": "Lighthouse",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2514,
+   "z": 3628,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Lighthouse"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 133,
+  "key": "fremennik-province",
+  "slug": "fremennik-province",
+  "name": "Fremennik Province",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 2679,
+   "z": 3632,
+   "level": 0
+  },
+  "size": 1,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Fremennik Province"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 134,
+  "key": "crafting-guild",
+  "slug": "crafting-guild",
+  "name": "Crafting Guild",
+  "members": false,
+  "aliases": [],
+  "coord": {
+   "x": 2921,
+   "z": 3282,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Crafting Guild"
+   }
+  ]
+ },
+ {
+  "type": "area",
+  "id": 135,
+  "key": "haunted-woods",
+  "slug": "haunted-woods",
+  "name": "Haunted Woods",
+  "members": true,
+  "aliases": [],
+  "coord": {
+   "x": 3567,
+   "z": 3488,
+   "level": 0
+  },
+  "size": 0,
+  "multiway": false,
+  "sources": [
+   {
+    "kind": "content",
+    "ref": "content:maps/labels.txt#Haunted Woods"
+   }
+  ]
+ }
+]

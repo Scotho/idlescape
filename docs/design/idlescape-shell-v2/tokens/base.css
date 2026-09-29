@@ -1,0 +1,9 @@
+/* idlescape — document defaults for specimens and kits. */
+body { margin: 0; background: var(--frame); color: var(--text); font: var(--fs-base)/var(--lh) var(--font-ui); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { cursor: pointer; font: inherit; transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease), opacity var(--dur) var(--ease); }
+input, textarea, select { font: inherit; transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent) !important; box-shadow: var(--focus-ring); }
+* { scrollbar-width: thin; scrollbar-color: #3c3c3c var(--bar); }
+::selection { background: rgba(255,152,31,.35); color: var(--text-strong); }

@@ -1,0 +1,13 @@
+{
+  // The gate's client program. `tsconfig.json` is the pristine 274 file (see PATCHES.md) and
+  // declares neither `include` nor `exclude`, so its default glob is every file under `client/`.
+  // With `allowJs` on that swept in `out/client.js`, `out/mapview.js` and `out/ondemandworker.js`,
+  // the git-ignored bundler output (`.gitignore:5` is `/out/`), whenever a build had run. The
+  // program was then 123 files on a fresh clone and 126 on a used tree, so `npm run verify`'s
+  // step 3 depended on build state and could redden on generated code with no source defect
+  // behind it. This file scopes the check without editing the pristine tsconfig.
+  "extends": "./tsconfig.json",
+  // Setting `exclude` replaces TypeScript's default of node_modules, bower_components and
+  // jspm_packages, so node_modules is restated rather than assumed.
+  "exclude": ["out", "node_modules"]
+}

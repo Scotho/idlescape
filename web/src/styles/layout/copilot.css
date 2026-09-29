@@ -1,0 +1,52 @@
+/* The co-pilot bar: 42px of persistent chrome between the character tabs and the stage, in all
+   five presented states (map-design 3.3). Three siblings, not a parent and two children: the bar
+   is an atomic `role="status"`, and neither a row that changes every second nor a decorative
+   animated band belongs inside a live region. `frame/copilotBar.ts` says the same thing from the
+   other side.
+
+   The three share the stage's own width so the chrome lines up with the canvas column beneath it;
+   `.stage` is `max-width: 1600px; margin: 0 auto` in layout/frame.css. */
+.copilot-bar,
+.copilot-detail,
+.copilot-rule { width: 100%; max-width: 1600px; margin: 0 auto; }
+/* #202022 and #1c1c1e are the mock's own gradient stops. The first is --window; the second has no
+   token, because ruling R18's list is the set of hexes the mock uses more than once. */
+.copilot-bar { height: var(--bar-h); flex: none; display: flex; align-items: center; gap: 10px; padding: 0 14px; background: linear-gradient(180deg, #202022, #1c1c1e); }
+/* The parts the bar hides per state: it is a flex row, so `display: none` has to beat the
+   children's own display. One rule rather than five [hidden] selectors. */
+.copilot-bar [hidden] { display: none; }
+.copilot-label { color: var(--text-strong); font-weight: 650; letter-spacing: .01em; }
+.copilot-body { min-width: 0; display: flex; align-items: baseline; gap: 6px; overflow: hidden; }
+.copilot-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); }
+/* Amber in both the states that use it: paused and stuck (map-design 3.3, states 4 and 5). */
+.copilot-headline { flex: none; color: var(--warn); font-weight: 650; white-space: nowrap; }
+.copilot-countdown { flex: none; color: var(--text-muted); }
+.copilot-grow { flex: 1; }
+.copilot-actions { flex: none; display: flex; align-items: center; gap: 8px; }
+/* The running summary is the way into Automation, so it is a real button wearing no button chrome. */
+.copilot-summary { min-width: 0; display: flex; align-items: baseline; gap: 6px; overflow: hidden; white-space: nowrap; padding: 0; border: 0; background: none; color: var(--text); text-align: left; font-size: var(--fs-base); cursor: pointer; }
+.copilot-summary:hover { color: var(--text-strong); }
+.copilot-script { flex: none; color: var(--text-strong); font-weight: 650; }
+.copilot-task { flex: none; color: var(--accent); }
+.copilot-msg { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.copilot-sep { color: var(--text-faint); }
+.copilot-esc { flex: none; display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: var(--fs-small); }
+.copilot-elapsed { flex: none; font-family: var(--font-num); font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; color: var(--accent-bright); }
+/* The second row (SP4b Task 10's detail line, re-earned; see the plan's carry-forward table).
+   `.copilot-detail-what` is what the run is doing and `.copilot-detail-rate` is what it is
+   earning; the rate span is the reserved slot a later entry writes into. */
+.copilot-detail { flex: none; display: flex; align-items: baseline; gap: 8px; min-width: 0; padding: 0 14px 3px; background: #1c1c1e; color: var(--text-muted); font-size: var(--fs-small); }
+.copilot-detail[hidden] { display: none; }
+.copilot-detail-what { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.copilot-detail-rate { margin-left: auto; flex: none; font-family: var(--font-num); font-variant-numeric: tabular-nums; color: var(--ok-pop); }
+.copilot-detail-toggle { flex: none; padding: 0 2px; border: 0; background: none; color: var(--text-muted); font: inherit; line-height: 1; cursor: pointer; }
+.copilot-detail-toggle:hover { color: var(--text-strong); }
+.copilot-detail-toggle[aria-expanded="false"] { transform: rotate(-90deg); }
+/* The bar's own health pip: amber, because a run recovering is not a run working. */
+.copilot-health { flex: none; background: var(--warn); box-shadow: 0 0 0 2px rgba(255,179,0,.25); }
+.copilot-rule { height: 2px; background: rgba(0,0,0,.5); background-size: 200% 100%; }
+.copilot-rule[data-state="running"] { background-image: linear-gradient(90deg, #d6780a, #ffb95e, #d6780a); animation: barflow 2.6s linear infinite; }
+.copilot-rule[data-state="paused"] { background: var(--warn); }
+.copilot-rule[data-state="stuck"] { background: var(--error); }
+.copilot-bar[data-state="paused"] .copilot-elapsed { color: var(--warn); }
+.copilot-bar[data-state="stuck"] .copilot-elapsed { color: var(--text-muted); }

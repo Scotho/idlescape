@@ -1,0 +1,45 @@
+/* Badge, Tag and StatusDot. components/core/{Badge,Tag,StatusDot}.jsx.
+   Four badge geometries ship as one family with three modifiers (plan ruling R17).
+   The `@keyframes pulse` this file used to shadow is gone with the legacy `.dot-live` alias:
+   `.dot-pulse` takes motion.css's orange pulse, which is the one the mock draws. */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 17px; padding: 0 7px; border-radius: 9px;
+  background: var(--control); color: var(--text-quiet);
+  font-size: var(--fs-micro); font-weight: 650; white-space: nowrap;
+}
+.badge-accent { background: rgba(255,152,31,.16); color: var(--accent); }
+.badge-ok     { background: rgba(67,160,71,.16);  color: var(--ok-bright); }
+.badge-warn   { background: rgba(255,179,0,.14);  color: var(--warn); }
+.badge-error  { background: rgba(229,57,53,.16);  color: var(--error-text); }
+.badge-info   { background: rgba(74,144,217,.16); color: var(--info-bright); }
+/* The run card's state badge. */
+.badge-lg { height: 19px; padding: 0 8px; border-radius: 10px; font-weight: 700; letter-spacing: .03em; }
+/* Script-card badges: Tag geometry, Badge colours. */
+.badge-sm { height: 16px; padding: 0 7px; border-radius: 8px; }
+/* The Events row's character badge. */
+.badge-quiet { height: 15px; padding: 0 5px; border-radius: 8px; background: var(--track); color: var(--text-muted); font-size: 9px; font-weight: 500; }
+.badge-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex: none; }
+
+.tag {
+  display: inline-flex; align-items: center;
+  height: 16px; padding: 0 7px; border-radius: 8px;
+  background: var(--control); color: var(--text-quiet);
+  font-size: var(--fs-micro); white-space: nowrap;
+}
+
+/* Two idle greys, both drawn by the mock and both needed: the default --text-faint (#575755) is
+   the char-tab offline dot and the Claude "work desktop" session row, and --dot-idle (#666) is
+   the co-pilot bar's unpaired dot (map-design 3.3). `dot()` emits .dot-idle only when the caller
+   passes `{ explicit: true }`, so the token added for it is not dead. */
+.dot { display: inline-block; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--text-faint); }
+.dot-idle   { background: var(--dot-idle); }
+.dot-ok     { background: var(--ok); }
+.dot-accent { background: var(--accent); }
+.dot-warn   { background: var(--warn); }
+.dot-error  { background: var(--error); }
+.dot-glow.dot-ok     { box-shadow: 0 0 8px rgba(67,160,71,.6); }
+.dot-glow.dot-accent { box-shadow: 0 0 8px rgba(255,152,31,.6); }
+.dot-glow.dot-warn   { box-shadow: 0 0 8px rgba(255,179,0,.5); }
+.dot-glow.dot-error  { box-shadow: 0 0 8px rgba(229,57,53,.5); }
+.dot-pulse { animation: pulse 1.6s ease-in-out infinite; }

@@ -1,0 +1,77 @@
+/* Button. docs/design/idlescape-shell-v2/components/core/Button.{jsx,d.ts,prompt.md}.
+   Four sizes (xs 22 / sm 25 / md 27 / lg 29) and five variants. Never two primaries side by
+   side; xs is for row-level actions, lg for panel-width CTAs. The .13s transition on background,
+   border-color, color, box-shadow, transform and opacity comes from base.css. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: var(--ctl-h); padding: 0 13px;
+  background: var(--control); border: 1px solid rgba(255,255,255,.09);
+  border-radius: var(--r-ctl); color: var(--text-strong);
+  font-family: var(--font-ui); font-size: var(--fs-base); font-weight: 500;
+  white-space: nowrap; cursor: pointer;
+}
+.btn:hover:not(:disabled) { background: var(--control-hover); transform: translateY(-1px); }
+.btn:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+
+.btn-primary {
+  background: var(--accent-grad); border-color: var(--accent-deep);
+  color: var(--on-accent); font-weight: 650;
+  box-shadow: 0 2px 10px var(--accent-glow);
+}
+.btn-primary:hover:not(:disabled) { background: var(--accent-grad); box-shadow: 0 3px 16px rgba(255,152,31,.45); transform: translateY(-1px); }
+/* Two glow contexts, from map-design section 4 lines 267-268. The bare .btn-primary above is
+   the co-pilot bar's, the only one the mock draws at .28 resting.
+     .btn-in-card  a primary inside a card (Run, Run now): rests .25, hovers .35.
+     .btn-cta      a panel-width call to action (Open bank window at h29, Capture the canvas at
+                   h29, the loot empty state's Run a script at h27): rests .25, keeps the base
+                   .45 hover.
+   Both are modifiers on .btn and not a `.card .btn-primary` descendant selector, because
+   styles.test.ts takes classes[0] of a selector as its subject and button.css does not own
+   `card`; the card's own caller adds the class. Sizing does not decide this: the loot CTA is
+   md and the run card's Run is sm, so a size-keyed rule would get both wrong. */
+.btn-primary.btn-in-card { box-shadow: 0 2px 10px rgba(255,152,31,.25); }
+.btn-primary.btn-in-card:hover:not(:disabled) { box-shadow: 0 2px 12px rgba(255,152,31,.35); }
+.btn-primary.btn-cta { box-shadow: 0 2px 10px rgba(255,152,31,.25); }
+
+.btn-danger { background: var(--danger); border-color: var(--danger-deep); color: #f0e6e6; }
+.btn-danger:hover:not(:disabled) { background: var(--danger-hover); transform: translateY(-1px); }
+
+.btn-outline { background: none; border-color: var(--hairline-strong); color: var(--text-quiet); }
+.btn-outline:hover:not(:disabled) { background: var(--control); color: var(--text-strong); transform: none; }
+
+.btn-link { height: auto; padding: 0; background: none; border: 0; color: var(--accent); box-shadow: none; }
+.btn-link:hover:not(:disabled) { background: none; text-decoration: underline; transform: none; }
+
+/* Three icon-button geometries, all drawn by the mock and all different: the two window closes
+   at 24/14 (map-design 3.5 and 3.6) are the base, the panel-header close is 26/15 (3.7) and the
+   pinned-tracker unpin is 18/12 with a 4px radius (3.8). One family, two modifiers; collapsing
+   them into one would shrink the panel close by 2px and cost it a point of type. */
+.btn-icon { width: var(--ctl-h-tiny); height: var(--ctl-h-tiny); padding: 0; background: none; border: 0; color: var(--text-muted); font-size: 14px; }
+.btn-icon:hover:not(:disabled) { background: var(--control); color: var(--text-strong); transform: none; }
+.btn-icon-lg { width: 26px; height: 26px; font-size: 15px; }
+.btn-icon-xs { width: 18px; height: 18px; border-radius: 4px; font-size: 12px; }
+
+.btn-xs { height: var(--ctl-h-xs); padding: 0 9px; font-size: var(--fs-tiny); }
+.btn-sm { height: var(--ctl-h-sm); padding: 0 11px; font-size: var(--fs-small); }
+.btn-lg { height: var(--ctl-h-lg); padding: 0 14px; font-size: var(--fs-base); }
+.btn-quiet { height: var(--ctl-h-quiet); padding: 0 9px; font-size: var(--fs-small); }
+/* The window header's text control, at the 24px `--ctl-h-tiny` its own token is named for.
+   The trace pop-out's Copy for Claude wears it (map-design 3.5) and the bank's header is next. */
+.btn-tiny { height: var(--ctl-h-tiny); padding: 0 10px; font-size: var(--fs-small); }
+.btn-block { display: flex; width: 100%; }
+.btn-row { display: flex; gap: 6px; }
+.link { background: none; border: 0; padding: 0; color: var(--accent); font-size: inherit; cursor: pointer; }
+.link:hover { text-decoration: underline; }
+/* home.html:17 ships `#btn-connect` disabled and home/controller.ts:138 toggles it with the three
+   `.btn` choices beside it, so the link needs the same disabled state at the same opacity: without
+   it the row is half-dimmed on every cold load, at full accent and still underlining on hover. */
+.link:disabled { opacity: .35; cursor: not-allowed; text-decoration: none; }
+
+/* The in-flight ring. Not in the v2 component set, and kept rather than deleted for two reasons:
+   `families.ts` declares `spinner` as one of button.css's three owned prefixes, and the home
+   screen's sign-in flow is the shell's one long-running action. Retoned onto the v2 palette.
+   `@keyframes spin` lives in motion.css with every other keyframe, for the reason `toast-in` does. */
+.btn.is-loading { color: transparent; pointer-events: none; position: relative; }
+.btn.is-loading::after { content: ''; position: absolute; width: 12px; height: 12px; border: 2px solid rgba(232,232,230,.35); border-top-color: var(--text-strong); border-radius: 50%; animation: spin .7s linear infinite; }
+.btn-primary.is-loading::after { border-color: rgba(28,19,0,.35); border-top-color: var(--on-accent); }
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(124,124,122,.4); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }

@@ -1,0 +1,23 @@
+<!-- @dsCard group="Components" viewport="700x300" subtitle="Buttons, badges, tags, dots, alerts, labels, icons" name="Core" -->
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{padding:14px}</style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = (() => { for (const k of Object.keys(window)) { try { const v = window[k]; if (v && typeof v === "object" && v.Button && v.Icon) return v; } catch (e) {} } return {}; })();
+const { Button, Badge, Tag, StatusDot, Alert, SectionLabel, Icon } = NS;
+const Row = ({children}) => <div style={{display:"flex",flexWrap:"wrap",gap:8,alignItems:"center",marginBottom:12}}>{children}</div>;
+function Demo(){ return <div>
+  <Row><Button variant="primary">Run a script</Button><Button>Pause</Button><Button variant="danger">Stop</Button><Button variant="outline" size="xs">Revoke</Button><Button variant="link">Browse the Marketplace →</Button><Button variant="primary" disabled>Run</Button></Row>
+  <Row><Badge tone="accent">Running</Badge><Badge tone="ok">done</Badge><Badge tone="warn">Stuck</Badge><Badge tone="error">failed</Badge><Badge tone="info">Library</Badge><Badge tone="ok" dot>live</Badge><Tag>skilling</Tag><Tag>woodcutting</Tag></Row>
+  <Row><StatusDot tone="ok" glow /><StatusDot tone="accent" pulse glow /><StatusDot tone="warn" /><StatusDot tone="error" /><StatusDot /></Row>
+  <Row><span style={{flex:1,minWidth:220}}><Alert tone="warn">Needs a bronze axe in your inventory or equipped</Alert></span><span style={{flex:1,minWidth:220}}><Alert tone="info">Items only move in and out of the bank in game.</Alert></span></Row>
+  <Row><SectionLabel>History</SectionLabel></Row>
+  <Row>{["automation","claude","xp","loot","events","notes","screenshot","bank","account","plugins","config"].map(n => <span key={n} style={{color:"#9a9a98"}}><Icon name={n} /></span>)}</Row>
+</div>; }
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script></body></html>
