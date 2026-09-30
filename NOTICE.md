@@ -75,7 +75,7 @@ you run your own copy, what you serve and to whom is your responsibility.
 
 ## 5. Name, domain and design
 
-- The name **idlescape**, as used for this project, and the hosted site at `osrs.scotho.com` are
+- The name **idlescape**, as used for this project, and the hosted site at `idlescape.scotho.com` are
   the author's. Fork the code freely; do not present your copy as the original or as endorsed by
   its author, and do not use the author's domains or accounts.
 - `docs/design/idlescape-shell-v2/` is a design handoff bundle made for this project. It is a

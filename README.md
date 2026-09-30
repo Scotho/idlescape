@@ -8,7 +8,7 @@ something else. Several characters per account, each in its own session, all fee
 bank. The scripts run in your browser, in a sandbox beside the game canvas, against a private
 server where automating your character is the intended way to play.
 
-Play it: **https://osrs.scotho.com**
+Play it: **https://idlescape.scotho.com**
 
 > ## This project is unfinished
 >
